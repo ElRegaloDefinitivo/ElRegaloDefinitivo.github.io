@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Introduce la fecha de nuestro aniversario 🎉</title>
+	<link rel="stylesheet" href="styles.css">
+	<script>
+		function redirigir() {
+			var fechaIntroducida = document.getElementById("fecha").value;
+			if (fechaIntroducida == "2022-08-22") {
+				window.location.href = "introduccion.html";
+			} else {
+				window.location.href = "error.html";
+			}
+		}
+	</script>
+</head>
+<body>
+	<h1>Introduce la fecha de nuestro aniversario 🤭🤭</h1>
+	<form>
+		<label for="fecha">Introduce la fecha:</label>
+		<input type="date" id="fecha" name="fecha" placeholder="DD/MM/AA">
+		<input type="button" value="Enviar" onclick="redirigir()">
+	</form>
+	<img src="inicio.jpg" alt="Imagen de inicio">
+</body>
+</html>
