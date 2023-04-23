@@ -7,8 +7,12 @@ const anio = fechaHora.getFullYear();
 const hora = fechaHora.getHours().toString().padStart(2, "0");
 const minutos = fechaHora.getMinutes().toString().padStart(2, "0");
 
-const felizSabado = document.getElementById("feliz-lunes");
-felizSabado.innerHTML = `¡Feliz lunes ${dia}! Hoy es ${dia}-${mes}-${anio} y son las ${hora}:${minutos}`;
+const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+const diaSemana = diasSemana[fechaHora.getDay()];
+
+const felizLunes = document.getElementById("feliz-lunes");
+felizLunes.innerHTML = `¡Feliz ${diaSemana}! Hoy es ${dia}-${mes}-${anio} y son las ${hora}:${minutos}`;
+
 
 
 
@@ -56,37 +60,20 @@ setInterval(function() {
 
 //BARRA PROGRESO
 
-const startDate = new Date("2023-04-22T00:00:00").getTime();
-const endDate = new Date("2023-08-22T00:00:00").getTime();
+const startDate = new Date("2023-04-20");
+const endDate = new Date("2023-08-22");
+const progressIndicator = document.querySelector(".progress-bar-indicator");
+const progressBar = document.querySelector(".progress-bar");
 
 function updateProgressBar() {
-  const now = new Date().getTime();
-  const percentage = Math.floor(((now - startDate) / (endDate - startDate)) * 100);
-
-  const progressBar = document.querySelector(".progress-bar");
-  const progressText = document.querySelector(".progress-text");
-
-  progressBar.style.width = `${percentage}%`;
-  progressText.textContent = `${percentage}%`;
-
-  if (percentage >= 0 && percentage < 50) {
-    progressBar.classList.remove("yellow");
-    progressBar.classList.remove("green");
-    progressBar.classList.add("red");
-  } else if (percentage >= 50 && percentage < 90) {
-    progressBar.classList.remove("red");
-    progressBar.classList.remove("green");
-    progressBar.classList.add("yellow");
-  } else if (percentage >= 90) {
-    progressBar.classList.remove("red");
-    progressBar.classList.remove("yellow");
-    progressBar.classList.add("green");
-  }
+  const currentDate = new Date();
+  const progress = (currentDate - startDate) / (endDate - startDate) * 100;
+  progressBar.style.width = `${progress}%`;
+  progressIndicator.textContent = `${Math.round(progress)}%`;
 }
 
-
-
-
+updateProgressBar();
+setInterval(updateProgressBar, 1000 * 60 * 60 * 24);
 
 
 

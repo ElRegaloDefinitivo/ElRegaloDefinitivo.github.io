@@ -2,8 +2,8 @@
 
 
 :root {
-    --color-verde: #01ffea;
-    --color-verde2: #f50dd6;
+    --color-verde: #3a5cf8;
+    --color-verde2: #b7f50d;
     --color-negro: #333;
     --color-blanco: #fff;
 }
@@ -42,7 +42,7 @@ h1 {
     text-align: center;
     margin: 50px 0;
     text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.3);
-    color: var(--color-verde);
+    color: #0df5d6;
     -webkit-text-stroke: 1.5px black;
 
 }
@@ -178,9 +178,9 @@ nav ul li a:hover {
     margin: 10px auto;
     position: relative;
     border-radius: 5px;
-  }
-  
-  .progress-bar {
+}
+
+.progress-bar {
     width: 0%;
     height: 100%;
     background-color: green;
@@ -188,9 +188,9 @@ nav ul li a:hover {
     top: 0;
     left: 0;
     transition: width 0.5s ease;
-  }
-  
-  .progress-bar-indicator {
+}
+
+.progress-bar-indicator {
     color: black;
     width: 50px;
     height: 50px;
@@ -201,6 +201,37 @@ nav ul li a:hover {
     font-size: 20px;
     text-align: center;
     line-height: 50px;
-  }
-  
+}
 
+
+.imagen-container {
+    max-width: 1000px;
+    /* Ancho máximo del contenedor */
+    margin: 0 auto;
+    /* Centrar el contenedor en la página */
+    overflow: hidden;
+    /* Limpiar el float */
+    margin-left: 27%;
+}
+
+.imagen-container img {
+    max-width: 200px;
+    /* Ancho máximo de las imágenes */
+    margin-right: 30px;
+    /* Margen derecho para separar las imágenes */
+    margin-bottom: 30px;
+    /* Margen inferior para separar las filas */
+    float: left;
+    /* Hacer que las imágenes floten a la izquierda */
+}
+
+@media (max-width: 1000px) {
+    .imagen-container img {
+        max-width: 100%;
+        /* Si el ancho de la página es menor a 700px, las imágenes ocupan el 100% del ancho */
+        margin-right: 0;
+        /* No se aplica margen derecho */
+        margin-bottom: 20px;
+        /* Aumentamos el margen inferior para separar las filas */
+    }
+}

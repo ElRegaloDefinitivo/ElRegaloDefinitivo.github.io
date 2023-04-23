@@ -15,6 +15,7 @@ felizLunes.innerHTML = `¡Feliz ${diaSemana}! Hoy es ${dia}-${mes}-${anio} y son
 
 
 
+
 // CONTADOR
 
 
@@ -72,3 +73,9 @@ function updateProgressBar() {
 
 updateProgressBar();
 setInterval(updateProgressBar, 1000 * 60 * 60 * 24);
+
+
+
+
+
+
