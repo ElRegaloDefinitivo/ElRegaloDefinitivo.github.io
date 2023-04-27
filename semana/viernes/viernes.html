@@ -1,15 +1,1399 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Mi página web con campo de texto</title>
-  </head>
-  <body>
-    <h1>Bienvenido a mi página web</h1>
-    <p>Escribe algo en el campo de texto:</p>
-    <form>
-      <input type="text" name="texto">
-      <input type="submit" value="Enviar">
-    </form>
-  </body>
-</html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>CodePen Embed - Traffic Run Game with Three.js</title>
+    <meta name="csrf-param" content="authenticity_token">
+    <meta name="csrf-token" content="/Dt6ZkcJ9/3hKM6zIVw8AwInXBYlh2OiAI3PjbeJXx529CvkwuYoQnbRLOfB7bMuxe9Y/rZyUKNV6zvmuFiRIA==">
+    <link rel="stylesheet" media="all" href="https://cpwebassets.codepen.io/assets/embed/embed-c24dc45033a5a0e3c76b9588328759bcba403f9bfa524b08f436454e64eec7f8.css">
+    <style>
+        .hide {
+          display: none !important;
+        }
+    
+        #result-box {
+          background: #3d3d3e;
+          color: #ffffff;
+        }
+        .embed-footer,
+        .embed-nav {
+          background: #3d3d3e;
+          
+        }
+        .embed-nav .code-types a,
+        .embed-nav .result-button-list a,
+        .action-button {
+          color: #ffffff;
+          background-color: #666666;
+        }
+        .embed-nav .code-types a.active,
+        .embed-nav .result-button-list a.active,
+        .action-button.active {
+          background: #888888;
+          color: #ffffff;
+          box-shadow: inset 0px 3px #dddddd;
+        }
+        .embed-nav .logo-wrap .edit-on-codepen {
+          color: #ffffff;
+        }
+    
+        .embed-nav svg {
+          stroke: #ffffff !important;
+        }
+      </style>
+    <link rel="stylesheet" media="all" href="https://cpwebassets.codepen.io/assets/editor/themes/twilight-3476125ec032fffc9adb3dec23f00153fc064bf13d51831042902c55566b98d9.css">
+    </head>
+    <body id="the-body" style="border: 1px solid #555555; --borderWidth: 1px;" class="codepen-embed-body split-output static results-active">
+    
+    <div id="output" data-border-style="thin" data-header="true">
+    
+    <div id="css-box" class="code-wrap code-box box " role="region" aria-label="CSS">
+    <pre tabindex="0"><code data-lang="css" id="actual-css-code" class=" cm-s-default"><span class="cm-def">@import</span> <span class="cm-variable cm-callee">url</span>(<span class="cm-string">"https://fonts.googleapis.com/css?family=Press+Start+2P"</span>);
+    
+    <span class="cm-tag">body</span> {
+      <span class="cm-property">margin</span>: <span class="cm-number">0</span>;
+      <span class="cm-property">color</span>: <span class="cm-keyword">white</span>;
+      <span class="cm-property">font-family</span>: <span class="cm-string">"Segoe UI"</span>, <span class="cm-variable">Tahoma</span>, <span class="cm-variable">Geneva</span>, <span class="cm-variable">Verdana</span>, <span class="cm-atom">sans-serif</span>;
+    }
+    
+    <span class="cm-tag">button</span> {
+      <span class="cm-property">outline</span>: <span class="cm-atom">none</span>;
+      <span class="cm-property">cursor</span>: <span class="cm-atom">pointer</span>;
+      <span class="cm-property">border</span>: <span class="cm-atom">none</span>;
+      <span class="cm-property">box-shadow</span>: <span class="cm-number">3px</span> <span class="cm-number">5px</span> <span class="cm-number">0px</span> <span class="cm-number">0px</span> <span class="cm-variable cm-callee">rgba</span>(<span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-number">0.75</span>);
+    }
+    
+    <span class="cm-tag">a</span>,
+    <span class="cm-tag">a</span>:<span class="cm-variable-3">visited</span> {
+      <span class="cm-property">color</span>: <span class="cm-atom">inherit</span>;
+    }
+    
+    <span class="cm-builtin">#score</span> {
+      <span class="cm-property">position</span>: <span class="cm-atom">absolute</span>;
+      <span class="cm-property">font-family</span>: <span class="cm-string">"Press Start 2P"</span>, <span class="cm-atom">cursive</span>;
+      <span class="cm-property">font-size</span>: <span class="cm-number">0.9em</span>;
+      <span class="cm-property">color</span>: <span class="cm-keyword">white</span>;
+      <span class="cm-property">transform</span>: <span class="cm-variable cm-callee">translate</span>(<span class="cm-number">-50%</span>, <span class="cm-number">-50%</span>);
+      <span class="cm-property">opacity</span>: <span class="cm-number">0.9</span>;
+      <span class="cm-property">max-width</span>: <span class="cm-number">100px</span>;
+      <span class="cm-property">text-align</span>: <span class="cm-atom">center</span>;
+      <span class="cm-property">line-height</span>: <span class="cm-number">1.6em</span>;
+    }
+    
+    <span class="cm-builtin">#controls</span> {
+      <span class="cm-property">position</span>: <span class="cm-atom">absolute</span>;
+      <span class="cm-property">bottom</span>: <span class="cm-number">50px</span>;
+      <span class="cm-property">left</span>: <span class="cm-number">50px</span>;
+      <span class="cm-property">display</span>: <span class="cm-atom">none</span>;
+    }
+    
+    <span class="cm-builtin">#controls</span> <span class="cm-builtin">#buttons</span> {
+      <span class="cm-property">width</span>: <span class="cm-number">80px</span>;
+      <span class="cm-property">opacity</span>: <span class="cm-number">0</span>;
+      <span class="cm-property">transition</span>: <span class="cm-atom">opacity</span> <span class="cm-number">2s</span>;
+    }
+    
+    <span class="cm-builtin">#controls</span> <span class="cm-builtin">#instructions</span> {
+      <span class="cm-property">margin-left</span>: <span class="cm-number">20px</span>;
+      <span class="cm-property">max-width</span>: <span class="cm-number">300px</span>;
+      <span class="cm-property">background-color</span>: <span class="cm-variable cm-callee">rgba</span>(<span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-number">0.2</span>);
+      <span class="cm-property">padding</span>: <span class="cm-number">20px</span>;
+      <span class="cm-property">opacity</span>: <span class="cm-number">0</span>;
+      <span class="cm-property">transition</span>: <span class="cm-atom">opacity</span> <span class="cm-number">2s</span>;
+    }
+    
+    <span class="cm-builtin">#controls</span> <span class="cm-tag">button</span> {
+      <span class="cm-property">width</span>: <span class="cm-number">100%</span>;
+      <span class="cm-property">height</span>: <span class="cm-number">40px</span>;
+      <span class="cm-property">background-color</span>: <span class="cm-keyword">white</span>;
+      <span class="cm-property">border</span>: <span class="cm-number">1px</span> <span class="cm-atom">solid</span> <span class="cm-keyword">black</span>;
+      <span class="cm-property">margin-bottom</span>: <span class="cm-number">10px</span>;
+    }
+    
+    <span class="cm-builtin">#results</span> {
+      <span class="cm-property">position</span>: <span class="cm-atom">absolute</span>;
+      <span class="cm-property">align-items</span>: <span class="cm-atom">center</span>;
+      <span class="cm-property">justify-content</span>: <span class="cm-atom">center</span>;
+      <span class="cm-property">height</span>: <span class="cm-number">100%</span>;
+      <span class="cm-property">width</span>: <span class="cm-number">100%</span>;
+      <span class="cm-property">background-color</span>: <span class="cm-variable cm-callee">rgba</span>(<span class="cm-number">20</span>, <span class="cm-number">20</span>, <span class="cm-number">20</span>, <span class="cm-number">0.75</span>);
+      <span class="cm-property">display</span>: <span class="cm-atom">none</span>;
+      <span class="cm-property">z-index</span>: <span class="cm-number">51</span>;
+    }
+    
+    <span class="cm-builtin">#results</span> <span class="cm-qualifier">.content</span> {
+      <span class="cm-property">max-width</span>: <span class="cm-number">350px</span>;
+      <span class="cm-property">padding</span>: <span class="cm-number">50px</span>;
+      <span class="cm-property">border-radius</span>: <span class="cm-number">20px</span>;
+    }
+    
+    <span class="cm-builtin">#result-youtube</span> {
+      <span class="cm-property">display</span>: <span class="cm-atom">flex</span>;
+      <span class="cm-property">background-color</span>: <span class="cm-keyword">white</span>;
+      <span class="cm-property">padding</span>: <span class="cm-number">20px</span>;
+      <span class="cm-property">color</span>: <span class="cm-keyword">black</span>;
+      <span class="cm-property">text-decoration</span>: <span class="cm-atom">none</span>;
+      <span class="cm-property">cursor</span>: <span class="cm-atom">pointer</span>;
+    }
+    
+    <span class="cm-builtin">#result-youtube</span> <span class="cm-tag">span</span> {
+      <span class="cm-property">margin-top</span>: <span class="cm-number">5px</span>;
+      <span class="cm-property">margin-left</span>: <span class="cm-number">20px</span>;
+    }
+    
+    <span class="cm-qualifier">.youtube</span>,
+    <span class="cm-builtin">#youtube-card</span> {
+      <span class="cm-property">display</span>: <span class="cm-atom">none</span>;
+      <span class="cm-property">color</span>: <span class="cm-keyword">black</span>;
+    }
+    
+    <span class="cm-builtin">#youtube-main</span> {
+      <span class="cm-property">opacity</span>: <span class="cm-number">0</span>;
+      <span class="cm-property">transition</span>: <span class="cm-atom">opacity</span> <span class="cm-number">2s</span>;
+    }
+    
+    <span class="cm-def">@media</span> (<span class="cm-property">min-height</span>: <span class="cm-number">425px</span>) {
+      <span class="cm-builtin">#score</span> {
+        <span class="cm-property">font-size</span>: <span class="cm-number">1.5em</span>;
+        <span class="cm-property">max-width</span>: <span class="cm-number">150px</span>;
+      }
+    
+      <span class="cm-builtin">#controls</span> {
+        <span class="cm-property">display</span>: <span class="cm-atom">flex</span>;
+      }
+    
+      <span class="cm-comment">/** Youtube logo by https://codepen.io/alvaromontoro */</span>
+      <span class="cm-qualifier">.youtube</span> {
+        <span class="cm-property">z-index</span>: <span class="cm-number">50</span>;
+        <span class="cm-property">width</span>: <span class="cm-number">100px</span>;
+        <span class="cm-property">min-width</span>: <span class="cm-number">100px</span>;
+        <span class="cm-property">height</span>: <span class="cm-number">70px</span>;
+        <span class="cm-property">position</span>: <span class="cm-atom">fixed</span>;
+        <span class="cm-property">bottom</span>: <span class="cm-number">50px</span>;
+        <span class="cm-property">right</span>: <span class="cm-number">50px</span>;
+        <span class="cm-property">transform</span>: <span class="cm-variable cm-callee">scale</span>(<span class="cm-number">0.8</span>);
+        <span class="cm-property">transition</span>: <span class="cm-atom">transform</span> <span class="cm-number">0.5s</span>;
+        <span class="cm-property">display</span>: <span class="cm-atom">block</span>;
+        <span class="cm-property">background</span>: <span class="cm-keyword">red</span>;
+        <span class="cm-property">border-radius</span>: <span class="cm-number">50%</span> / <span class="cm-number">11%</span>;
+      }
+    
+      <span class="cm-builtin">#results</span> <span class="cm-qualifier">.youtube</span> {
+        <span class="cm-property">position</span>: <span class="cm-atom">relative</span>;
+        <span class="cm-property">right</span>: <span class="cm-number">0</span>;
+        <span class="cm-property">bottom</span>: <span class="cm-number">0</span>;
+      }
+    
+      <span class="cm-qualifier">.youtube</span>:<span class="cm-variable-3">hover</span>,
+      <span class="cm-qualifier">.youtube</span>:<span class="cm-variable-3">focus</span> {
+        <span class="cm-property">transform</span>: <span class="cm-variable cm-callee">scale</span>(<span class="cm-number">0.9</span>);
+        <span class="cm-property">color</span>: <span class="cm-keyword">black</span>;
+      }
+    
+      <span class="cm-qualifier">.youtube</span>::<span class="cm-variable-3">before</span> {
+        <span class="cm-property">content</span>: <span class="cm-string">""</span>;
+        <span class="cm-property">display</span>: <span class="cm-atom">block</span>;
+        <span class="cm-property">position</span>: <span class="cm-atom">absolute</span>;
+        <span class="cm-property">top</span>: <span class="cm-number">7.5%</span>;
+        <span class="cm-property">left</span>: <span class="cm-number">-6%</span>;
+        <span class="cm-property">width</span>: <span class="cm-number">112%</span>;
+        <span class="cm-property">height</span>: <span class="cm-number">85%</span>;
+        <span class="cm-property">background</span>: <span class="cm-keyword">red</span>;
+        <span class="cm-property">border-radius</span>: <span class="cm-number">9%</span> / <span class="cm-number">50%</span>;
+      }
+    
+      <span class="cm-qualifier">.youtube</span>::<span class="cm-variable-3">after</span> {
+        <span class="cm-property">content</span>: <span class="cm-string">""</span>;
+        <span class="cm-property">display</span>: <span class="cm-atom">block</span>;
+        <span class="cm-property">position</span>: <span class="cm-atom">absolute</span>;
+        <span class="cm-property">top</span>: <span class="cm-number">20px</span>;
+        <span class="cm-property">left</span>: <span class="cm-number">40px</span>;
+        <span class="cm-property">width</span>: <span class="cm-number">45px</span>;
+        <span class="cm-property">height</span>: <span class="cm-number">30px</span>;
+        <span class="cm-property">border</span>: <span class="cm-number">15px</span> <span class="cm-atom">solid</span> <span class="cm-atom">transparent</span>;
+        <span class="cm-property">box-sizing</span>: <span class="cm-atom">border-box</span>;
+        <span class="cm-property">border-left</span>: <span class="cm-number">30px</span> <span class="cm-atom">solid</span> <span class="cm-keyword">white</span>;
+      }
+    
+      <span class="cm-qualifier">.youtube</span> <span class="cm-tag">span</span> {
+        <span class="cm-property">font-size</span>: <span class="cm-number">0</span>;
+        <span class="cm-property">position</span>: <span class="cm-atom">absolute</span>;
+        <span class="cm-property">width</span>: <span class="cm-number">0</span>;
+        <span class="cm-property">height</span>: <span class="cm-number">0</span>;
+        <span class="cm-property">overflow</span>: <span class="cm-atom">hidden</span>;
+      }
+    
+      <span class="cm-qualifier">.youtube</span>:<span class="cm-variable-3">hover</span> + <span class="cm-builtin">#youtube-card</span> {
+        <span class="cm-property">z-index</span>: <span class="cm-number">49</span>;
+        <span class="cm-property">display</span>: <span class="cm-atom">block</span>;
+        <span class="cm-property">position</span>: <span class="cm-atom">fixed</span>;
+        <span class="cm-property">bottom</span>: <span class="cm-number">42px</span>;
+        <span class="cm-property">width</span>: <span class="cm-number">300px</span>;
+        <span class="cm-property">background-color</span>: <span class="cm-keyword">white</span>;
+        <span class="cm-property">right</span>: <span class="cm-number">40px</span>;
+        <span class="cm-property">padding</span>: <span class="cm-number">25px</span> <span class="cm-number">130px</span> <span class="cm-number">25px</span> <span class="cm-number">25px</span>;
+      }
+    }
+    </code></pre>
+    </div>
+    <div id="js-box" class="code-wrap code-box box " role="region" aria-label="JS">
+    <pre tabindex="0"><code data-lang="javascript" id="actual-js-code" class=" cm-s-default"><span class="cm-comment">/*</span>
+    
+    <span class="cm-comment">Three.js video tutorial explaining the source code</span>
+    
+    <span class="cm-comment">Youtube: https://youtu.be/JhgBwJn1bQw</span>
+    
+    <span class="cm-comment">In the tutorial, we go through the source code of this game. We cover, how to set up a Three.js scene with box objects, how to add lights, how to set up the camera, how to add animation and event handlers. We also add textures with HTML Canvas and learn how to draw 2D shapes in Three.js then how to turn them into extruded geometries.</span>
+    
+    <span class="cm-comment">Comparing to the tutorial this version has some extra features:</span>
+    <span class="cm-comment">- trucks also pop up on the other track</span>
+    <span class="cm-comment">- the extruded geometry also has a texture</span>
+    <span class="cm-comment">- there are trees around the track</span>
+    <span class="cm-comment">- shadows</span>
+    <span class="cm-comment">- the game reacts to window resizing</span>
+    
+    <span class="cm-comment">Check out my YouTube channel for other game tutorials: https://www.youtube.com/channel/UCxhgW0Q5XLvIoXHAfQXg9oQ</span>
+    
+    <span class="cm-comment">*/</span>
+    
+    <span class="cm-variable">window</span>.<span class="cm-property">focus</span>(); <span class="cm-comment">// Capture keys right away (by default focus is on editor)</span>
+    
+    <span class="cm-comment">// Pick a random value from an array</span>
+    <span class="cm-keyword">function</span> <span class="cm-def">pickRandom</span>(<span class="cm-def">array</span>) {
+      <span class="cm-keyword">return</span> <span class="cm-variable-2">array</span>[<span class="cm-variable">Math</span>.<span class="cm-property">floor</span>(<span class="cm-variable">Math</span>.<span class="cm-property">random</span>() <span class="cm-operator">*</span> <span class="cm-variable-2">array</span>.<span class="cm-property">length</span>)];
+    }
+    
+    <span class="cm-comment">// The Pythagorean theorem says that the distance between two points is</span>
+    <span class="cm-comment">// the square root of the sum of the horizontal and vertical distance's square</span>
+    <span class="cm-keyword">function</span> <span class="cm-def">getDistance</span>(<span class="cm-def">coordinate1</span>, <span class="cm-def">coordinate2</span>) {
+      <span class="cm-keyword">const</span> <span class="cm-def">horizontalDistance</span> <span class="cm-operator">=</span> <span class="cm-variable-2">coordinate2</span>.<span class="cm-property">x</span> <span class="cm-operator">-</span> <span class="cm-variable-2">coordinate1</span>.<span class="cm-property">x</span>;
+      <span class="cm-keyword">const</span> <span class="cm-def">verticalDistance</span> <span class="cm-operator">=</span> <span class="cm-variable-2">coordinate2</span>.<span class="cm-property">y</span> <span class="cm-operator">-</span> <span class="cm-variable-2">coordinate1</span>.<span class="cm-property">y</span>;
+      <span class="cm-keyword">return</span> <span class="cm-variable">Math</span>.<span class="cm-property">sqrt</span>(<span class="cm-variable-2">horizontalDistance</span> <span class="cm-operator">**</span> <span class="cm-number">2</span> <span class="cm-operator">+</span> <span class="cm-variable-2">verticalDistance</span> <span class="cm-operator">**</span> <span class="cm-number">2</span>);
+    }
+    
+    <span class="cm-keyword">const</span> <span class="cm-def">vehicleColors</span> <span class="cm-operator">=</span> [
+      <span class="cm-number">0xa52523</span>,
+      <span class="cm-number">0xef2d56</span>,
+      <span class="cm-number">0x0ad3ff</span>,
+      <span class="cm-number">0xff9f1c</span> <span class="cm-comment">/*0xa52523, 0xbdb638, 0x78b14b*/</span>
+    ];
+    
+    <span class="cm-keyword">const</span> <span class="cm-def">lawnGreen</span> <span class="cm-operator">=</span> <span class="cm-string">"#67C240"</span>;
+    <span class="cm-keyword">const</span> <span class="cm-def">trackColor</span> <span class="cm-operator">=</span> <span class="cm-string">"#546E90"</span>;
+    <span class="cm-keyword">const</span> <span class="cm-def">edgeColor</span> <span class="cm-operator">=</span> <span class="cm-string">"#725F48"</span>;
+    <span class="cm-keyword">const</span> <span class="cm-def">treeCrownColor</span> <span class="cm-operator">=</span> <span class="cm-number">0x498c2c</span>;
+    <span class="cm-keyword">const</span> <span class="cm-def">treeTrunkColor</span> <span class="cm-operator">=</span> <span class="cm-number">0x4b3f2f</span>;
+    
+    <span class="cm-keyword">const</span> <span class="cm-def">wheelGeometry</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">BoxBufferGeometry</span>(<span class="cm-number">12</span>, <span class="cm-number">33</span>, <span class="cm-number">12</span>);
+    <span class="cm-keyword">const</span> <span class="cm-def">wheelMaterial</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({ <span class="cm-property">color</span>: <span class="cm-number">0x333333</span> });
+    <span class="cm-keyword">const</span> <span class="cm-def">treeTrunkGeometry</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">BoxBufferGeometry</span>(<span class="cm-number">15</span>, <span class="cm-number">15</span>, <span class="cm-number">30</span>);
+    <span class="cm-keyword">const</span> <span class="cm-def">treeTrunkMaterial</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({
+      <span class="cm-property">color</span>: <span class="cm-variable">treeTrunkColor</span>
+    });
+    <span class="cm-keyword">const</span> <span class="cm-def">treeCrownMaterial</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({
+      <span class="cm-property">color</span>: <span class="cm-variable">treeCrownColor</span>
+    });
+    
+    <span class="cm-keyword">const</span> <span class="cm-def">config</span> <span class="cm-operator">=</span> {
+      <span class="cm-property">showHitZones</span>: <span class="cm-atom">false</span>,
+      <span class="cm-property">shadows</span>: <span class="cm-atom">true</span>, <span class="cm-comment">// Use shadow</span>
+      <span class="cm-property">trees</span>: <span class="cm-atom">true</span>, <span class="cm-comment">// Add trees to the map</span>
+      <span class="cm-property">curbs</span>: <span class="cm-atom">true</span>, <span class="cm-comment">// Show texture on the extruded geometry</span>
+      <span class="cm-property">grid</span>: <span class="cm-atom">false</span> <span class="cm-comment">// Show grid helper</span>
+    };
+    
+    <span class="cm-keyword">let</span> <span class="cm-def">score</span>;
+    <span class="cm-keyword">const</span> <span class="cm-def">speed</span> <span class="cm-operator">=</span> <span class="cm-number">0.0017</span>;
+    
+    <span class="cm-keyword">const</span> <span class="cm-def">playerAngleInitial</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">PI</span>;
+    <span class="cm-keyword">let</span> <span class="cm-def">playerAngleMoved</span>;
+    <span class="cm-keyword">let</span> <span class="cm-def">accelerate</span> <span class="cm-operator">=</span> <span class="cm-atom">false</span>; <span class="cm-comment">// Is the player accelerating</span>
+    <span class="cm-keyword">let</span> <span class="cm-def">decelerate</span> <span class="cm-operator">=</span> <span class="cm-atom">false</span>; <span class="cm-comment">// Is the player decelerating</span>
+    
+    <span class="cm-keyword">let</span> <span class="cm-def">otherVehicles</span> <span class="cm-operator">=</span> [];
+    <span class="cm-keyword">let</span> <span class="cm-def">ready</span>;
+    <span class="cm-keyword">let</span> <span class="cm-def">lastTimestamp</span>;
+    
+    <span class="cm-keyword">const</span> <span class="cm-def">trackRadius</span> <span class="cm-operator">=</span> <span class="cm-number">225</span>;
+    <span class="cm-keyword">const</span> <span class="cm-def">trackWidth</span> <span class="cm-operator">=</span> <span class="cm-number">45</span>;
+    <span class="cm-keyword">const</span> <span class="cm-def">innerTrackRadius</span> <span class="cm-operator">=</span> <span class="cm-variable">trackRadius</span> <span class="cm-operator">-</span> <span class="cm-variable">trackWidth</span>;
+    <span class="cm-keyword">const</span> <span class="cm-def">outerTrackRadius</span> <span class="cm-operator">=</span> <span class="cm-variable">trackRadius</span> <span class="cm-operator">+</span> <span class="cm-variable">trackWidth</span>;
+    
+    <span class="cm-keyword">const</span> <span class="cm-def">arcAngle1</span> <span class="cm-operator">=</span> (<span class="cm-number">1</span> <span class="cm-operator">/</span> <span class="cm-number">3</span>) <span class="cm-operator">*</span> <span class="cm-variable">Math</span>.<span class="cm-property">PI</span>; <span class="cm-comment">// 60 degrees</span>
+    
+    <span class="cm-keyword">const</span> <span class="cm-def">deltaY</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">sin</span>(<span class="cm-variable">arcAngle1</span>) <span class="cm-operator">*</span> <span class="cm-variable">innerTrackRadius</span>;
+    <span class="cm-keyword">const</span> <span class="cm-def">arcAngle2</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">asin</span>(<span class="cm-variable">deltaY</span> <span class="cm-operator">/</span> <span class="cm-variable">outerTrackRadius</span>);
+    
+    <span class="cm-keyword">const</span> <span class="cm-def">arcCenterX</span> <span class="cm-operator">=</span>
+      (<span class="cm-variable">Math</span>.<span class="cm-property">cos</span>(<span class="cm-variable">arcAngle1</span>) <span class="cm-operator">*</span> <span class="cm-variable">innerTrackRadius</span> <span class="cm-operator">+</span>
+        <span class="cm-variable">Math</span>.<span class="cm-property">cos</span>(<span class="cm-variable">arcAngle2</span>) <span class="cm-operator">*</span> <span class="cm-variable">outerTrackRadius</span>) <span class="cm-operator">/</span>
+      <span class="cm-number">2</span>;
+    
+    <span class="cm-keyword">const</span> <span class="cm-def">arcAngle3</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">acos</span>(<span class="cm-variable">arcCenterX</span> <span class="cm-operator">/</span> <span class="cm-variable">innerTrackRadius</span>);
+    
+    <span class="cm-keyword">const</span> <span class="cm-def">arcAngle4</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">acos</span>(<span class="cm-variable">arcCenterX</span> <span class="cm-operator">/</span> <span class="cm-variable">outerTrackRadius</span>);
+    
+    <span class="cm-keyword">const</span> <span class="cm-def">scoreElement</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">getElementById</span>(<span class="cm-string">"score"</span>);
+    <span class="cm-keyword">const</span> <span class="cm-def">buttonsElement</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">getElementById</span>(<span class="cm-string">"buttons"</span>);
+    <span class="cm-keyword">const</span> <span class="cm-def">instructionsElement</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">getElementById</span>(<span class="cm-string">"instructions"</span>);
+    <span class="cm-keyword">const</span> <span class="cm-def">resultsElement</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">getElementById</span>(<span class="cm-string">"results"</span>);
+    <span class="cm-keyword">const</span> <span class="cm-def">accelerateButton</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">getElementById</span>(<span class="cm-string">"accelerate"</span>);
+    <span class="cm-keyword">const</span> <span class="cm-def">decelerateButton</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">getElementById</span>(<span class="cm-string">"decelerate"</span>);
+    <span class="cm-keyword">const</span> <span class="cm-def">youtubeLogo</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">getElementById</span>(<span class="cm-string">"youtube-main"</span>);
+    
+    <span class="cm-variable">setTimeout</span>(() <span class="cm-operator">=&gt;</span> {
+      <span class="cm-keyword">if</span> (<span class="cm-variable">ready</span>) <span class="cm-variable">instructionsElement</span>.<span class="cm-property">style</span>.<span class="cm-property">opacity</span> <span class="cm-operator">=</span> <span class="cm-number">1</span>;
+      <span class="cm-variable">buttonsElement</span>.<span class="cm-property">style</span>.<span class="cm-property">opacity</span> <span class="cm-operator">=</span> <span class="cm-number">1</span>;
+      <span class="cm-variable">youtubeLogo</span>.<span class="cm-property">style</span>.<span class="cm-property">opacity</span> <span class="cm-operator">=</span> <span class="cm-number">1</span>;
+    }, <span class="cm-number">4000</span>);
+    
+    <span class="cm-comment">// Initialize ThreeJs</span>
+    <span class="cm-comment">// Set up camera</span>
+    <span class="cm-keyword">const</span> <span class="cm-def">aspectRatio</span> <span class="cm-operator">=</span> <span class="cm-variable">window</span>.<span class="cm-property">innerWidth</span> <span class="cm-operator">/</span> <span class="cm-variable">window</span>.<span class="cm-property">innerHeight</span>;
+    <span class="cm-keyword">const</span> <span class="cm-def">cameraWidth</span> <span class="cm-operator">=</span> <span class="cm-number">960</span>;
+    <span class="cm-keyword">const</span> <span class="cm-def">cameraHeight</span> <span class="cm-operator">=</span> <span class="cm-variable">cameraWidth</span> <span class="cm-operator">/</span> <span class="cm-variable">aspectRatio</span>;
+    
+    <span class="cm-keyword">const</span> <span class="cm-def">camera</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">OrthographicCamera</span>(
+      <span class="cm-variable">cameraWidth</span> <span class="cm-operator">/</span> <span class="cm-operator">-</span><span class="cm-number">2</span>, <span class="cm-comment">// left</span>
+      <span class="cm-variable">cameraWidth</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>, <span class="cm-comment">// right</span>
+      <span class="cm-variable">cameraHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>, <span class="cm-comment">// top</span>
+      <span class="cm-variable">cameraHeight</span> <span class="cm-operator">/</span> <span class="cm-operator">-</span><span class="cm-number">2</span>, <span class="cm-comment">// bottom</span>
+      <span class="cm-number">50</span>, <span class="cm-comment">// near plane</span>
+      <span class="cm-number">700</span> <span class="cm-comment">// far plane</span>
+    );
+    
+    <span class="cm-variable">camera</span>.<span class="cm-property">position</span>.<span class="cm-property">set</span>(<span class="cm-number">0</span>, <span class="cm-operator">-</span><span class="cm-number">210</span>, <span class="cm-number">300</span>);
+    <span class="cm-variable">camera</span>.<span class="cm-property">lookAt</span>(<span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-number">0</span>);
+    
+    <span class="cm-keyword">const</span> <span class="cm-def">scene</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Scene</span>();
+    
+    <span class="cm-keyword">const</span> <span class="cm-def">playerCar</span> <span class="cm-operator">=</span> <span class="cm-variable">Car</span>();
+    <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable">playerCar</span>);
+    
+    <span class="cm-variable">renderMap</span>(<span class="cm-variable">cameraWidth</span>, <span class="cm-variable">cameraHeight</span> <span class="cm-operator">*</span> <span class="cm-number">2</span>); <span class="cm-comment">// The map height is higher because we look at the map from an angle</span>
+    
+    <span class="cm-comment">// Set up lights</span>
+    <span class="cm-keyword">const</span> <span class="cm-def">ambientLight</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">AmbientLight</span>(<span class="cm-number">0xffffff</span>, <span class="cm-number">0.6</span>);
+    <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable">ambientLight</span>);
+    
+    <span class="cm-keyword">const</span> <span class="cm-def">dirLight</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">DirectionalLight</span>(<span class="cm-number">0xffffff</span>, <span class="cm-number">0.6</span>);
+    <span class="cm-variable">dirLight</span>.<span class="cm-property">position</span>.<span class="cm-property">set</span>(<span class="cm-number">100</span>, <span class="cm-operator">-</span><span class="cm-number">300</span>, <span class="cm-number">300</span>);
+    <span class="cm-variable">dirLight</span>.<span class="cm-property">castShadow</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
+    <span class="cm-variable">dirLight</span>.<span class="cm-property">shadow</span>.<span class="cm-property">mapSize</span>.<span class="cm-property">width</span> <span class="cm-operator">=</span> <span class="cm-number">1024</span>;
+    <span class="cm-variable">dirLight</span>.<span class="cm-property">shadow</span>.<span class="cm-property">mapSize</span>.<span class="cm-property">height</span> <span class="cm-operator">=</span> <span class="cm-number">1024</span>;
+    <span class="cm-variable">dirLight</span>.<span class="cm-property">shadow</span>.<span class="cm-property">camera</span>.<span class="cm-property">left</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-number">400</span>;
+    <span class="cm-variable">dirLight</span>.<span class="cm-property">shadow</span>.<span class="cm-property">camera</span>.<span class="cm-property">right</span> <span class="cm-operator">=</span> <span class="cm-number">350</span>;
+    <span class="cm-variable">dirLight</span>.<span class="cm-property">shadow</span>.<span class="cm-property">camera</span>.<span class="cm-property">top</span> <span class="cm-operator">=</span> <span class="cm-number">400</span>;
+    <span class="cm-variable">dirLight</span>.<span class="cm-property">shadow</span>.<span class="cm-property">camera</span>.<span class="cm-property">bottom</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-number">300</span>;
+    <span class="cm-variable">dirLight</span>.<span class="cm-property">shadow</span>.<span class="cm-property">camera</span>.<span class="cm-property">near</span> <span class="cm-operator">=</span> <span class="cm-number">100</span>;
+    <span class="cm-variable">dirLight</span>.<span class="cm-property">shadow</span>.<span class="cm-property">camera</span>.<span class="cm-property">far</span> <span class="cm-operator">=</span> <span class="cm-number">800</span>;
+    <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable">dirLight</span>);
+    
+    <span class="cm-comment">// const cameraHelper = new THREE.CameraHelper(dirLight.shadow.camera);</span>
+    <span class="cm-comment">// scene.add(cameraHelper);</span>
+    
+    <span class="cm-keyword">if</span> (<span class="cm-variable">config</span>.<span class="cm-property">grid</span>) {
+      <span class="cm-keyword">const</span> <span class="cm-def">gridHelper</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">GridHelper</span>(<span class="cm-number">80</span>, <span class="cm-number">8</span>);
+      <span class="cm-variable-2">gridHelper</span>.<span class="cm-property">rotation</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>;
+      <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">gridHelper</span>);
+    }
+    
+    <span class="cm-comment">// Set up renderer</span>
+    <span class="cm-keyword">const</span> <span class="cm-def">renderer</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">WebGLRenderer</span>({
+      <span class="cm-property">antialias</span>: <span class="cm-atom">true</span>,
+      <span class="cm-property">powerPreference</span>: <span class="cm-string">"high-performance"</span>
+    });
+    <span class="cm-variable">renderer</span>.<span class="cm-property">setSize</span>(<span class="cm-variable">window</span>.<span class="cm-property">innerWidth</span>, <span class="cm-variable">window</span>.<span class="cm-property">innerHeight</span>);
+    <span class="cm-keyword">if</span> (<span class="cm-variable">config</span>.<span class="cm-property">shadows</span>) <span class="cm-variable">renderer</span>.<span class="cm-property">shadowMap</span>.<span class="cm-property">enabled</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
+    <span class="cm-variable">document</span>.<span class="cm-property">body</span>.<span class="cm-property">appendChild</span>(<span class="cm-variable">renderer</span>.<span class="cm-property">domElement</span>);
+    
+    <span class="cm-variable">reset</span>();
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">reset</span>() {
+      <span class="cm-comment">// Reset position and score</span>
+      <span class="cm-variable">playerAngleMoved</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>;
+      <span class="cm-variable">score</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>;
+      <span class="cm-variable">scoreElement</span>.<span class="cm-property">innerText</span> <span class="cm-operator">=</span> <span class="cm-string">"Press UP"</span>;
+    
+      <span class="cm-comment">// Remove other vehicles</span>
+      <span class="cm-variable">otherVehicles</span>.<span class="cm-property">forEach</span>((<span class="cm-def">vehicle</span>) <span class="cm-operator">=&gt;</span> {
+        <span class="cm-comment">// Remove the vehicle from the scene</span>
+        <span class="cm-variable">scene</span>.<span class="cm-property">remove</span>(<span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>);
+    
+        <span class="cm-comment">// If it has hit-zone helpers then remove them as well</span>
+        <span class="cm-keyword">if</span> (<span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone1</span>)
+          <span class="cm-variable">scene</span>.<span class="cm-property">remove</span>(<span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone1</span>);
+        <span class="cm-keyword">if</span> (<span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone2</span>)
+          <span class="cm-variable">scene</span>.<span class="cm-property">remove</span>(<span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone2</span>);
+        <span class="cm-keyword">if</span> (<span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone3</span>)
+          <span class="cm-variable">scene</span>.<span class="cm-property">remove</span>(<span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone3</span>);
+      });
+      <span class="cm-variable">otherVehicles</span> <span class="cm-operator">=</span> [];
+    
+      <span class="cm-variable">resultsElement</span>.<span class="cm-property">style</span>.<span class="cm-property">display</span> <span class="cm-operator">=</span> <span class="cm-string">"none"</span>;
+    
+      <span class="cm-variable">lastTimestamp</span> <span class="cm-operator">=</span> <span class="cm-atom">undefined</span>;
+    
+      <span class="cm-comment">// Place the player's car to the starting position</span>
+      <span class="cm-variable">movePlayerCar</span>(<span class="cm-number">0</span>);
+    
+      <span class="cm-comment">// Render the scene</span>
+      <span class="cm-variable">renderer</span>.<span class="cm-property">render</span>(<span class="cm-variable">scene</span>, <span class="cm-variable">camera</span>);
+    
+      <span class="cm-variable">ready</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">startGame</span>() {
+      <span class="cm-keyword">if</span> (<span class="cm-variable">ready</span>) {
+        <span class="cm-variable">ready</span> <span class="cm-operator">=</span> <span class="cm-atom">false</span>;
+        <span class="cm-variable">scoreElement</span>.<span class="cm-property">innerText</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>;
+        <span class="cm-variable">buttonsElement</span>.<span class="cm-property">style</span>.<span class="cm-property">opacity</span> <span class="cm-operator">=</span> <span class="cm-number">1</span>;
+        <span class="cm-variable">instructionsElement</span>.<span class="cm-property">style</span>.<span class="cm-property">opacity</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>;
+        <span class="cm-variable">youtubeLogo</span>.<span class="cm-property">style</span>.<span class="cm-property">opacity</span> <span class="cm-operator">=</span> <span class="cm-number">1</span>;
+        <span class="cm-variable">renderer</span>.<span class="cm-property">setAnimationLoop</span>(<span class="cm-variable">animation</span>);
+      }
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">positionScoreElement</span>() {
+      <span class="cm-keyword">const</span> <span class="cm-def">arcCenterXinPixels</span> <span class="cm-operator">=</span> (<span class="cm-variable">arcCenterX</span> <span class="cm-operator">/</span> <span class="cm-variable">cameraWidth</span>) <span class="cm-operator">*</span> <span class="cm-variable">window</span>.<span class="cm-property">innerWidth</span>;
+      <span class="cm-variable">scoreElement</span>.<span class="cm-property">style</span>.<span class="cm-property">cssText</span> <span class="cm-operator">=</span> <span class="cm-string-2">`</span>
+        <span class="cm-string-2">left: ${</span><span class="cm-variable">window</span>.<span class="cm-property">innerWidth</span> <span class="cm-operator">/</span> <span class="cm-number">2</span> <span class="cm-operator">-</span> <span class="cm-variable-2">arcCenterXinPixels</span> <span class="cm-operator">*</span> <span class="cm-number">1.3</span><span class="cm-string-2">}</span><span class="cm-string-2">px;</span>
+        <span class="cm-string-2">top: ${</span><span class="cm-variable">window</span>.<span class="cm-property">innerHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span><span class="cm-string-2">}</span><span class="cm-string-2">px</span>
+      <span class="cm-string-2">`</span>;
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">getLineMarkings</span>(<span class="cm-def">mapWidth</span>, <span class="cm-def">mapHeight</span>) {
+      <span class="cm-keyword">const</span> <span class="cm-def">canvas</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">createElement</span>(<span class="cm-string">"canvas"</span>);
+      <span class="cm-variable-2">canvas</span>.<span class="cm-property">width</span> <span class="cm-operator">=</span> <span class="cm-variable-2">mapWidth</span>;
+      <span class="cm-variable-2">canvas</span>.<span class="cm-property">height</span> <span class="cm-operator">=</span> <span class="cm-variable-2">mapHeight</span>;
+      <span class="cm-keyword">const</span> <span class="cm-def">context</span> <span class="cm-operator">=</span> <span class="cm-variable-2">canvas</span>.<span class="cm-property">getContext</span>(<span class="cm-string">"2d"</span>);
+    
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillStyle</span> <span class="cm-operator">=</span> <span class="cm-variable">trackColor</span>;
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillRect</span>(<span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-variable-2">mapWidth</span>, <span class="cm-variable-2">mapHeight</span>);
+    
+      <span class="cm-variable-2">context</span>.<span class="cm-property">lineWidth</span> <span class="cm-operator">=</span> <span class="cm-number">2</span>;
+      <span class="cm-variable-2">context</span>.<span class="cm-property">strokeStyle</span> <span class="cm-operator">=</span> <span class="cm-string">"#E0FFFF"</span>;
+      <span class="cm-variable-2">context</span>.<span class="cm-property">setLineDash</span>([<span class="cm-number">10</span>, <span class="cm-number">14</span>]);
+    
+      <span class="cm-comment">// Left circle</span>
+      <span class="cm-variable-2">context</span>.<span class="cm-property">beginPath</span>();
+      <span class="cm-variable-2">context</span>.<span class="cm-property">arc</span>(
+        <span class="cm-variable-2">mapWidth</span> <span class="cm-operator">/</span> <span class="cm-number">2</span> <span class="cm-operator">-</span> <span class="cm-variable">arcCenterX</span>,
+        <span class="cm-variable-2">mapHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>,
+        <span class="cm-variable">trackRadius</span>,
+        <span class="cm-number">0</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">*</span> <span class="cm-number">2</span>
+      );
+      <span class="cm-variable-2">context</span>.<span class="cm-property">stroke</span>();
+    
+      <span class="cm-comment">// Right circle</span>
+      <span class="cm-variable-2">context</span>.<span class="cm-property">beginPath</span>();
+      <span class="cm-variable-2">context</span>.<span class="cm-property">arc</span>(
+        <span class="cm-variable-2">mapWidth</span> <span class="cm-operator">/</span> <span class="cm-number">2</span> <span class="cm-operator">+</span> <span class="cm-variable">arcCenterX</span>,
+        <span class="cm-variable-2">mapHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>,
+        <span class="cm-variable">trackRadius</span>,
+        <span class="cm-number">0</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">*</span> <span class="cm-number">2</span>
+      );
+      <span class="cm-variable-2">context</span>.<span class="cm-property">stroke</span>();
+    
+      <span class="cm-keyword">return</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">CanvasTexture</span>(<span class="cm-variable-2">canvas</span>);
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">getCurbsTexture</span>(<span class="cm-def">mapWidth</span>, <span class="cm-def">mapHeight</span>) {
+      <span class="cm-keyword">const</span> <span class="cm-def">canvas</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">createElement</span>(<span class="cm-string">"canvas"</span>);
+      <span class="cm-variable-2">canvas</span>.<span class="cm-property">width</span> <span class="cm-operator">=</span> <span class="cm-variable-2">mapWidth</span>;
+      <span class="cm-variable-2">canvas</span>.<span class="cm-property">height</span> <span class="cm-operator">=</span> <span class="cm-variable-2">mapHeight</span>;
+      <span class="cm-keyword">const</span> <span class="cm-def">context</span> <span class="cm-operator">=</span> <span class="cm-variable-2">canvas</span>.<span class="cm-property">getContext</span>(<span class="cm-string">"2d"</span>);
+    
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillStyle</span> <span class="cm-operator">=</span> <span class="cm-variable">lawnGreen</span>;
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillRect</span>(<span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-variable-2">mapWidth</span>, <span class="cm-variable-2">mapHeight</span>);
+    
+      <span class="cm-comment">// Extra big</span>
+      <span class="cm-variable-2">context</span>.<span class="cm-property">lineWidth</span> <span class="cm-operator">=</span> <span class="cm-number">65</span>;
+      <span class="cm-variable-2">context</span>.<span class="cm-property">strokeStyle</span> <span class="cm-operator">=</span> <span class="cm-string">"#A2FF75"</span>;
+      <span class="cm-variable-2">context</span>.<span class="cm-property">beginPath</span>();
+      <span class="cm-variable-2">context</span>.<span class="cm-property">arc</span>(
+        <span class="cm-variable-2">mapWidth</span> <span class="cm-operator">/</span> <span class="cm-number">2</span> <span class="cm-operator">-</span> <span class="cm-variable">arcCenterX</span>,
+        <span class="cm-variable-2">mapHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>,
+        <span class="cm-variable">innerTrackRadius</span>,
+        <span class="cm-variable">arcAngle1</span>,
+        <span class="cm-operator">-</span><span class="cm-variable">arcAngle1</span>
+      );
+      <span class="cm-variable-2">context</span>.<span class="cm-property">arc</span>(
+        <span class="cm-variable-2">mapWidth</span> <span class="cm-operator">/</span> <span class="cm-number">2</span> <span class="cm-operator">+</span> <span class="cm-variable">arcCenterX</span>,
+        <span class="cm-variable-2">mapHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>,
+        <span class="cm-variable">outerTrackRadius</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">+</span> <span class="cm-variable">arcAngle2</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">-</span> <span class="cm-variable">arcAngle2</span>,
+        <span class="cm-atom">true</span>
+      );
+      <span class="cm-variable-2">context</span>.<span class="cm-property">stroke</span>();
+    
+      <span class="cm-variable-2">context</span>.<span class="cm-property">beginPath</span>();
+      <span class="cm-variable-2">context</span>.<span class="cm-property">arc</span>(
+        <span class="cm-variable-2">mapWidth</span> <span class="cm-operator">/</span> <span class="cm-number">2</span> <span class="cm-operator">+</span> <span class="cm-variable">arcCenterX</span>,
+        <span class="cm-variable-2">mapHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>,
+        <span class="cm-variable">innerTrackRadius</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">+</span> <span class="cm-variable">arcAngle1</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">-</span> <span class="cm-variable">arcAngle1</span>
+      );
+      <span class="cm-variable-2">context</span>.<span class="cm-property">arc</span>(
+        <span class="cm-variable-2">mapWidth</span> <span class="cm-operator">/</span> <span class="cm-number">2</span> <span class="cm-operator">-</span> <span class="cm-variable">arcCenterX</span>,
+        <span class="cm-variable-2">mapHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>,
+        <span class="cm-variable">outerTrackRadius</span>,
+        <span class="cm-variable">arcAngle2</span>,
+        <span class="cm-operator">-</span><span class="cm-variable">arcAngle2</span>,
+        <span class="cm-atom">true</span>
+      );
+      <span class="cm-variable-2">context</span>.<span class="cm-property">stroke</span>();
+    
+      <span class="cm-comment">// Extra small</span>
+      <span class="cm-variable-2">context</span>.<span class="cm-property">lineWidth</span> <span class="cm-operator">=</span> <span class="cm-number">60</span>;
+      <span class="cm-variable-2">context</span>.<span class="cm-property">strokeStyle</span> <span class="cm-operator">=</span> <span class="cm-variable">lawnGreen</span>;
+      <span class="cm-variable-2">context</span>.<span class="cm-property">beginPath</span>();
+      <span class="cm-variable-2">context</span>.<span class="cm-property">arc</span>(
+        <span class="cm-variable-2">mapWidth</span> <span class="cm-operator">/</span> <span class="cm-number">2</span> <span class="cm-operator">-</span> <span class="cm-variable">arcCenterX</span>,
+        <span class="cm-variable-2">mapHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>,
+        <span class="cm-variable">innerTrackRadius</span>,
+        <span class="cm-variable">arcAngle1</span>,
+        <span class="cm-operator">-</span><span class="cm-variable">arcAngle1</span>
+      );
+      <span class="cm-variable-2">context</span>.<span class="cm-property">arc</span>(
+        <span class="cm-variable-2">mapWidth</span> <span class="cm-operator">/</span> <span class="cm-number">2</span> <span class="cm-operator">+</span> <span class="cm-variable">arcCenterX</span>,
+        <span class="cm-variable-2">mapHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>,
+        <span class="cm-variable">outerTrackRadius</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">+</span> <span class="cm-variable">arcAngle2</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">-</span> <span class="cm-variable">arcAngle2</span>,
+        <span class="cm-atom">true</span>
+      );
+      <span class="cm-variable-2">context</span>.<span class="cm-property">arc</span>(
+        <span class="cm-variable-2">mapWidth</span> <span class="cm-operator">/</span> <span class="cm-number">2</span> <span class="cm-operator">+</span> <span class="cm-variable">arcCenterX</span>,
+        <span class="cm-variable-2">mapHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>,
+        <span class="cm-variable">innerTrackRadius</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">+</span> <span class="cm-variable">arcAngle1</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">-</span> <span class="cm-variable">arcAngle1</span>
+      );
+      <span class="cm-variable-2">context</span>.<span class="cm-property">arc</span>(
+        <span class="cm-variable-2">mapWidth</span> <span class="cm-operator">/</span> <span class="cm-number">2</span> <span class="cm-operator">-</span> <span class="cm-variable">arcCenterX</span>,
+        <span class="cm-variable-2">mapHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>,
+        <span class="cm-variable">outerTrackRadius</span>,
+        <span class="cm-variable">arcAngle2</span>,
+        <span class="cm-operator">-</span><span class="cm-variable">arcAngle2</span>,
+        <span class="cm-atom">true</span>
+      );
+      <span class="cm-variable-2">context</span>.<span class="cm-property">stroke</span>();
+    
+      <span class="cm-comment">// Base</span>
+      <span class="cm-variable-2">context</span>.<span class="cm-property">lineWidth</span> <span class="cm-operator">=</span> <span class="cm-number">6</span>;
+      <span class="cm-variable-2">context</span>.<span class="cm-property">strokeStyle</span> <span class="cm-operator">=</span> <span class="cm-variable">edgeColor</span>;
+    
+      <span class="cm-comment">// Outer circle left</span>
+      <span class="cm-variable-2">context</span>.<span class="cm-property">beginPath</span>();
+      <span class="cm-variable-2">context</span>.<span class="cm-property">arc</span>(
+        <span class="cm-variable-2">mapWidth</span> <span class="cm-operator">/</span> <span class="cm-number">2</span> <span class="cm-operator">-</span> <span class="cm-variable">arcCenterX</span>,
+        <span class="cm-variable-2">mapHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>,
+        <span class="cm-variable">outerTrackRadius</span>,
+        <span class="cm-number">0</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">*</span> <span class="cm-number">2</span>
+      );
+      <span class="cm-variable-2">context</span>.<span class="cm-property">stroke</span>();
+    
+      <span class="cm-comment">// Outer circle right</span>
+      <span class="cm-variable-2">context</span>.<span class="cm-property">beginPath</span>();
+      <span class="cm-variable-2">context</span>.<span class="cm-property">arc</span>(
+        <span class="cm-variable-2">mapWidth</span> <span class="cm-operator">/</span> <span class="cm-number">2</span> <span class="cm-operator">+</span> <span class="cm-variable">arcCenterX</span>,
+        <span class="cm-variable-2">mapHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>,
+        <span class="cm-variable">outerTrackRadius</span>,
+        <span class="cm-number">0</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">*</span> <span class="cm-number">2</span>
+      );
+      <span class="cm-variable-2">context</span>.<span class="cm-property">stroke</span>();
+    
+      <span class="cm-comment">// Inner circle left</span>
+      <span class="cm-variable-2">context</span>.<span class="cm-property">beginPath</span>();
+      <span class="cm-variable-2">context</span>.<span class="cm-property">arc</span>(
+        <span class="cm-variable-2">mapWidth</span> <span class="cm-operator">/</span> <span class="cm-number">2</span> <span class="cm-operator">-</span> <span class="cm-variable">arcCenterX</span>,
+        <span class="cm-variable-2">mapHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>,
+        <span class="cm-variable">innerTrackRadius</span>,
+        <span class="cm-number">0</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">*</span> <span class="cm-number">2</span>
+      );
+      <span class="cm-variable-2">context</span>.<span class="cm-property">stroke</span>();
+    
+      <span class="cm-comment">// Inner circle right</span>
+      <span class="cm-variable-2">context</span>.<span class="cm-property">beginPath</span>();
+      <span class="cm-variable-2">context</span>.<span class="cm-property">arc</span>(
+        <span class="cm-variable-2">mapWidth</span> <span class="cm-operator">/</span> <span class="cm-number">2</span> <span class="cm-operator">+</span> <span class="cm-variable">arcCenterX</span>,
+        <span class="cm-variable-2">mapHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>,
+        <span class="cm-variable">innerTrackRadius</span>,
+        <span class="cm-number">0</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">*</span> <span class="cm-number">2</span>
+      );
+      <span class="cm-variable-2">context</span>.<span class="cm-property">stroke</span>();
+    
+      <span class="cm-keyword">return</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">CanvasTexture</span>(<span class="cm-variable-2">canvas</span>);
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">getLeftIsland</span>() {
+      <span class="cm-keyword">const</span> <span class="cm-def">islandLeft</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Shape</span>();
+    
+      <span class="cm-variable-2">islandLeft</span>.<span class="cm-property">absarc</span>(
+        <span class="cm-operator">-</span><span class="cm-variable">arcCenterX</span>,
+        <span class="cm-number">0</span>,
+        <span class="cm-variable">innerTrackRadius</span>,
+        <span class="cm-variable">arcAngle1</span>,
+        <span class="cm-operator">-</span><span class="cm-variable">arcAngle1</span>,
+        <span class="cm-atom">false</span>
+      );
+    
+      <span class="cm-variable-2">islandLeft</span>.<span class="cm-property">absarc</span>(
+        <span class="cm-variable">arcCenterX</span>,
+        <span class="cm-number">0</span>,
+        <span class="cm-variable">outerTrackRadius</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">+</span> <span class="cm-variable">arcAngle2</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">-</span> <span class="cm-variable">arcAngle2</span>,
+        <span class="cm-atom">true</span>
+      );
+    
+      <span class="cm-keyword">return</span> <span class="cm-variable-2">islandLeft</span>;
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">getMiddleIsland</span>() {
+      <span class="cm-keyword">const</span> <span class="cm-def">islandMiddle</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Shape</span>();
+    
+      <span class="cm-variable-2">islandMiddle</span>.<span class="cm-property">absarc</span>(
+        <span class="cm-operator">-</span><span class="cm-variable">arcCenterX</span>,
+        <span class="cm-number">0</span>,
+        <span class="cm-variable">innerTrackRadius</span>,
+        <span class="cm-variable">arcAngle3</span>,
+        <span class="cm-operator">-</span><span class="cm-variable">arcAngle3</span>,
+        <span class="cm-atom">true</span>
+      );
+    
+      <span class="cm-variable-2">islandMiddle</span>.<span class="cm-property">absarc</span>(
+        <span class="cm-variable">arcCenterX</span>,
+        <span class="cm-number">0</span>,
+        <span class="cm-variable">innerTrackRadius</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">+</span> <span class="cm-variable">arcAngle3</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">-</span> <span class="cm-variable">arcAngle3</span>,
+        <span class="cm-atom">true</span>
+      );
+    
+      <span class="cm-keyword">return</span> <span class="cm-variable-2">islandMiddle</span>;
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">getRightIsland</span>() {
+      <span class="cm-keyword">const</span> <span class="cm-def">islandRight</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Shape</span>();
+    
+      <span class="cm-variable-2">islandRight</span>.<span class="cm-property">absarc</span>(
+        <span class="cm-variable">arcCenterX</span>,
+        <span class="cm-number">0</span>,
+        <span class="cm-variable">innerTrackRadius</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">-</span> <span class="cm-variable">arcAngle1</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">+</span> <span class="cm-variable">arcAngle1</span>,
+        <span class="cm-atom">true</span>
+      );
+    
+      <span class="cm-variable-2">islandRight</span>.<span class="cm-property">absarc</span>(
+        <span class="cm-operator">-</span><span class="cm-variable">arcCenterX</span>,
+        <span class="cm-number">0</span>,
+        <span class="cm-variable">outerTrackRadius</span>,
+        <span class="cm-operator">-</span><span class="cm-variable">arcAngle2</span>,
+        <span class="cm-variable">arcAngle2</span>,
+        <span class="cm-atom">false</span>
+      );
+    
+      <span class="cm-keyword">return</span> <span class="cm-variable-2">islandRight</span>;
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">getOuterField</span>(<span class="cm-def">mapWidth</span>, <span class="cm-def">mapHeight</span>) {
+      <span class="cm-keyword">const</span> <span class="cm-def">field</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Shape</span>();
+    
+      <span class="cm-variable-2">field</span>.<span class="cm-property">moveTo</span>(<span class="cm-operator">-</span><span class="cm-variable-2">mapWidth</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>, <span class="cm-operator">-</span><span class="cm-variable-2">mapHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>);
+      <span class="cm-variable-2">field</span>.<span class="cm-property">lineTo</span>(<span class="cm-number">0</span>, <span class="cm-operator">-</span><span class="cm-variable-2">mapHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>);
+    
+      <span class="cm-variable-2">field</span>.<span class="cm-property">absarc</span>(<span class="cm-operator">-</span><span class="cm-variable">arcCenterX</span>, <span class="cm-number">0</span>, <span class="cm-variable">outerTrackRadius</span>, <span class="cm-operator">-</span><span class="cm-variable">arcAngle4</span>, <span class="cm-variable">arcAngle4</span>, <span class="cm-atom">true</span>);
+    
+      <span class="cm-variable-2">field</span>.<span class="cm-property">absarc</span>(
+        <span class="cm-variable">arcCenterX</span>,
+        <span class="cm-number">0</span>,
+        <span class="cm-variable">outerTrackRadius</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">-</span> <span class="cm-variable">arcAngle4</span>,
+        <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">+</span> <span class="cm-variable">arcAngle4</span>,
+        <span class="cm-atom">true</span>
+      );
+    
+      <span class="cm-variable-2">field</span>.<span class="cm-property">lineTo</span>(<span class="cm-number">0</span>, <span class="cm-operator">-</span><span class="cm-variable-2">mapHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>);
+      <span class="cm-variable-2">field</span>.<span class="cm-property">lineTo</span>(<span class="cm-variable-2">mapWidth</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>, <span class="cm-operator">-</span><span class="cm-variable-2">mapHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>);
+      <span class="cm-variable-2">field</span>.<span class="cm-property">lineTo</span>(<span class="cm-variable-2">mapWidth</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>, <span class="cm-variable-2">mapHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>);
+      <span class="cm-variable-2">field</span>.<span class="cm-property">lineTo</span>(<span class="cm-operator">-</span><span class="cm-variable-2">mapWidth</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>, <span class="cm-variable-2">mapHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>);
+    
+      <span class="cm-keyword">return</span> <span class="cm-variable-2">field</span>;
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">renderMap</span>(<span class="cm-def">mapWidth</span>, <span class="cm-def">mapHeight</span>) {
+      <span class="cm-keyword">const</span> <span class="cm-def">lineMarkingsTexture</span> <span class="cm-operator">=</span> <span class="cm-variable">getLineMarkings</span>(<span class="cm-variable-2">mapWidth</span>, <span class="cm-variable-2">mapHeight</span>);
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">planeGeometry</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">PlaneBufferGeometry</span>(<span class="cm-variable-2">mapWidth</span>, <span class="cm-variable-2">mapHeight</span>);
+      <span class="cm-keyword">const</span> <span class="cm-def">planeMaterial</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({
+        <span class="cm-property">map</span>: <span class="cm-variable-2">lineMarkingsTexture</span>
+      });
+      <span class="cm-keyword">const</span> <span class="cm-def">plane</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Mesh</span>(<span class="cm-variable-2">planeGeometry</span>, <span class="cm-variable-2">planeMaterial</span>);
+      <span class="cm-variable-2">plane</span>.<span class="cm-property">receiveShadow</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
+      <span class="cm-variable-2">plane</span>.<span class="cm-property">matrixAutoUpdate</span> <span class="cm-operator">=</span> <span class="cm-atom">false</span>;
+      <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">plane</span>);
+    
+      <span class="cm-comment">// Extruded geometry with curbs</span>
+      <span class="cm-keyword">const</span> <span class="cm-def">islandLeft</span> <span class="cm-operator">=</span> <span class="cm-variable">getLeftIsland</span>();
+      <span class="cm-keyword">const</span> <span class="cm-def">islandMiddle</span> <span class="cm-operator">=</span> <span class="cm-variable">getMiddleIsland</span>();
+      <span class="cm-keyword">const</span> <span class="cm-def">islandRight</span> <span class="cm-operator">=</span> <span class="cm-variable">getRightIsland</span>();
+      <span class="cm-keyword">const</span> <span class="cm-def">outerField</span> <span class="cm-operator">=</span> <span class="cm-variable">getOuterField</span>(<span class="cm-variable-2">mapWidth</span>, <span class="cm-variable-2">mapHeight</span>);
+    
+      <span class="cm-comment">// Mapping a texture on an extruded geometry works differently than mapping it to a box</span>
+      <span class="cm-comment">// By default it is mapped to a 1x1 unit square, and we have to stretch it out by setting repeat</span>
+      <span class="cm-comment">// We also need to shift it by setting the offset to have it centered</span>
+      <span class="cm-keyword">const</span> <span class="cm-def">curbsTexture</span> <span class="cm-operator">=</span> <span class="cm-variable">getCurbsTexture</span>(<span class="cm-variable-2">mapWidth</span>, <span class="cm-variable-2">mapHeight</span>);
+      <span class="cm-variable-2">curbsTexture</span>.<span class="cm-property">offset</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Vector2</span>(<span class="cm-number">0.5</span>, <span class="cm-number">0.5</span>);
+      <span class="cm-variable-2">curbsTexture</span>.<span class="cm-property">repeat</span>.<span class="cm-property">set</span>(<span class="cm-number">1</span> <span class="cm-operator">/</span> <span class="cm-variable-2">mapWidth</span>, <span class="cm-number">1</span> <span class="cm-operator">/</span> <span class="cm-variable-2">mapHeight</span>);
+    
+      <span class="cm-comment">// An extruded geometry turns a 2D shape into 3D by giving it a depth</span>
+      <span class="cm-keyword">const</span> <span class="cm-def">fieldGeometry</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">ExtrudeBufferGeometry</span>(
+        [<span class="cm-variable-2">islandLeft</span>, <span class="cm-variable-2">islandRight</span>, <span class="cm-variable-2">islandMiddle</span>, <span class="cm-variable-2">outerField</span>],
+        { <span class="cm-property">depth</span>: <span class="cm-number">6</span>, <span class="cm-property">bevelEnabled</span>: <span class="cm-atom">false</span> }
+      );
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">fieldMesh</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Mesh</span>(<span class="cm-variable-2">fieldGeometry</span>, [
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({
+          <span class="cm-comment">// Either set a plain color or a texture depending on config</span>
+          <span class="cm-property">color</span>: <span class="cm-operator">!</span><span class="cm-variable">config</span>.<span class="cm-property">curbs</span> <span class="cm-operator">&amp;&amp;</span> <span class="cm-variable">lawnGreen</span>,
+          <span class="cm-property">map</span>: <span class="cm-variable">config</span>.<span class="cm-property">curbs</span> <span class="cm-operator">&amp;&amp;</span> <span class="cm-variable-2">curbsTexture</span>
+        }),
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({ <span class="cm-property">color</span>: <span class="cm-number">0x23311c</span> })
+      ]);
+      <span class="cm-variable-2">fieldMesh</span>.<span class="cm-property">receiveShadow</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
+      <span class="cm-variable-2">fieldMesh</span>.<span class="cm-property">matrixAutoUpdate</span> <span class="cm-operator">=</span> <span class="cm-atom">false</span>;
+      <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">fieldMesh</span>);
+    
+      <span class="cm-variable">positionScoreElement</span>();
+    
+      <span class="cm-keyword">if</span> (<span class="cm-variable">config</span>.<span class="cm-property">trees</span>) {
+        <span class="cm-keyword">const</span> <span class="cm-def">tree1</span> <span class="cm-operator">=</span> <span class="cm-variable">Tree</span>();
+        <span class="cm-variable-2">tree1</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">1.3</span>;
+        <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">tree1</span>);
+    
+        <span class="cm-keyword">const</span> <span class="cm-def">tree2</span> <span class="cm-operator">=</span> <span class="cm-variable">Tree</span>();
+        <span class="cm-variable-2">tree2</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">1.9</span>;
+        <span class="cm-variable-2">tree2</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">1.3</span>;
+        <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">tree2</span>);
+    
+        <span class="cm-keyword">const</span> <span class="cm-def">tree3</span> <span class="cm-operator">=</span> <span class="cm-variable">Tree</span>();
+        <span class="cm-variable-2">tree3</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">0.8</span>;
+        <span class="cm-variable-2">tree3</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">2</span>;
+        <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">tree3</span>);
+    
+        <span class="cm-keyword">const</span> <span class="cm-def">tree4</span> <span class="cm-operator">=</span> <span class="cm-variable">Tree</span>();
+        <span class="cm-variable-2">tree4</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">1.8</span>;
+        <span class="cm-variable-2">tree4</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">2</span>;
+        <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">tree4</span>);
+    
+        <span class="cm-keyword">const</span> <span class="cm-def">tree5</span> <span class="cm-operator">=</span> <span class="cm-variable">Tree</span>();
+        <span class="cm-variable-2">tree5</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">1</span>;
+        <span class="cm-variable-2">tree5</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">2</span>;
+        <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">tree5</span>);
+    
+        <span class="cm-keyword">const</span> <span class="cm-def">tree6</span> <span class="cm-operator">=</span> <span class="cm-variable">Tree</span>();
+        <span class="cm-variable-2">tree6</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">2</span>;
+        <span class="cm-variable-2">tree6</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">1.8</span>;
+        <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">tree6</span>);
+    
+        <span class="cm-keyword">const</span> <span class="cm-def">tree7</span> <span class="cm-operator">=</span> <span class="cm-variable">Tree</span>();
+        <span class="cm-variable-2">tree7</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">0.8</span>;
+        <span class="cm-variable-2">tree7</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">2</span>;
+        <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">tree7</span>);
+    
+        <span class="cm-keyword">const</span> <span class="cm-def">tree8</span> <span class="cm-operator">=</span> <span class="cm-variable">Tree</span>();
+        <span class="cm-variable-2">tree8</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">1.8</span>;
+        <span class="cm-variable-2">tree8</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">2</span>;
+        <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">tree8</span>);
+    
+        <span class="cm-keyword">const</span> <span class="cm-def">tree9</span> <span class="cm-operator">=</span> <span class="cm-variable">Tree</span>();
+        <span class="cm-variable-2">tree9</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">1</span>;
+        <span class="cm-variable-2">tree9</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">2</span>;
+        <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">tree9</span>);
+    
+        <span class="cm-keyword">const</span> <span class="cm-def">tree10</span> <span class="cm-operator">=</span> <span class="cm-variable">Tree</span>();
+        <span class="cm-variable-2">tree10</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">2</span>;
+        <span class="cm-variable-2">tree10</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">1.8</span>;
+        <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">tree10</span>);
+    
+        <span class="cm-keyword">const</span> <span class="cm-def">tree11</span> <span class="cm-operator">=</span> <span class="cm-variable">Tree</span>();
+        <span class="cm-variable-2">tree11</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">0.6</span>;
+        <span class="cm-variable-2">tree11</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">2.3</span>;
+        <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">tree11</span>);
+    
+        <span class="cm-keyword">const</span> <span class="cm-def">tree12</span> <span class="cm-operator">=</span> <span class="cm-variable">Tree</span>();
+        <span class="cm-variable-2">tree12</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">1.5</span>;
+        <span class="cm-variable-2">tree12</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">2.4</span>;
+        <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">tree12</span>);
+    
+        <span class="cm-keyword">const</span> <span class="cm-def">tree13</span> <span class="cm-operator">=</span> <span class="cm-variable">Tree</span>();
+        <span class="cm-variable-2">tree13</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">0.7</span>;
+        <span class="cm-variable-2">tree13</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">2.4</span>;
+        <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">tree13</span>);
+    
+        <span class="cm-keyword">const</span> <span class="cm-def">tree14</span> <span class="cm-operator">=</span> <span class="cm-variable">Tree</span>();
+        <span class="cm-variable-2">tree14</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">1.5</span>;
+        <span class="cm-variable-2">tree14</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-variable">arcCenterX</span> <span class="cm-operator">*</span> <span class="cm-number">1.8</span>;
+        <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">tree14</span>);
+      }
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">getCarFrontTexture</span>() {
+      <span class="cm-keyword">const</span> <span class="cm-def">canvas</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">createElement</span>(<span class="cm-string">"canvas"</span>);
+      <span class="cm-variable-2">canvas</span>.<span class="cm-property">width</span> <span class="cm-operator">=</span> <span class="cm-number">64</span>;
+      <span class="cm-variable-2">canvas</span>.<span class="cm-property">height</span> <span class="cm-operator">=</span> <span class="cm-number">32</span>;
+      <span class="cm-keyword">const</span> <span class="cm-def">context</span> <span class="cm-operator">=</span> <span class="cm-variable-2">canvas</span>.<span class="cm-property">getContext</span>(<span class="cm-string">"2d"</span>);
+    
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillStyle</span> <span class="cm-operator">=</span> <span class="cm-string">"#ffffff"</span>;
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillRect</span>(<span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-number">64</span>, <span class="cm-number">32</span>);
+    
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillStyle</span> <span class="cm-operator">=</span> <span class="cm-string">"#666666"</span>;
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillRect</span>(<span class="cm-number">8</span>, <span class="cm-number">8</span>, <span class="cm-number">48</span>, <span class="cm-number">24</span>);
+    
+      <span class="cm-keyword">return</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">CanvasTexture</span>(<span class="cm-variable-2">canvas</span>);
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">getCarSideTexture</span>() {
+      <span class="cm-keyword">const</span> <span class="cm-def">canvas</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">createElement</span>(<span class="cm-string">"canvas"</span>);
+      <span class="cm-variable-2">canvas</span>.<span class="cm-property">width</span> <span class="cm-operator">=</span> <span class="cm-number">128</span>;
+      <span class="cm-variable-2">canvas</span>.<span class="cm-property">height</span> <span class="cm-operator">=</span> <span class="cm-number">32</span>;
+      <span class="cm-keyword">const</span> <span class="cm-def">context</span> <span class="cm-operator">=</span> <span class="cm-variable-2">canvas</span>.<span class="cm-property">getContext</span>(<span class="cm-string">"2d"</span>);
+    
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillStyle</span> <span class="cm-operator">=</span> <span class="cm-string">"#ffffff"</span>;
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillRect</span>(<span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-number">128</span>, <span class="cm-number">32</span>);
+    
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillStyle</span> <span class="cm-operator">=</span> <span class="cm-string">"#666666"</span>;
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillRect</span>(<span class="cm-number">10</span>, <span class="cm-number">8</span>, <span class="cm-number">38</span>, <span class="cm-number">24</span>);
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillRect</span>(<span class="cm-number">58</span>, <span class="cm-number">8</span>, <span class="cm-number">60</span>, <span class="cm-number">24</span>);
+    
+      <span class="cm-keyword">return</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">CanvasTexture</span>(<span class="cm-variable-2">canvas</span>);
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">Car</span>() {
+      <span class="cm-keyword">const</span> <span class="cm-def">car</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Group</span>();
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">color</span> <span class="cm-operator">=</span> <span class="cm-variable">pickRandom</span>(<span class="cm-variable">vehicleColors</span>);
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">main</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Mesh</span>(
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">BoxBufferGeometry</span>(<span class="cm-number">60</span>, <span class="cm-number">30</span>, <span class="cm-number">15</span>),
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({ <span class="cm-property">color</span> })
+      );
+      <span class="cm-variable-2">main</span>.<span class="cm-property">position</span>.<span class="cm-property">z</span> <span class="cm-operator">=</span> <span class="cm-number">12</span>;
+      <span class="cm-variable-2">main</span>.<span class="cm-property">castShadow</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
+      <span class="cm-variable-2">main</span>.<span class="cm-property">receiveShadow</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
+      <span class="cm-variable-2">car</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">main</span>);
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">carFrontTexture</span> <span class="cm-operator">=</span> <span class="cm-variable">getCarFrontTexture</span>();
+      <span class="cm-variable-2">carFrontTexture</span>.<span class="cm-property">center</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Vector2</span>(<span class="cm-number">0.5</span>, <span class="cm-number">0.5</span>);
+      <span class="cm-variable-2">carFrontTexture</span>.<span class="cm-property">rotation</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>;
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">carBackTexture</span> <span class="cm-operator">=</span> <span class="cm-variable">getCarFrontTexture</span>();
+      <span class="cm-variable-2">carBackTexture</span>.<span class="cm-property">center</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Vector2</span>(<span class="cm-number">0.5</span>, <span class="cm-number">0.5</span>);
+      <span class="cm-variable-2">carBackTexture</span>.<span class="cm-property">rotation</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>;
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">carLeftSideTexture</span> <span class="cm-operator">=</span> <span class="cm-variable">getCarSideTexture</span>();
+      <span class="cm-variable-2">carLeftSideTexture</span>.<span class="cm-property">flipY</span> <span class="cm-operator">=</span> <span class="cm-atom">false</span>;
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">carRightSideTexture</span> <span class="cm-operator">=</span> <span class="cm-variable">getCarSideTexture</span>();
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">cabin</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Mesh</span>(<span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">BoxBufferGeometry</span>(<span class="cm-number">33</span>, <span class="cm-number">24</span>, <span class="cm-number">12</span>), [
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({ <span class="cm-property">map</span>: <span class="cm-variable-2">carFrontTexture</span> }),
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({ <span class="cm-property">map</span>: <span class="cm-variable-2">carBackTexture</span> }),
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({ <span class="cm-property">map</span>: <span class="cm-variable-2">carLeftSideTexture</span> }),
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({ <span class="cm-property">map</span>: <span class="cm-variable-2">carRightSideTexture</span> }),
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({ <span class="cm-property">color</span>: <span class="cm-number">0xffffff</span> }), <span class="cm-comment">// top</span>
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({ <span class="cm-property">color</span>: <span class="cm-number">0xffffff</span> }) <span class="cm-comment">// bottom</span>
+      ]);
+      <span class="cm-variable-2">cabin</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-number">6</span>;
+      <span class="cm-variable-2">cabin</span>.<span class="cm-property">position</span>.<span class="cm-property">z</span> <span class="cm-operator">=</span> <span class="cm-number">25.5</span>;
+      <span class="cm-variable-2">cabin</span>.<span class="cm-property">castShadow</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
+      <span class="cm-variable-2">cabin</span>.<span class="cm-property">receiveShadow</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
+      <span class="cm-variable-2">car</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">cabin</span>);
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">backWheel</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Wheel</span>();
+      <span class="cm-variable-2">backWheel</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-number">18</span>;
+      <span class="cm-variable-2">car</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">backWheel</span>);
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">frontWheel</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Wheel</span>();
+      <span class="cm-variable-2">frontWheel</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-number">18</span>;
+      <span class="cm-variable-2">car</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">frontWheel</span>);
+    
+      <span class="cm-keyword">if</span> (<span class="cm-variable">config</span>.<span class="cm-property">showHitZones</span>) {
+        <span class="cm-variable-2">car</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone1</span> <span class="cm-operator">=</span> <span class="cm-variable">HitZone</span>();
+        <span class="cm-variable-2">car</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone2</span> <span class="cm-operator">=</span> <span class="cm-variable">HitZone</span>();
+      }
+    
+      <span class="cm-keyword">return</span> <span class="cm-variable-2">car</span>;
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">getTruckFrontTexture</span>() {
+      <span class="cm-keyword">const</span> <span class="cm-def">canvas</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">createElement</span>(<span class="cm-string">"canvas"</span>);
+      <span class="cm-variable-2">canvas</span>.<span class="cm-property">width</span> <span class="cm-operator">=</span> <span class="cm-number">32</span>;
+      <span class="cm-variable-2">canvas</span>.<span class="cm-property">height</span> <span class="cm-operator">=</span> <span class="cm-number">32</span>;
+      <span class="cm-keyword">const</span> <span class="cm-def">context</span> <span class="cm-operator">=</span> <span class="cm-variable-2">canvas</span>.<span class="cm-property">getContext</span>(<span class="cm-string">"2d"</span>);
+    
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillStyle</span> <span class="cm-operator">=</span> <span class="cm-string">"#ffffff"</span>;
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillRect</span>(<span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-number">32</span>, <span class="cm-number">32</span>);
+    
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillStyle</span> <span class="cm-operator">=</span> <span class="cm-string">"#666666"</span>;
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillRect</span>(<span class="cm-number">0</span>, <span class="cm-number">5</span>, <span class="cm-number">32</span>, <span class="cm-number">10</span>);
+    
+      <span class="cm-keyword">return</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">CanvasTexture</span>(<span class="cm-variable-2">canvas</span>);
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">getTruckSideTexture</span>() {
+      <span class="cm-keyword">const</span> <span class="cm-def">canvas</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">createElement</span>(<span class="cm-string">"canvas"</span>);
+      <span class="cm-variable-2">canvas</span>.<span class="cm-property">width</span> <span class="cm-operator">=</span> <span class="cm-number">32</span>;
+      <span class="cm-variable-2">canvas</span>.<span class="cm-property">height</span> <span class="cm-operator">=</span> <span class="cm-number">32</span>;
+      <span class="cm-keyword">const</span> <span class="cm-def">context</span> <span class="cm-operator">=</span> <span class="cm-variable-2">canvas</span>.<span class="cm-property">getContext</span>(<span class="cm-string">"2d"</span>);
+    
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillStyle</span> <span class="cm-operator">=</span> <span class="cm-string">"#ffffff"</span>;
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillRect</span>(<span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-number">32</span>, <span class="cm-number">32</span>);
+    
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillStyle</span> <span class="cm-operator">=</span> <span class="cm-string">"#666666"</span>;
+      <span class="cm-variable-2">context</span>.<span class="cm-property">fillRect</span>(<span class="cm-number">17</span>, <span class="cm-number">5</span>, <span class="cm-number">15</span>, <span class="cm-number">10</span>);
+    
+      <span class="cm-keyword">return</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">CanvasTexture</span>(<span class="cm-variable-2">canvas</span>);
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">Truck</span>() {
+      <span class="cm-keyword">const</span> <span class="cm-def">truck</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Group</span>();
+      <span class="cm-keyword">const</span> <span class="cm-def">color</span> <span class="cm-operator">=</span> <span class="cm-variable">pickRandom</span>(<span class="cm-variable">vehicleColors</span>);
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">base</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Mesh</span>(
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">BoxBufferGeometry</span>(<span class="cm-number">100</span>, <span class="cm-number">25</span>, <span class="cm-number">5</span>),
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({ <span class="cm-property">color</span>: <span class="cm-number">0xb4c6fc</span> })
+      );
+      <span class="cm-variable-2">base</span>.<span class="cm-property">position</span>.<span class="cm-property">z</span> <span class="cm-operator">=</span> <span class="cm-number">10</span>;
+      <span class="cm-variable-2">truck</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">base</span>);
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">cargo</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Mesh</span>(
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">BoxBufferGeometry</span>(<span class="cm-number">75</span>, <span class="cm-number">35</span>, <span class="cm-number">40</span>),
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({ <span class="cm-property">color</span>: <span class="cm-number">0xffffff</span> }) <span class="cm-comment">// 0xb4c6fc</span>
+      );
+      <span class="cm-variable-2">cargo</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-number">15</span>;
+      <span class="cm-variable-2">cargo</span>.<span class="cm-property">position</span>.<span class="cm-property">z</span> <span class="cm-operator">=</span> <span class="cm-number">30</span>;
+      <span class="cm-variable-2">cargo</span>.<span class="cm-property">castShadow</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
+      <span class="cm-variable-2">cargo</span>.<span class="cm-property">receiveShadow</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
+      <span class="cm-variable-2">truck</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">cargo</span>);
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">truckFrontTexture</span> <span class="cm-operator">=</span> <span class="cm-variable">getTruckFrontTexture</span>();
+      <span class="cm-variable-2">truckFrontTexture</span>.<span class="cm-property">center</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Vector2</span>(<span class="cm-number">0.5</span>, <span class="cm-number">0.5</span>);
+      <span class="cm-variable-2">truckFrontTexture</span>.<span class="cm-property">rotation</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>;
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">truckLeftTexture</span> <span class="cm-operator">=</span> <span class="cm-variable">getTruckSideTexture</span>();
+      <span class="cm-variable-2">truckLeftTexture</span>.<span class="cm-property">flipY</span> <span class="cm-operator">=</span> <span class="cm-atom">false</span>;
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">truckRightTexture</span> <span class="cm-operator">=</span> <span class="cm-variable">getTruckSideTexture</span>();
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">cabin</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Mesh</span>(<span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">BoxBufferGeometry</span>(<span class="cm-number">25</span>, <span class="cm-number">30</span>, <span class="cm-number">30</span>), [
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({ <span class="cm-property">color</span>, <span class="cm-property">map</span>: <span class="cm-variable-2">truckFrontTexture</span> }),
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({ <span class="cm-property">color</span> }), <span class="cm-comment">// back</span>
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({ <span class="cm-property">color</span>, <span class="cm-property">map</span>: <span class="cm-variable-2">truckLeftTexture</span> }),
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({ <span class="cm-property">color</span>, <span class="cm-property">map</span>: <span class="cm-variable-2">truckRightTexture</span> }),
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({ <span class="cm-property">color</span> }), <span class="cm-comment">// top</span>
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({ <span class="cm-property">color</span> }) <span class="cm-comment">// bottom</span>
+      ]);
+      <span class="cm-variable-2">cabin</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-number">40</span>;
+      <span class="cm-variable-2">cabin</span>.<span class="cm-property">position</span>.<span class="cm-property">z</span> <span class="cm-operator">=</span> <span class="cm-number">20</span>;
+      <span class="cm-variable-2">cabin</span>.<span class="cm-property">castShadow</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
+      <span class="cm-variable-2">cabin</span>.<span class="cm-property">receiveShadow</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
+      <span class="cm-variable-2">truck</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">cabin</span>);
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">backWheel</span> <span class="cm-operator">=</span> <span class="cm-variable">Wheel</span>();
+      <span class="cm-variable-2">backWheel</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-number">30</span>;
+      <span class="cm-variable-2">truck</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">backWheel</span>);
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">middleWheel</span> <span class="cm-operator">=</span> <span class="cm-variable">Wheel</span>();
+      <span class="cm-variable-2">middleWheel</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-number">10</span>;
+      <span class="cm-variable-2">truck</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">middleWheel</span>);
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">frontWheel</span> <span class="cm-operator">=</span> <span class="cm-variable">Wheel</span>();
+      <span class="cm-variable-2">frontWheel</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-number">38</span>;
+      <span class="cm-variable-2">truck</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">frontWheel</span>);
+    
+      <span class="cm-keyword">if</span> (<span class="cm-variable">config</span>.<span class="cm-property">showHitZones</span>) {
+        <span class="cm-variable-2">truck</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone1</span> <span class="cm-operator">=</span> <span class="cm-variable">HitZone</span>();
+        <span class="cm-variable-2">truck</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone2</span> <span class="cm-operator">=</span> <span class="cm-variable">HitZone</span>();
+        <span class="cm-variable-2">truck</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone3</span> <span class="cm-operator">=</span> <span class="cm-variable">HitZone</span>();
+      }
+    
+      <span class="cm-keyword">return</span> <span class="cm-variable-2">truck</span>;
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">HitZone</span>() {
+      <span class="cm-keyword">const</span> <span class="cm-def">hitZone</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Mesh</span>(
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">CylinderGeometry</span>(<span class="cm-number">20</span>, <span class="cm-number">20</span>, <span class="cm-number">60</span>, <span class="cm-number">30</span>),
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">MeshLambertMaterial</span>({ <span class="cm-property">color</span>: <span class="cm-number">0xff0000</span> })
+      );
+      <span class="cm-variable-2">hitZone</span>.<span class="cm-property">position</span>.<span class="cm-property">z</span> <span class="cm-operator">=</span> <span class="cm-number">25</span>;
+      <span class="cm-variable-2">hitZone</span>.<span class="cm-property">rotation</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>;
+    
+      <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">hitZone</span>);
+      <span class="cm-keyword">return</span> <span class="cm-variable-2">hitZone</span>;
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">Wheel</span>() {
+      <span class="cm-keyword">const</span> <span class="cm-def">wheel</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Mesh</span>(<span class="cm-variable">wheelGeometry</span>, <span class="cm-variable">wheelMaterial</span>);
+      <span class="cm-variable-2">wheel</span>.<span class="cm-property">position</span>.<span class="cm-property">z</span> <span class="cm-operator">=</span> <span class="cm-number">6</span>;
+      <span class="cm-variable-2">wheel</span>.<span class="cm-property">castShadow</span> <span class="cm-operator">=</span> <span class="cm-atom">false</span>;
+      <span class="cm-variable-2">wheel</span>.<span class="cm-property">receiveShadow</span> <span class="cm-operator">=</span> <span class="cm-atom">false</span>;
+      <span class="cm-keyword">return</span> <span class="cm-variable-2">wheel</span>;
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">Tree</span>() {
+      <span class="cm-keyword">const</span> <span class="cm-def">tree</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Group</span>();
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">trunk</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Mesh</span>(<span class="cm-variable">treeTrunkGeometry</span>, <span class="cm-variable">treeTrunkMaterial</span>);
+      <span class="cm-variable-2">trunk</span>.<span class="cm-property">position</span>.<span class="cm-property">z</span> <span class="cm-operator">=</span> <span class="cm-number">10</span>;
+      <span class="cm-variable-2">trunk</span>.<span class="cm-property">castShadow</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
+      <span class="cm-variable-2">trunk</span>.<span class="cm-property">receiveShadow</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
+      <span class="cm-variable-2">trunk</span>.<span class="cm-property">matrixAutoUpdate</span> <span class="cm-operator">=</span> <span class="cm-atom">false</span>;
+      <span class="cm-variable-2">tree</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">trunk</span>);
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">treeHeights</span> <span class="cm-operator">=</span> [<span class="cm-number">45</span>, <span class="cm-number">60</span>, <span class="cm-number">75</span>];
+      <span class="cm-keyword">const</span> <span class="cm-def">height</span> <span class="cm-operator">=</span> <span class="cm-variable">pickRandom</span>(<span class="cm-variable-2">treeHeights</span>);
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">crown</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">Mesh</span>(
+        <span class="cm-keyword">new</span> <span class="cm-variable">THREE</span>.<span class="cm-property">SphereGeometry</span>(<span class="cm-variable-2">height</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>, <span class="cm-number">30</span>, <span class="cm-number">30</span>),
+        <span class="cm-variable">treeCrownMaterial</span>
+      );
+      <span class="cm-variable-2">crown</span>.<span class="cm-property">position</span>.<span class="cm-property">z</span> <span class="cm-operator">=</span> <span class="cm-variable-2">height</span> <span class="cm-operator">/</span> <span class="cm-number">2</span> <span class="cm-operator">+</span> <span class="cm-number">30</span>;
+      <span class="cm-variable-2">crown</span>.<span class="cm-property">castShadow</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
+      <span class="cm-variable-2">crown</span>.<span class="cm-property">receiveShadow</span> <span class="cm-operator">=</span> <span class="cm-atom">false</span>;
+      <span class="cm-variable-2">tree</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">crown</span>);
+    
+      <span class="cm-keyword">return</span> <span class="cm-variable-2">tree</span>;
+    }
+    
+    <span class="cm-variable">accelerateButton</span>.<span class="cm-property">addEventListener</span>(<span class="cm-string">"mousedown"</span>, <span class="cm-keyword">function</span> () {
+      <span class="cm-variable">startGame</span>();
+      <span class="cm-variable">accelerate</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
+    });
+    <span class="cm-variable">decelerateButton</span>.<span class="cm-property">addEventListener</span>(<span class="cm-string">"mousedown"</span>, <span class="cm-keyword">function</span> () {
+      <span class="cm-variable">startGame</span>();
+      <span class="cm-variable">decelerate</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
+    });
+    <span class="cm-variable">accelerateButton</span>.<span class="cm-property">addEventListener</span>(<span class="cm-string">"mouseup"</span>, <span class="cm-keyword">function</span> () {
+      <span class="cm-variable">accelerate</span> <span class="cm-operator">=</span> <span class="cm-atom">false</span>;
+    });
+    <span class="cm-variable">decelerateButton</span>.<span class="cm-property">addEventListener</span>(<span class="cm-string">"mouseup"</span>, <span class="cm-keyword">function</span> () {
+      <span class="cm-variable">decelerate</span> <span class="cm-operator">=</span> <span class="cm-atom">false</span>;
+    });
+    <span class="cm-variable">window</span>.<span class="cm-property">addEventListener</span>(<span class="cm-string">"keydown"</span>, <span class="cm-keyword">function</span> (<span class="cm-def">event</span>) {
+      <span class="cm-keyword">if</span> (<span class="cm-variable-2">event</span>.<span class="cm-property">key</span> <span class="cm-operator">==</span> <span class="cm-string">"ArrowUp"</span>) {
+        <span class="cm-variable">startGame</span>();
+        <span class="cm-variable">accelerate</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
+        <span class="cm-keyword">return</span>;
+      }
+      <span class="cm-keyword">if</span> (<span class="cm-variable-2">event</span>.<span class="cm-property">key</span> <span class="cm-operator">==</span> <span class="cm-string">"ArrowDown"</span>) {
+        <span class="cm-variable">decelerate</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
+        <span class="cm-keyword">return</span>;
+      }
+      <span class="cm-keyword">if</span> (<span class="cm-variable-2">event</span>.<span class="cm-property">key</span> <span class="cm-operator">==</span> <span class="cm-string">"R"</span> <span class="cm-operator">||</span> <span class="cm-variable-2">event</span>.<span class="cm-property">key</span> <span class="cm-operator">==</span> <span class="cm-string">"r"</span>) {
+        <span class="cm-variable">reset</span>();
+        <span class="cm-keyword">return</span>;
+      }
+    });
+    <span class="cm-variable">window</span>.<span class="cm-property">addEventListener</span>(<span class="cm-string">"keyup"</span>, <span class="cm-keyword">function</span> (<span class="cm-def">event</span>) {
+      <span class="cm-keyword">if</span> (<span class="cm-variable-2">event</span>.<span class="cm-property">key</span> <span class="cm-operator">==</span> <span class="cm-string">"ArrowUp"</span>) {
+        <span class="cm-variable">accelerate</span> <span class="cm-operator">=</span> <span class="cm-atom">false</span>;
+        <span class="cm-keyword">return</span>;
+      }
+      <span class="cm-keyword">if</span> (<span class="cm-variable-2">event</span>.<span class="cm-property">key</span> <span class="cm-operator">==</span> <span class="cm-string">"ArrowDown"</span>) {
+        <span class="cm-variable">decelerate</span> <span class="cm-operator">=</span> <span class="cm-atom">false</span>;
+        <span class="cm-keyword">return</span>;
+      }
+    });
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">animation</span>(<span class="cm-def">timestamp</span>) {
+      <span class="cm-keyword">if</span> (<span class="cm-operator">!</span><span class="cm-variable">lastTimestamp</span>) {
+        <span class="cm-variable">lastTimestamp</span> <span class="cm-operator">=</span> <span class="cm-variable-2">timestamp</span>;
+        <span class="cm-keyword">return</span>;
+      }
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">timeDelta</span> <span class="cm-operator">=</span> <span class="cm-variable-2">timestamp</span> <span class="cm-operator">-</span> <span class="cm-variable">lastTimestamp</span>;
+    
+      <span class="cm-variable">movePlayerCar</span>(<span class="cm-variable-2">timeDelta</span>);
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">laps</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">floor</span>(<span class="cm-variable">Math</span>.<span class="cm-property">abs</span>(<span class="cm-variable">playerAngleMoved</span>) <span class="cm-operator">/</span> (<span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">*</span> <span class="cm-number">2</span>));
+    
+      <span class="cm-comment">// Update score if it changed</span>
+      <span class="cm-keyword">if</span> (<span class="cm-variable-2">laps</span> <span class="cm-operator">!=</span> <span class="cm-variable">score</span>) {
+        <span class="cm-variable">score</span> <span class="cm-operator">=</span> <span class="cm-variable-2">laps</span>;
+        <span class="cm-variable">scoreElement</span>.<span class="cm-property">innerText</span> <span class="cm-operator">=</span> <span class="cm-variable">score</span>;
+      }
+    
+      <span class="cm-comment">// Add a new vehicle at the beginning and with every 5th lap</span>
+      <span class="cm-keyword">if</span> (<span class="cm-variable">otherVehicles</span>.<span class="cm-property">length</span> <span class="cm-operator">&lt;</span> (<span class="cm-variable-2">laps</span> <span class="cm-operator">+</span> <span class="cm-number">1</span>) <span class="cm-operator">/</span> <span class="cm-number">5</span>) <span class="cm-variable">addVehicle</span>();
+    
+      <span class="cm-variable">moveOtherVehicles</span>(<span class="cm-variable-2">timeDelta</span>);
+    
+      <span class="cm-variable">hitDetection</span>();
+    
+      <span class="cm-variable">renderer</span>.<span class="cm-property">render</span>(<span class="cm-variable">scene</span>, <span class="cm-variable">camera</span>);
+      <span class="cm-variable">lastTimestamp</span> <span class="cm-operator">=</span> <span class="cm-variable-2">timestamp</span>;
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">movePlayerCar</span>(<span class="cm-def">timeDelta</span>) {
+      <span class="cm-keyword">const</span> <span class="cm-def">playerSpeed</span> <span class="cm-operator">=</span> <span class="cm-variable">getPlayerSpeed</span>();
+      <span class="cm-variable">playerAngleMoved</span> <span class="cm-operator">-=</span> <span class="cm-variable-2">playerSpeed</span> <span class="cm-operator">*</span> <span class="cm-variable-2">timeDelta</span>;
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">totalPlayerAngle</span> <span class="cm-operator">=</span> <span class="cm-variable">playerAngleInitial</span> <span class="cm-operator">+</span> <span class="cm-variable">playerAngleMoved</span>;
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">playerX</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">cos</span>(<span class="cm-variable-2">totalPlayerAngle</span>) <span class="cm-operator">*</span> <span class="cm-variable">trackRadius</span> <span class="cm-operator">-</span> <span class="cm-variable">arcCenterX</span>;
+      <span class="cm-keyword">const</span> <span class="cm-def">playerY</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">sin</span>(<span class="cm-variable-2">totalPlayerAngle</span>) <span class="cm-operator">*</span> <span class="cm-variable">trackRadius</span>;
+    
+      <span class="cm-variable">playerCar</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-variable-2">playerX</span>;
+      <span class="cm-variable">playerCar</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-variable-2">playerY</span>;
+    
+      <span class="cm-variable">playerCar</span>.<span class="cm-property">rotation</span>.<span class="cm-property">z</span> <span class="cm-operator">=</span> <span class="cm-variable-2">totalPlayerAngle</span> <span class="cm-operator">-</span> <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>;
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">moveOtherVehicles</span>(<span class="cm-def">timeDelta</span>) {
+      <span class="cm-variable">otherVehicles</span>.<span class="cm-property">forEach</span>((<span class="cm-def">vehicle</span>) <span class="cm-operator">=&gt;</span> {
+        <span class="cm-keyword">if</span> (<span class="cm-variable-2">vehicle</span>.<span class="cm-property">clockwise</span>) {
+          <span class="cm-variable-2">vehicle</span>.<span class="cm-property">angle</span> <span class="cm-operator">-=</span> <span class="cm-variable">speed</span> <span class="cm-operator">*</span> <span class="cm-variable-2">timeDelta</span> <span class="cm-operator">*</span> <span class="cm-variable-2">vehicle</span>.<span class="cm-property">speed</span>;
+        } <span class="cm-keyword">else</span> {
+          <span class="cm-variable-2">vehicle</span>.<span class="cm-property">angle</span> <span class="cm-operator">+=</span> <span class="cm-variable">speed</span> <span class="cm-operator">*</span> <span class="cm-variable-2">timeDelta</span> <span class="cm-operator">*</span> <span class="cm-variable-2">vehicle</span>.<span class="cm-property">speed</span>;
+        }
+    
+        <span class="cm-keyword">const</span> <span class="cm-def">vehicleX</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">cos</span>(<span class="cm-variable-2">vehicle</span>.<span class="cm-property">angle</span>) <span class="cm-operator">*</span> <span class="cm-variable">trackRadius</span> <span class="cm-operator">+</span> <span class="cm-variable">arcCenterX</span>;
+        <span class="cm-keyword">const</span> <span class="cm-def">vehicleY</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">sin</span>(<span class="cm-variable-2">vehicle</span>.<span class="cm-property">angle</span>) <span class="cm-operator">*</span> <span class="cm-variable">trackRadius</span>;
+        <span class="cm-keyword">const</span> <span class="cm-def">rotation</span> <span class="cm-operator">=</span>
+          <span class="cm-variable-2">vehicle</span>.<span class="cm-property">angle</span> <span class="cm-operator">+</span> (<span class="cm-variable-2">vehicle</span>.<span class="cm-property">clockwise</span> <span class="cm-operator">?</span> <span class="cm-operator">-</span><span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">/</span> <span class="cm-number">2</span> : <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>);
+        <span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-variable-2">vehicleX</span>;
+        <span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-variable-2">vehicleY</span>;
+        <span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">rotation</span>.<span class="cm-property">z</span> <span class="cm-operator">=</span> <span class="cm-variable-2">rotation</span>;
+      });
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">getPlayerSpeed</span>() {
+      <span class="cm-keyword">if</span> (<span class="cm-variable">accelerate</span>) <span class="cm-keyword">return</span> <span class="cm-variable">speed</span> <span class="cm-operator">*</span> <span class="cm-number">2</span>;
+      <span class="cm-keyword">if</span> (<span class="cm-variable">decelerate</span>) <span class="cm-keyword">return</span> <span class="cm-variable">speed</span> <span class="cm-operator">*</span> <span class="cm-number">0.5</span>;
+      <span class="cm-keyword">return</span> <span class="cm-variable">speed</span>;
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">addVehicle</span>() {
+      <span class="cm-keyword">const</span> <span class="cm-def">vehicleTypes</span> <span class="cm-operator">=</span> [<span class="cm-string">"car"</span>, <span class="cm-string">"truck"</span>];
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">type</span> <span class="cm-operator">=</span> <span class="cm-variable">pickRandom</span>(<span class="cm-variable-2">vehicleTypes</span>);
+      <span class="cm-keyword">const</span> <span class="cm-def">speed</span> <span class="cm-operator">=</span> <span class="cm-variable">getVehicleSpeed</span>(<span class="cm-variable-2">type</span>);
+      <span class="cm-keyword">const</span> <span class="cm-def">clockwise</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">random</span>() <span class="cm-operator">&gt;=</span> <span class="cm-number">0.5</span>;
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">angle</span> <span class="cm-operator">=</span> <span class="cm-variable-2">clockwise</span> <span class="cm-operator">?</span> <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">/</span> <span class="cm-number">2</span> : <span class="cm-operator">-</span><span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>;
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">mesh</span> <span class="cm-operator">=</span> <span class="cm-variable-2">type</span> <span class="cm-operator">==</span> <span class="cm-string">"car"</span> <span class="cm-operator">?</span> <span class="cm-variable">Car</span>() : <span class="cm-variable">Truck</span>();
+      <span class="cm-variable">scene</span>.<span class="cm-property">add</span>(<span class="cm-variable-2">mesh</span>);
+    
+      <span class="cm-variable">otherVehicles</span>.<span class="cm-property">push</span>({ <span class="cm-property">mesh</span>, <span class="cm-property">type</span>, <span class="cm-property">speed</span>, <span class="cm-property">clockwise</span>, <span class="cm-property">angle</span> });
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">getVehicleSpeed</span>(<span class="cm-def">type</span>) {
+      <span class="cm-keyword">if</span> (<span class="cm-variable-2">type</span> <span class="cm-operator">==</span> <span class="cm-string">"car"</span>) {
+        <span class="cm-keyword">const</span> <span class="cm-def">minimumSpeed</span> <span class="cm-operator">=</span> <span class="cm-number">1</span>;
+        <span class="cm-keyword">const</span> <span class="cm-def">maximumSpeed</span> <span class="cm-operator">=</span> <span class="cm-number">2</span>;
+        <span class="cm-keyword">return</span> <span class="cm-variable-2">minimumSpeed</span> <span class="cm-operator">+</span> <span class="cm-variable">Math</span>.<span class="cm-property">random</span>() <span class="cm-operator">*</span> (<span class="cm-variable-2">maximumSpeed</span> <span class="cm-operator">-</span> <span class="cm-variable-2">minimumSpeed</span>);
+      }
+      <span class="cm-keyword">if</span> (<span class="cm-variable-2">type</span> <span class="cm-operator">==</span> <span class="cm-string">"truck"</span>) {
+        <span class="cm-keyword">const</span> <span class="cm-def">minimumSpeed</span> <span class="cm-operator">=</span> <span class="cm-number">0.6</span>;
+        <span class="cm-keyword">const</span> <span class="cm-def">maximumSpeed</span> <span class="cm-operator">=</span> <span class="cm-number">1.5</span>;
+        <span class="cm-keyword">return</span> <span class="cm-variable-2">minimumSpeed</span> <span class="cm-operator">+</span> <span class="cm-variable">Math</span>.<span class="cm-property">random</span>() <span class="cm-operator">*</span> (<span class="cm-variable-2">maximumSpeed</span> <span class="cm-operator">-</span> <span class="cm-variable-2">minimumSpeed</span>);
+      }
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">getHitZonePosition</span>(<span class="cm-def">center</span>, <span class="cm-def">angle</span>, <span class="cm-def">clockwise</span>, <span class="cm-def">distance</span>) {
+      <span class="cm-keyword">const</span> <span class="cm-def">directionAngle</span> <span class="cm-operator">=</span> <span class="cm-variable-2">angle</span> <span class="cm-operator">+</span> <span class="cm-variable-2">clockwise</span> <span class="cm-operator">?</span> <span class="cm-operator">-</span><span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">/</span> <span class="cm-number">2</span> : <span class="cm-operator">+</span><span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>;
+      <span class="cm-keyword">return</span> {
+        <span class="cm-property">x</span>: <span class="cm-variable-2">center</span>.<span class="cm-property">x</span> <span class="cm-operator">+</span> <span class="cm-variable">Math</span>.<span class="cm-property">cos</span>(<span class="cm-variable-2">directionAngle</span>) <span class="cm-operator">*</span> <span class="cm-variable-2">distance</span>,
+        <span class="cm-property">y</span>: <span class="cm-variable-2">center</span>.<span class="cm-property">y</span> <span class="cm-operator">+</span> <span class="cm-variable">Math</span>.<span class="cm-property">sin</span>(<span class="cm-variable-2">directionAngle</span>) <span class="cm-operator">*</span> <span class="cm-variable-2">distance</span>
+      };
+    }
+    
+    <span class="cm-keyword">function</span> <span class="cm-def">hitDetection</span>() {
+      <span class="cm-keyword">const</span> <span class="cm-def">playerHitZone1</span> <span class="cm-operator">=</span> <span class="cm-variable">getHitZonePosition</span>(
+        <span class="cm-variable">playerCar</span>.<span class="cm-property">position</span>,
+        <span class="cm-variable">playerAngleInitial</span> <span class="cm-operator">+</span> <span class="cm-variable">playerAngleMoved</span>,
+        <span class="cm-atom">true</span>,
+        <span class="cm-number">15</span>
+      );
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">playerHitZone2</span> <span class="cm-operator">=</span> <span class="cm-variable">getHitZonePosition</span>(
+        <span class="cm-variable">playerCar</span>.<span class="cm-property">position</span>,
+        <span class="cm-variable">playerAngleInitial</span> <span class="cm-operator">+</span> <span class="cm-variable">playerAngleMoved</span>,
+        <span class="cm-atom">true</span>,
+        <span class="cm-operator">-</span><span class="cm-number">15</span>
+      );
+    
+      <span class="cm-keyword">if</span> (<span class="cm-variable">config</span>.<span class="cm-property">showHitZones</span>) {
+        <span class="cm-variable">playerCar</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone1</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-variable-2">playerHitZone1</span>.<span class="cm-property">x</span>;
+        <span class="cm-variable">playerCar</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone1</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-variable-2">playerHitZone1</span>.<span class="cm-property">y</span>;
+    
+        <span class="cm-variable">playerCar</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone2</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-variable-2">playerHitZone2</span>.<span class="cm-property">x</span>;
+        <span class="cm-variable">playerCar</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone2</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-variable-2">playerHitZone2</span>.<span class="cm-property">y</span>;
+      }
+    
+      <span class="cm-keyword">const</span> <span class="cm-def">hit</span> <span class="cm-operator">=</span> <span class="cm-variable">otherVehicles</span>.<span class="cm-property">some</span>((<span class="cm-def">vehicle</span>) <span class="cm-operator">=&gt;</span> {
+        <span class="cm-keyword">if</span> (<span class="cm-variable-2">vehicle</span>.<span class="cm-property">type</span> <span class="cm-operator">==</span> <span class="cm-string">"car"</span>) {
+          <span class="cm-keyword">const</span> <span class="cm-def">vehicleHitZone1</span> <span class="cm-operator">=</span> <span class="cm-variable">getHitZonePosition</span>(
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">position</span>,
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">angle</span>,
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">clockwise</span>,
+            <span class="cm-number">15</span>
+          );
+    
+          <span class="cm-keyword">const</span> <span class="cm-def">vehicleHitZone2</span> <span class="cm-operator">=</span> <span class="cm-variable">getHitZonePosition</span>(
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">position</span>,
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">angle</span>,
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">clockwise</span>,
+            <span class="cm-operator">-</span><span class="cm-number">15</span>
+          );
+    
+          <span class="cm-keyword">if</span> (<span class="cm-variable">config</span>.<span class="cm-property">showHitZones</span>) {
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone1</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-variable-2">vehicleHitZone1</span>.<span class="cm-property">x</span>;
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone1</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-variable-2">vehicleHitZone1</span>.<span class="cm-property">y</span>;
+    
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone2</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-variable-2">vehicleHitZone2</span>.<span class="cm-property">x</span>;
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone2</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-variable-2">vehicleHitZone2</span>.<span class="cm-property">y</span>;
+          }
+    
+          <span class="cm-comment">// The player hits another vehicle</span>
+          <span class="cm-keyword">if</span> (<span class="cm-variable">getDistance</span>(<span class="cm-variable-2">playerHitZone1</span>, <span class="cm-variable-2">vehicleHitZone1</span>) <span class="cm-operator">&lt;</span> <span class="cm-number">40</span>) <span class="cm-keyword">return</span> <span class="cm-atom">true</span>;
+          <span class="cm-keyword">if</span> (<span class="cm-variable">getDistance</span>(<span class="cm-variable-2">playerHitZone1</span>, <span class="cm-variable-2">vehicleHitZone2</span>) <span class="cm-operator">&lt;</span> <span class="cm-number">40</span>) <span class="cm-keyword">return</span> <span class="cm-atom">true</span>;
+    
+          <span class="cm-comment">// Another vehicle hits the player</span>
+          <span class="cm-keyword">if</span> (<span class="cm-variable">getDistance</span>(<span class="cm-variable-2">playerHitZone2</span>, <span class="cm-variable-2">vehicleHitZone1</span>) <span class="cm-operator">&lt;</span> <span class="cm-number">40</span>) <span class="cm-keyword">return</span> <span class="cm-atom">true</span>;
+        }
+    
+        <span class="cm-keyword">if</span> (<span class="cm-variable-2">vehicle</span>.<span class="cm-property">type</span> <span class="cm-operator">==</span> <span class="cm-string">"truck"</span>) {
+          <span class="cm-keyword">const</span> <span class="cm-def">vehicleHitZone1</span> <span class="cm-operator">=</span> <span class="cm-variable">getHitZonePosition</span>(
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">position</span>,
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">angle</span>,
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">clockwise</span>,
+            <span class="cm-number">35</span>
+          );
+    
+          <span class="cm-keyword">const</span> <span class="cm-def">vehicleHitZone2</span> <span class="cm-operator">=</span> <span class="cm-variable">getHitZonePosition</span>(
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">position</span>,
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">angle</span>,
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">clockwise</span>,
+            <span class="cm-number">0</span>
+          );
+    
+          <span class="cm-keyword">const</span> <span class="cm-def">vehicleHitZone3</span> <span class="cm-operator">=</span> <span class="cm-variable">getHitZonePosition</span>(
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">position</span>,
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">angle</span>,
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">clockwise</span>,
+            <span class="cm-operator">-</span><span class="cm-number">35</span>
+          );
+    
+          <span class="cm-keyword">if</span> (<span class="cm-variable">config</span>.<span class="cm-property">showHitZones</span>) {
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone1</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-variable-2">vehicleHitZone1</span>.<span class="cm-property">x</span>;
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone1</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-variable-2">vehicleHitZone1</span>.<span class="cm-property">y</span>;
+    
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone2</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-variable-2">vehicleHitZone2</span>.<span class="cm-property">x</span>;
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone2</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-variable-2">vehicleHitZone2</span>.<span class="cm-property">y</span>;
+    
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone3</span>.<span class="cm-property">position</span>.<span class="cm-property">x</span> <span class="cm-operator">=</span> <span class="cm-variable-2">vehicleHitZone3</span>.<span class="cm-property">x</span>;
+            <span class="cm-variable-2">vehicle</span>.<span class="cm-property">mesh</span>.<span class="cm-property">userData</span>.<span class="cm-property">hitZone3</span>.<span class="cm-property">position</span>.<span class="cm-property">y</span> <span class="cm-operator">=</span> <span class="cm-variable-2">vehicleHitZone3</span>.<span class="cm-property">y</span>;
+          }
+    
+          <span class="cm-comment">// The player hits another vehicle</span>
+          <span class="cm-keyword">if</span> (<span class="cm-variable">getDistance</span>(<span class="cm-variable-2">playerHitZone1</span>, <span class="cm-variable-2">vehicleHitZone1</span>) <span class="cm-operator">&lt;</span> <span class="cm-number">40</span>) <span class="cm-keyword">return</span> <span class="cm-atom">true</span>;
+          <span class="cm-keyword">if</span> (<span class="cm-variable">getDistance</span>(<span class="cm-variable-2">playerHitZone1</span>, <span class="cm-variable-2">vehicleHitZone2</span>) <span class="cm-operator">&lt;</span> <span class="cm-number">40</span>) <span class="cm-keyword">return</span> <span class="cm-atom">true</span>;
+          <span class="cm-keyword">if</span> (<span class="cm-variable">getDistance</span>(<span class="cm-variable-2">playerHitZone1</span>, <span class="cm-variable-2">vehicleHitZone3</span>) <span class="cm-operator">&lt;</span> <span class="cm-number">40</span>) <span class="cm-keyword">return</span> <span class="cm-atom">true</span>;
+    
+          <span class="cm-comment">// Another vehicle hits the player</span>
+          <span class="cm-keyword">if</span> (<span class="cm-variable">getDistance</span>(<span class="cm-variable-2">playerHitZone2</span>, <span class="cm-variable-2">vehicleHitZone1</span>) <span class="cm-operator">&lt;</span> <span class="cm-number">40</span>) <span class="cm-keyword">return</span> <span class="cm-atom">true</span>;
+        }
+      });
+    
+      <span class="cm-keyword">if</span> (<span class="cm-variable-2">hit</span>) {
+        <span class="cm-keyword">if</span> (<span class="cm-variable">resultsElement</span>) <span class="cm-variable">resultsElement</span>.<span class="cm-property">style</span>.<span class="cm-property">display</span> <span class="cm-operator">=</span> <span class="cm-string">"flex"</span>;
+        <span class="cm-variable">renderer</span>.<span class="cm-property">setAnimationLoop</span>(<span class="cm-atom">null</span>); <span class="cm-comment">// Stop animation loop</span>
+      }
+    }
+    
+    <span class="cm-variable">window</span>.<span class="cm-property">addEventListener</span>(<span class="cm-string">"resize"</span>, () <span class="cm-operator">=&gt;</span> {
+      <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">"resize"</span>, <span class="cm-variable">window</span>.<span class="cm-property">innerWidth</span>, <span class="cm-variable">window</span>.<span class="cm-property">innerHeight</span>);
+    
+      <span class="cm-comment">// Adjust camera</span>
+      <span class="cm-keyword">const</span> <span class="cm-def">newAspectRatio</span> <span class="cm-operator">=</span> <span class="cm-variable">window</span>.<span class="cm-property">innerWidth</span> <span class="cm-operator">/</span> <span class="cm-variable">window</span>.<span class="cm-property">innerHeight</span>;
+      <span class="cm-keyword">const</span> <span class="cm-def">adjustedCameraHeight</span> <span class="cm-operator">=</span> <span class="cm-variable">cameraWidth</span> <span class="cm-operator">/</span> <span class="cm-variable-2">newAspectRatio</span>;
+    
+      <span class="cm-variable">camera</span>.<span class="cm-property">top</span> <span class="cm-operator">=</span> <span class="cm-variable-2">adjustedCameraHeight</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>;
+      <span class="cm-variable">camera</span>.<span class="cm-property">bottom</span> <span class="cm-operator">=</span> <span class="cm-variable-2">adjustedCameraHeight</span> <span class="cm-operator">/</span> <span class="cm-operator">-</span><span class="cm-number">2</span>;
+      <span class="cm-variable">camera</span>.<span class="cm-property">updateProjectionMatrix</span>(); <span class="cm-comment">// Must be called after change</span>
+    
+      <span class="cm-variable">positionScoreElement</span>();
+    
+      <span class="cm-comment">// Reset renderer</span>
+      <span class="cm-variable">renderer</span>.<span class="cm-property">setSize</span>(<span class="cm-variable">window</span>.<span class="cm-property">innerWidth</span>, <span class="cm-variable">window</span>.<span class="cm-property">innerHeight</span>);
+      <span class="cm-variable">renderer</span>.<span class="cm-property">render</span>(<span class="cm-variable">scene</span>, <span class="cm-variable">camera</span>);
+    });
+    </code></pre>
+    </div>
+    <div id="result-box" class="code-box active zoom-1" role="region" aria-label="Result">
+    <iframe allow="accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write" allowfullscreen="true" allowpaymentrequest="true" allowtransparency="true" class="result-iframe  " frameborder="0" id="result-iframe" loading="lazy" name="CodePen Preview for Traffic Run Game with Three.js" sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-downloads allow-presentation" scrolling="yes" title="CodePen Preview for Traffic Run Game with Three.js" data-src="https://cdpn.io/HunorMarton/fullembedgrid/ExNzWqm?animations=run&amp;type=embed" src="https://cdpn.io/HunorMarton/fullembedgrid/ExNzWqm?animations=run&amp;type=embed">
+      </iframe>
+    </div>
+    <div id="about-box">
+    <div class="about-container">
+    <div class="about-user">
+    <a href="https://codepen.io/HunorMarton" target="_blank" rel="noopener"><img src="https://assets.codepen.io/918406/internal/avatars/users/default.png?fit=crop&amp;format=auto&amp;height=256&amp;version=1608500738&amp;width=256" loading="lazy" alt="" class="about-image"></a>
+    <div class="about-user-info">
+    <p>
+    This Pen is owned by <a href="https://codepen.io/HunorMarton" target="_blank" rel="noopener">Hunor Marton Borbely</a> on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.
+    </p>
+    <p>
+    <a href="/HunorMarton" target="_blank" rel="noopener" class="about-user-more">
+    See more by @HunorMarton on CodePen
+    </a>
+    </p>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div id="resources-box" class="resources-box">
+    <h3>External CSS</h3>
+    <p>
+    This Pen doesn't use any external CSS resources.
+    </p>
+    <h3>External JavaScript</h3>
+    <ol class="list-of-resources">
+    <li>
+    <a href="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js" target="_blank">https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js</a>
+    </li>
+    </ol>
+    </div>
+    </div>
+    
+    <script nonce="">
+        __processedPen = {"html":"&lt;div id=&quot;score&quot;&gt;Press UP&lt;/div&gt;\n\n&lt;div id=&quot;controls&quot;&gt;\n  &lt;div id=&quot;buttons&quot;&gt;\n    &lt;button id=&quot;accelerate&quot;&gt;\n      &lt;svg width=&quot;30&quot; height=&quot;30&quot; viewBox=&quot;0 0 10 10&quot;&gt;\n        &lt;g transform=&quot;rotate(0, 5,5)&quot;&gt;\n          &lt;path d=&quot;M5,4 L7,6 L3,6 L5,4&quot; /&gt;\n        &lt;/g&gt;\n      &lt;/svg&gt;\n    &lt;/button&gt;\n    &lt;button id=&quot;decelerate&quot;&gt;\n      &lt;svg width=&quot;30&quot; height=&quot;30&quot; viewBox=&quot;0 0 10 10&quot;&gt;\n        &lt;g transform=&quot;rotate(180, 5,5)&quot;&gt;\n          &lt;path d=&quot;M5,4 L7,6 L3,6 L5,4&quot; /&gt;\n        &lt;/g&gt;\n      &lt;/svg&gt;\n    &lt;/button&gt;\n  &lt;/div&gt;\n  &lt;div id=&quot;instructions&quot;&gt;\n    Press UP to start. Avoid collision with other vehicles by accelerating\n    or decelerating with the UP and DOWN keys.\n  &lt;/div&gt;\n&lt;/div&gt;\n\n&lt;div id=&quot;results&quot;&gt;\n  &lt;div class=&quot;content&quot;&gt;\n    &lt;h1&gt;You hit another vehicle&lt;/h1&gt;\n    &lt;p&gt;To reset the game press R&lt;/p&gt;\n\n    &lt;a id=&quot;result-youtube&quot; target=&quot;_blank&quot; href=&quot;https://youtu.be/JhgBwJn1bQw&quot;&gt;\n      &lt;div class=&quot;youtube&quot;&gt;&lt;/div&gt;\n      &lt;span&gt;Learn how to build this game with Three.js on YouTube&lt;/span&gt;\n    &lt;/a&gt;\n\n    &lt;p&gt;\n      Follow me\n      &lt;a href=&quot;https://twitter.com/HunorBorbely&quot; , target=&quot;_blank&quot;&gt;@HunorBorbely&lt;/a&gt;\n    &lt;/p&gt;\n  &lt;/div&gt;\n&lt;/div&gt;\n\n&lt;a id=&quot;youtube-main&quot; class=&quot;youtube&quot; target=&quot;_blank&quot; href=&quot;https://youtu.be/JhgBwJn1bQw&quot;&gt;\n  &lt;span&gt;Learn Three.js&lt;/span&gt;\n&lt;/a&gt;\n&lt;div id=&quot;youtube-card&quot;&gt;\n  Learn Three.js while building this game on YouTube\n&lt;/div&gt;","css":"@import url(&quot;https://fonts.googleapis.com/css?family=Press+Start+2P&quot;);\n\nbody {\n  margin: 0;\n  color: white;\n  font-family: &quot;Segoe UI&quot;, Tahoma, Geneva, Verdana, sans-serif;\n}\n\nbutton {\n  outline: none;\n  cursor: pointer;\n  border: none;\n  box-shadow: 3px 5px 0px 0px rgba(0, 0, 0, 0.75);\n}\n\na,\na:visited {\n  color: inherit;\n}\n\n#score {\n  position: absolute;\n  font-family: &quot;Press Start 2P&quot;, cursive;\n  font-size: 0.9em;\n  color: white;\n  transform: translate(-50%, -50%);\n  opacity: 0.9;\n  max-width: 100px;\n  text-align: center;\n  line-height: 1.6em;\n}\n\n#controls {\n  position: absolute;\n  bottom: 50px;\n  left: 50px;\n  display: none;\n}\n\n#controls #buttons {\n  width: 80px;\n  opacity: 0;\n  transition: opacity 2s;\n}\n\n#controls #instructions {\n  margin-left: 20px;\n  max-width: 300px;\n  background-color: rgba(0, 0, 0, 0.2);\n  padding: 20px;\n  opacity: 0;\n  transition: opacity 2s;\n}\n\n#controls button {\n  width: 100%;\n  height: 40px;\n  background-color: white;\n  border: 1px solid black;\n  margin-bottom: 10px;\n}\n\n#results {\n  position: absolute;\n  align-items: center;\n  justify-content: center;\n  height: 100%;\n  width: 100%;\n  background-color: rgba(20, 20, 20, 0.75);\n  display: none;\n  z-index: 51;\n}\n\n#results .content {\n  max-width: 350px;\n  padding: 50px;\n  border-radius: 20px;\n}\n\n#result-youtube {\n  display: flex;\n  background-color: white;\n  padding: 20px;\n  color: black;\n  text-decoration: none;\n  cursor: pointer;\n}\n\n#result-youtube span {\n  margin-top: 5px;\n  margin-left: 20px;\n}\n\n.youtube,\n#youtube-card {\n  display: none;\n  color: black;\n}\n\n#youtube-main {\n  opacity: 0;\n  transition: opacity 2s;\n}\n\n@media (min-height: 425px) {\n  #score {\n    font-size: 1.5em;\n    max-width: 150px;\n  }\n\n  #controls {\n    display: flex;\n  }\n\n  /** Youtube logo by https://codepen.io/alvaromontoro */\n  .youtube {\n    z-index: 50;\n    width: 100px;\n    min-width: 100px;\n    height: 70px;\n    position: fixed;\n    bottom: 50px;\n    right: 50px;\n    transform: scale(0.8);\n    transition: transform 0.5s;\n    display: block;\n    background: red;\n    border-radius: 50% / 11%;\n  }\n\n  #results .youtube {\n    position: relative;\n    right: 0;\n    bottom: 0;\n  }\n\n  .youtube:hover,\n  .youtube:focus {\n    transform: scale(0.9);\n    color: black;\n  }\n\n  .youtube::before {\n    content: &quot;&quot;;\n    display: block;\n    position: absolute;\n    top: 7.5%;\n    left: -6%;\n    width: 112%;\n    height: 85%;\n    background: red;\n    border-radius: 9% / 50%;\n  }\n\n  .youtube::after {\n    content: &quot;&quot;;\n    display: block;\n    position: absolute;\n    top: 20px;\n    left: 40px;\n    width: 45px;\n    height: 30px;\n    border: 15px solid transparent;\n    box-sizing: border-box;\n    border-left: 30px solid white;\n  }\n\n  .youtube span {\n    font-size: 0;\n    position: absolute;\n    width: 0;\n    height: 0;\n    overflow: hidden;\n  }\n\n  .youtube:hover + #youtube-card {\n    z-index: 49;\n    display: block;\n    position: fixed;\n    bottom: 42px;\n    width: 300px;\n    background-color: white;\n    right: 40px;\n    padding: 25px 130px 25px 25px;\n  }\n}","js":"/*\n\nThree.js video tutorial explaining the source code\n\nYoutube: https://youtu.be/JhgBwJn1bQw\n\nIn the tutorial, we go through the source code of this game. We cover, how to set up a Three.js scene with box objects, how to add lights, how to set up the camera, how to add animation and event handlers. We also add textures with HTML Canvas and learn how to draw 2D shapes in Three.js then how to turn them into extruded geometries.\n\nComparing to the tutorial this version has some extra features:\n- trucks also pop up on the other track\n- the extruded geometry also has a texture\n- there are trees around the track\n- shadows\n- the game reacts to window resizing\n\nCheck out my YouTube channel for other game tutorials: https://www.youtube.com/channel/UCxhgW0Q5XLvIoXHAfQXg9oQ\n\n*/\n\nwindow.focus(); // Capture keys right away (by default focus is on editor)\n\n// Pick a random value from an array\nfunction pickRandom(array) {\n  return array[Math.floor(Math.random() * array.length)];\n}\n\n// The Pythagorean theorem says that the distance between two points is\n// the square root of the sum of the horizontal and vertical distance&#39;s square\nfunction getDistance(coordinate1, coordinate2) {\n  const horizontalDistance = coordinate2.x - coordinate1.x;\n  const verticalDistance = coordinate2.y - coordinate1.y;\n  return Math.sqrt(horizontalDistance ** 2 + verticalDistance ** 2);\n}\n\nconst vehicleColors = [\n0xa52523,\n0xef2d56,\n0x0ad3ff,\n0xff9f1c /*0xa52523, 0xbdb638, 0x78b14b*/];\n\n\nconst lawnGreen = &quot;#67C240&quot;;\nconst trackColor = &quot;#546E90&quot;;\nconst edgeColor = &quot;#725F48&quot;;\nconst treeCrownColor = 0x498c2c;\nconst treeTrunkColor = 0x4b3f2f;\n\nconst wheelGeometry = new THREE.BoxBufferGeometry(12, 33, 12);\nconst wheelMaterial = new THREE.MeshLambertMaterial({ color: 0x333333 });\nconst treeTrunkGeometry = new THREE.BoxBufferGeometry(15, 15, 30);\nconst treeTrunkMaterial = new THREE.MeshLambertMaterial({\n  color: treeTrunkColor });\n\nconst treeCrownMaterial = new THREE.MeshLambertMaterial({\n  color: treeCrownColor });\n\n\nconst config = {\n  showHitZones: false,\n  shadows: true, // Use shadow\n  trees: true, // Add trees to the map\n  curbs: true, // Show texture on the extruded geometry\n  grid: false // Show grid helper\n};\n\nlet score;\nconst speed = 0.0017;\n\nconst playerAngleInitial = Math.PI;\nlet playerAngleMoved;\nlet accelerate = false; // Is the player accelerating\nlet decelerate = false; // Is the player decelerating\n\nlet otherVehicles = [];\nlet ready;\nlet lastTimestamp;\n\nconst trackRadius = 225;\nconst trackWidth = 45;\nconst innerTrackRadius = trackRadius - trackWidth;\nconst outerTrackRadius = trackRadius + trackWidth;\n\nconst arcAngle1 = 1 / 3 * Math.PI; // 60 degrees\n\nconst deltaY = Math.sin(arcAngle1) * innerTrackRadius;\nconst arcAngle2 = Math.asin(deltaY / outerTrackRadius);\n\nconst arcCenterX =\n(Math.cos(arcAngle1) * innerTrackRadius +\nMath.cos(arcAngle2) * outerTrackRadius) /\n2;\n\nconst arcAngle3 = Math.acos(arcCenterX / innerTrackRadius);\n\nconst arcAngle4 = Math.acos(arcCenterX / outerTrackRadius);\n\nconst scoreElement = document.getElementById(&quot;score&quot;);\nconst buttonsElement = document.getElementById(&quot;buttons&quot;);\nconst instructionsElement = document.getElementById(&quot;instructions&quot;);\nconst resultsElement = document.getElementById(&quot;results&quot;);\nconst accelerateButton = document.getElementById(&quot;accelerate&quot;);\nconst decelerateButton = document.getElementById(&quot;decelerate&quot;);\nconst youtubeLogo = document.getElementById(&quot;youtube-main&quot;);\n\nsetTimeout(() =&gt; {\n  if (ready) instructionsElement.style.opacity = 1;\n  buttonsElement.style.opacity = 1;\n  youtubeLogo.style.opacity = 1;\n}, 4000);\n\n// Initialize ThreeJs\n// Set up camera\nconst aspectRatio = window.innerWidth / window.innerHeight;\nconst cameraWidth = 960;\nconst cameraHeight = cameraWidth / aspectRatio;\n\nconst camera = new THREE.OrthographicCamera(\ncameraWidth / -2, // left\ncameraWidth / 2, // right\ncameraHeight / 2, // top\ncameraHeight / -2, // bottom\n50, // near plane\n700 // far plane\n);\n\ncamera.position.set(0, -210, 300);\ncamera.lookAt(0, 0, 0);\n\nconst scene = new THREE.Scene();\n\nconst playerCar = Car();\nscene.add(playerCar);\n\nrenderMap(cameraWidth, cameraHeight * 2); // The map height is higher because we look at the map from an angle\n\n// Set up lights\nconst ambientLight = new THREE.AmbientLight(0xffffff, 0.6);\nscene.add(ambientLight);\n\nconst dirLight = new THREE.DirectionalLight(0xffffff, 0.6);\ndirLight.position.set(100, -300, 300);\ndirLight.castShadow = true;\ndirLight.shadow.mapSize.width = 1024;\ndirLight.shadow.mapSize.height = 1024;\ndirLight.shadow.camera.left = -400;\ndirLight.shadow.camera.right = 350;\ndirLight.shadow.camera.top = 400;\ndirLight.shadow.camera.bottom = -300;\ndirLight.shadow.camera.near = 100;\ndirLight.shadow.camera.far = 800;\nscene.add(dirLight);\n\n// const cameraHelper = new THREE.CameraHelper(dirLight.shadow.camera);\n// scene.add(cameraHelper);\n\nif (config.grid) {\n  const gridHelper = new THREE.GridHelper(80, 8);\n  gridHelper.rotation.x = Math.PI / 2;\n  scene.add(gridHelper);\n}\n\n// Set up renderer\nconst renderer = new THREE.WebGLRenderer({\n  antialias: true,\n  powerPreference: &quot;high-performance&quot; });\n\nrenderer.setSize(window.innerWidth, window.innerHeight);\nif (config.shadows) renderer.shadowMap.enabled = true;\ndocument.body.appendChild(renderer.domElement);\n\nreset();\n\nfunction reset() {\n  // Reset position and score\n  playerAngleMoved = 0;\n  score = 0;\n  scoreElement.innerText = &quot;Press UP&quot;;\n\n  // Remove other vehicles\n  otherVehicles.forEach(vehicle =&gt; {\n    // Remove the vehicle from the scene\n    scene.remove(vehicle.mesh);\n\n    // If it has hit-zone helpers then remove them as well\n    if (vehicle.mesh.userData.hitZone1)\n    scene.remove(vehicle.mesh.userData.hitZone1);\n    if (vehicle.mesh.userData.hitZone2)\n    scene.remove(vehicle.mesh.userData.hitZone2);\n    if (vehicle.mesh.userData.hitZone3)\n    scene.remove(vehicle.mesh.userData.hitZone3);\n  });\n  otherVehicles = [];\n\n  resultsElement.style.display = &quot;none&quot;;\n\n  lastTimestamp = undefined;\n\n  // Place the player&#39;s car to the starting position\n  movePlayerCar(0);\n\n  // Render the scene\n  renderer.render(scene, camera);\n\n  ready = true;\n}\n\nfunction startGame() {\n  if (ready) {\n    ready = false;\n    scoreElement.innerText = 0;\n    buttonsElement.style.opacity = 1;\n    instructionsElement.style.opacity = 0;\n    youtubeLogo.style.opacity = 1;\n    renderer.setAnimationLoop(animation);\n  }\n}\n\nfunction positionScoreElement() {\n  const arcCenterXinPixels = arcCenterX / cameraWidth * window.innerWidth;\n  scoreElement.style.cssText = `\n    left: ${window.innerWidth / 2 - arcCenterXinPixels * 1.3}px;\n    top: ${window.innerHeight / 2}px\n  `;\n}\n\nfunction getLineMarkings(mapWidth, mapHeight) {\n  const canvas = document.createElement(&quot;canvas&quot;);\n  canvas.width = mapWidth;\n  canvas.height = mapHeight;\n  const context = canvas.getContext(&quot;2d&quot;);\n\n  context.fillStyle = trackColor;\n  context.fillRect(0, 0, mapWidth, mapHeight);\n\n  context.lineWidth = 2;\n  context.strokeStyle = &quot;#E0FFFF&quot;;\n  context.setLineDash([10, 14]);\n\n  // Left circle\n  context.beginPath();\n  context.arc(\n  mapWidth / 2 - arcCenterX,\n  mapHeight / 2,\n  trackRadius,\n  0,\n  Math.PI * 2);\n\n  context.stroke();\n\n  // Right circle\n  context.beginPath();\n  context.arc(\n  mapWidth / 2 + arcCenterX,\n  mapHeight / 2,\n  trackRadius,\n  0,\n  Math.PI * 2);\n\n  context.stroke();\n\n  return new THREE.CanvasTexture(canvas);\n}\n\nfunction getCurbsTexture(mapWidth, mapHeight) {\n  const canvas = document.createElement(&quot;canvas&quot;);\n  canvas.width = mapWidth;\n  canvas.height = mapHeight;\n  const context = canvas.getContext(&quot;2d&quot;);\n\n  context.fillStyle = lawnGreen;\n  context.fillRect(0, 0, mapWidth, mapHeight);\n\n  // Extra big\n  context.lineWidth = 65;\n  context.strokeStyle = &quot;#A2FF75&quot;;\n  context.beginPath();\n  context.arc(\n  mapWidth / 2 - arcCenterX,\n  mapHeight / 2,\n  innerTrackRadius,\n  arcAngle1,\n  -arcAngle1);\n\n  context.arc(\n  mapWidth / 2 + arcCenterX,\n  mapHeight / 2,\n  outerTrackRadius,\n  Math.PI + arcAngle2,\n  Math.PI - arcAngle2,\n  true);\n\n  context.stroke();\n\n  context.beginPath();\n  context.arc(\n  mapWidth / 2 + arcCenterX,\n  mapHeight / 2,\n  innerTrackRadius,\n  Math.PI + arcAngle1,\n  Math.PI - arcAngle1);\n\n  context.arc(\n  mapWidth / 2 - arcCenterX,\n  mapHeight / 2,\n  outerTrackRadius,\n  arcAngle2,\n  -arcAngle2,\n  true);\n\n  context.stroke();\n\n  // Extra small\n  context.lineWidth = 60;\n  context.strokeStyle = lawnGreen;\n  context.beginPath();\n  context.arc(\n  mapWidth / 2 - arcCenterX,\n  mapHeight / 2,\n  innerTrackRadius,\n  arcAngle1,\n  -arcAngle1);\n\n  context.arc(\n  mapWidth / 2 + arcCenterX,\n  mapHeight / 2,\n  outerTrackRadius,\n  Math.PI + arcAngle2,\n  Math.PI - arcAngle2,\n  true);\n\n  context.arc(\n  mapWidth / 2 + arcCenterX,\n  mapHeight / 2,\n  innerTrackRadius,\n  Math.PI + arcAngle1,\n  Math.PI - arcAngle1);\n\n  context.arc(\n  mapWidth / 2 - arcCenterX,\n  mapHeight / 2,\n  outerTrackRadius,\n  arcAngle2,\n  -arcAngle2,\n  true);\n\n  context.stroke();\n\n  // Base\n  context.lineWidth = 6;\n  context.strokeStyle = edgeColor;\n\n  // Outer circle left\n  context.beginPath();\n  context.arc(\n  mapWidth / 2 - arcCenterX,\n  mapHeight / 2,\n  outerTrackRadius,\n  0,\n  Math.PI * 2);\n\n  context.stroke();\n\n  // Outer circle right\n  context.beginPath();\n  context.arc(\n  mapWidth / 2 + arcCenterX,\n  mapHeight / 2,\n  outerTrackRadius,\n  0,\n  Math.PI * 2);\n\n  context.stroke();\n\n  // Inner circle left\n  context.beginPath();\n  context.arc(\n  mapWidth / 2 - arcCenterX,\n  mapHeight / 2,\n  innerTrackRadius,\n  0,\n  Math.PI * 2);\n\n  context.stroke();\n\n  // Inner circle right\n  context.beginPath();\n  context.arc(\n  mapWidth / 2 + arcCenterX,\n  mapHeight / 2,\n  innerTrackRadius,\n  0,\n  Math.PI * 2);\n\n  context.stroke();\n\n  return new THREE.CanvasTexture(canvas);\n}\n\nfunction getLeftIsland() {\n  const islandLeft = new THREE.Shape();\n\n  islandLeft.absarc(\n  -arcCenterX,\n  0,\n  innerTrackRadius,\n  arcAngle1,\n  -arcAngle1,\n  false);\n\n\n  islandLeft.absarc(\n  arcCenterX,\n  0,\n  outerTrackRadius,\n  Math.PI + arcAngle2,\n  Math.PI - arcAngle2,\n  true);\n\n\n  return islandLeft;\n}\n\nfunction getMiddleIsland() {\n  const islandMiddle = new THREE.Shape();\n\n  islandMiddle.absarc(\n  -arcCenterX,\n  0,\n  innerTrackRadius,\n  arcAngle3,\n  -arcAngle3,\n  true);\n\n\n  islandMiddle.absarc(\n  arcCenterX,\n  0,\n  innerTrackRadius,\n  Math.PI + arcAngle3,\n  Math.PI - arcAngle3,\n  true);\n\n\n  return islandMiddle;\n}\n\nfunction getRightIsland() {\n  const islandRight = new THREE.Shape();\n\n  islandRight.absarc(\n  arcCenterX,\n  0,\n  innerTrackRadius,\n  Math.PI - arcAngle1,\n  Math.PI + arcAngle1,\n  true);\n\n\n  islandRight.absarc(\n  -arcCenterX,\n  0,\n  outerTrackRadius,\n  -arcAngle2,\n  arcAngle2,\n  false);\n\n\n  return islandRight;\n}\n\nfunction getOuterField(mapWidth, mapHeight) {\n  const field = new THREE.Shape();\n\n  field.moveTo(-mapWidth / 2, -mapHeight / 2);\n  field.lineTo(0, -mapHeight / 2);\n\n  field.absarc(-arcCenterX, 0, outerTrackRadius, -arcAngle4, arcAngle4, true);\n\n  field.absarc(\n  arcCenterX,\n  0,\n  outerTrackRadius,\n  Math.PI - arcAngle4,\n  Math.PI + arcAngle4,\n  true);\n\n\n  field.lineTo(0, -mapHeight / 2);\n  field.lineTo(mapWidth / 2, -mapHeight / 2);\n  field.lineTo(mapWidth / 2, mapHeight / 2);\n  field.lineTo(-mapWidth / 2, mapHeight / 2);\n\n  return field;\n}\n\nfunction renderMap(mapWidth, mapHeight) {\n  const lineMarkingsTexture = getLineMarkings(mapWidth, mapHeight);\n\n  const planeGeometry = new THREE.PlaneBufferGeometry(mapWidth, mapHeight);\n  const planeMaterial = new THREE.MeshLambertMaterial({\n    map: lineMarkingsTexture });\n\n  const plane = new THREE.Mesh(planeGeometry, planeMaterial);\n  plane.receiveShadow = true;\n  plane.matrixAutoUpdate = false;\n  scene.add(plane);\n\n  // Extruded geometry with curbs\n  const islandLeft = getLeftIsland();\n  const islandMiddle = getMiddleIsland();\n  const islandRight = getRightIsland();\n  const outerField = getOuterField(mapWidth, mapHeight);\n\n  // Mapping a texture on an extruded geometry works differently than mapping it to a box\n  // By default it is mapped to a 1x1 unit square, and we have to stretch it out by setting repeat\n  // We also need to shift it by setting the offset to have it centered\n  const curbsTexture = getCurbsTexture(mapWidth, mapHeight);\n  curbsTexture.offset = new THREE.Vector2(0.5, 0.5);\n  curbsTexture.repeat.set(1 / mapWidth, 1 / mapHeight);\n\n  // An extruded geometry turns a 2D shape into 3D by giving it a depth\n  const fieldGeometry = new THREE.ExtrudeBufferGeometry(\n  [islandLeft, islandRight, islandMiddle, outerField],\n  { depth: 6, bevelEnabled: false });\n\n\n  const fieldMesh = new THREE.Mesh(fieldGeometry, [\n  new THREE.MeshLambertMaterial({\n    // Either set a plain color or a texture depending on config\n    color: !config.curbs &amp;&amp; lawnGreen,\n    map: config.curbs &amp;&amp; curbsTexture }),\n\n  new THREE.MeshLambertMaterial({ color: 0x23311c })]);\n\n  fieldMesh.receiveShadow = true;\n  fieldMesh.matrixAutoUpdate = false;\n  scene.add(fieldMesh);\n\n  positionScoreElement();\n\n  if (config.trees) {\n    const tree1 = Tree();\n    tree1.position.x = arcCenterX * 1.3;\n    scene.add(tree1);\n\n    const tree2 = Tree();\n    tree2.position.y = arcCenterX * 1.9;\n    tree2.position.x = arcCenterX * 1.3;\n    scene.add(tree2);\n\n    const tree3 = Tree();\n    tree3.position.x = arcCenterX * 0.8;\n    tree3.position.y = arcCenterX * 2;\n    scene.add(tree3);\n\n    const tree4 = Tree();\n    tree4.position.x = arcCenterX * 1.8;\n    tree4.position.y = arcCenterX * 2;\n    scene.add(tree4);\n\n    const tree5 = Tree();\n    tree5.position.x = -arcCenterX * 1;\n    tree5.position.y = arcCenterX * 2;\n    scene.add(tree5);\n\n    const tree6 = Tree();\n    tree6.position.x = -arcCenterX * 2;\n    tree6.position.y = arcCenterX * 1.8;\n    scene.add(tree6);\n\n    const tree7 = Tree();\n    tree7.position.x = arcCenterX * 0.8;\n    tree7.position.y = -arcCenterX * 2;\n    scene.add(tree7);\n\n    const tree8 = Tree();\n    tree8.position.x = arcCenterX * 1.8;\n    tree8.position.y = -arcCenterX * 2;\n    scene.add(tree8);\n\n    const tree9 = Tree();\n    tree9.position.x = -arcCenterX * 1;\n    tree9.position.y = -arcCenterX * 2;\n    scene.add(tree9);\n\n    const tree10 = Tree();\n    tree10.position.x = -arcCenterX * 2;\n    tree10.position.y = -arcCenterX * 1.8;\n    scene.add(tree10);\n\n    const tree11 = Tree();\n    tree11.position.x = arcCenterX * 0.6;\n    tree11.position.y = -arcCenterX * 2.3;\n    scene.add(tree11);\n\n    const tree12 = Tree();\n    tree12.position.x = arcCenterX * 1.5;\n    tree12.position.y = -arcCenterX * 2.4;\n    scene.add(tree12);\n\n    const tree13 = Tree();\n    tree13.position.x = -arcCenterX * 0.7;\n    tree13.position.y = -arcCenterX * 2.4;\n    scene.add(tree13);\n\n    const tree14 = Tree();\n    tree14.position.x = -arcCenterX * 1.5;\n    tree14.position.y = -arcCenterX * 1.8;\n    scene.add(tree14);\n  }\n}\n\nfunction getCarFrontTexture() {\n  const canvas = document.createElement(&quot;canvas&quot;);\n  canvas.width = 64;\n  canvas.height = 32;\n  const context = canvas.getContext(&quot;2d&quot;);\n\n  context.fillStyle = &quot;#ffffff&quot;;\n  context.fillRect(0, 0, 64, 32);\n\n  context.fillStyle = &quot;#666666&quot;;\n  context.fillRect(8, 8, 48, 24);\n\n  return new THREE.CanvasTexture(canvas);\n}\n\nfunction getCarSideTexture() {\n  const canvas = document.createElement(&quot;canvas&quot;);\n  canvas.width = 128;\n  canvas.height = 32;\n  const context = canvas.getContext(&quot;2d&quot;);\n\n  context.fillStyle = &quot;#ffffff&quot;;\n  context.fillRect(0, 0, 128, 32);\n\n  context.fillStyle = &quot;#666666&quot;;\n  context.fillRect(10, 8, 38, 24);\n  context.fillRect(58, 8, 60, 24);\n\n  return new THREE.CanvasTexture(canvas);\n}\n\nfunction Car() {\n  const car = new THREE.Group();\n\n  const color = pickRandom(vehicleColors);\n\n  const main = new THREE.Mesh(\n  new THREE.BoxBufferGeometry(60, 30, 15),\n  new THREE.MeshLambertMaterial({ color }));\n\n  main.position.z = 12;\n  main.castShadow = true;\n  main.receiveShadow = true;\n  car.add(main);\n\n  const carFrontTexture = getCarFrontTexture();\n  carFrontTexture.center = new THREE.Vector2(0.5, 0.5);\n  carFrontTexture.rotation = Math.PI / 2;\n\n  const carBackTexture = getCarFrontTexture();\n  carBackTexture.center = new THREE.Vector2(0.5, 0.5);\n  carBackTexture.rotation = -Math.PI / 2;\n\n  const carLeftSideTexture = getCarSideTexture();\n  carLeftSideTexture.flipY = false;\n\n  const carRightSideTexture = getCarSideTexture();\n\n  const cabin = new THREE.Mesh(new THREE.BoxBufferGeometry(33, 24, 12), [\n  new THREE.MeshLambertMaterial({ map: carFrontTexture }),\n  new THREE.MeshLambertMaterial({ map: carBackTexture }),\n  new THREE.MeshLambertMaterial({ map: carLeftSideTexture }),\n  new THREE.MeshLambertMaterial({ map: carRightSideTexture }),\n  new THREE.MeshLambertMaterial({ color: 0xffffff }), // top\n  new THREE.MeshLambertMaterial({ color: 0xffffff }) // bottom\n  ]);\n  cabin.position.x = -6;\n  cabin.position.z = 25.5;\n  cabin.castShadow = true;\n  cabin.receiveShadow = true;\n  car.add(cabin);\n\n  const backWheel = new Wheel();\n  backWheel.position.x = -18;\n  car.add(backWheel);\n\n  const frontWheel = new Wheel();\n  frontWheel.position.x = 18;\n  car.add(frontWheel);\n\n  if (config.showHitZones) {\n    car.userData.hitZone1 = HitZone();\n    car.userData.hitZone2 = HitZone();\n  }\n\n  return car;\n}\n\nfunction getTruckFrontTexture() {\n  const canvas = document.createElement(&quot;canvas&quot;);\n  canvas.width = 32;\n  canvas.height = 32;\n  const context = canvas.getContext(&quot;2d&quot;);\n\n  context.fillStyle = &quot;#ffffff&quot;;\n  context.fillRect(0, 0, 32, 32);\n\n  context.fillStyle = &quot;#666666&quot;;\n  context.fillRect(0, 5, 32, 10);\n\n  return new THREE.CanvasTexture(canvas);\n}\n\nfunction getTruckSideTexture() {\n  const canvas = document.createElement(&quot;canvas&quot;);\n  canvas.width = 32;\n  canvas.height = 32;\n  const context = canvas.getContext(&quot;2d&quot;);\n\n  context.fillStyle = &quot;#ffffff&quot;;\n  context.fillRect(0, 0, 32, 32);\n\n  context.fillStyle = &quot;#666666&quot;;\n  context.fillRect(17, 5, 15, 10);\n\n  return new THREE.CanvasTexture(canvas);\n}\n\nfunction Truck() {\n  const truck = new THREE.Group();\n  const color = pickRandom(vehicleColors);\n\n  const base = new THREE.Mesh(\n  new THREE.BoxBufferGeometry(100, 25, 5),\n  new THREE.MeshLambertMaterial({ color: 0xb4c6fc }));\n\n  base.position.z = 10;\n  truck.add(base);\n\n  const cargo = new THREE.Mesh(\n  new THREE.BoxBufferGeometry(75, 35, 40),\n  new THREE.MeshLambertMaterial({ color: 0xffffff }) // 0xb4c6fc\n  );\n  cargo.position.x = -15;\n  cargo.position.z = 30;\n  cargo.castShadow = true;\n  cargo.receiveShadow = true;\n  truck.add(cargo);\n\n  const truckFrontTexture = getTruckFrontTexture();\n  truckFrontTexture.center = new THREE.Vector2(0.5, 0.5);\n  truckFrontTexture.rotation = Math.PI / 2;\n\n  const truckLeftTexture = getTruckSideTexture();\n  truckLeftTexture.flipY = false;\n\n  const truckRightTexture = getTruckSideTexture();\n\n  const cabin = new THREE.Mesh(new THREE.BoxBufferGeometry(25, 30, 30), [\n  new THREE.MeshLambertMaterial({ color, map: truckFrontTexture }),\n  new THREE.MeshLambertMaterial({ color }), // back\n  new THREE.MeshLambertMaterial({ color, map: truckLeftTexture }),\n  new THREE.MeshLambertMaterial({ color, map: truckRightTexture }),\n  new THREE.MeshLambertMaterial({ color }), // top\n  new THREE.MeshLambertMaterial({ color }) // bottom\n  ]);\n  cabin.position.x = 40;\n  cabin.position.z = 20;\n  cabin.castShadow = true;\n  cabin.receiveShadow = true;\n  truck.add(cabin);\n\n  const backWheel = Wheel();\n  backWheel.position.x = -30;\n  truck.add(backWheel);\n\n  const middleWheel = Wheel();\n  middleWheel.position.x = 10;\n  truck.add(middleWheel);\n\n  const frontWheel = Wheel();\n  frontWheel.position.x = 38;\n  truck.add(frontWheel);\n\n  if (config.showHitZones) {\n    truck.userData.hitZone1 = HitZone();\n    truck.userData.hitZone2 = HitZone();\n    truck.userData.hitZone3 = HitZone();\n  }\n\n  return truck;\n}\n\nfunction HitZone() {\n  const hitZone = new THREE.Mesh(\n  new THREE.CylinderGeometry(20, 20, 60, 30),\n  new THREE.MeshLambertMaterial({ color: 0xff0000 }));\n\n  hitZone.position.z = 25;\n  hitZone.rotation.x = Math.PI / 2;\n\n  scene.add(hitZone);\n  return hitZone;\n}\n\nfunction Wheel() {\n  const wheel = new THREE.Mesh(wheelGeometry, wheelMaterial);\n  wheel.position.z = 6;\n  wheel.castShadow = false;\n  wheel.receiveShadow = false;\n  return wheel;\n}\n\nfunction Tree() {\n  const tree = new THREE.Group();\n\n  const trunk = new THREE.Mesh(treeTrunkGeometry, treeTrunkMaterial);\n  trunk.position.z = 10;\n  trunk.castShadow = true;\n  trunk.receiveShadow = true;\n  trunk.matrixAutoUpdate = false;\n  tree.add(trunk);\n\n  const treeHeights = [45, 60, 75];\n  const height = pickRandom(treeHeights);\n\n  const crown = new THREE.Mesh(\n  new THREE.SphereGeometry(height / 2, 30, 30),\n  treeCrownMaterial);\n\n  crown.position.z = height / 2 + 30;\n  crown.castShadow = true;\n  crown.receiveShadow = false;\n  tree.add(crown);\n\n  return tree;\n}\n\naccelerateButton.addEventListener(&quot;mousedown&quot;, function () {\n  startGame();\n  accelerate = true;\n});\ndecelerateButton.addEventListener(&quot;mousedown&quot;, function () {\n  startGame();\n  decelerate = true;\n});\naccelerateButton.addEventListener(&quot;mouseup&quot;, function () {\n  accelerate = false;\n});\ndecelerateButton.addEventListener(&quot;mouseup&quot;, function () {\n  decelerate = false;\n});\nwindow.addEventListener(&quot;keydown&quot;, function (event) {\n  if (event.key == &quot;ArrowUp&quot;) {\n    startGame();\n    accelerate = true;\n    return;\n  }\n  if (event.key == &quot;ArrowDown&quot;) {\n    decelerate = true;\n    return;\n  }\n  if (event.key == &quot;R&quot; || event.key == &quot;r&quot;) {\n    reset();\n    return;\n  }\n});\nwindow.addEventListener(&quot;keyup&quot;, function (event) {\n  if (event.key == &quot;ArrowUp&quot;) {\n    accelerate = false;\n    return;\n  }\n  if (event.key == &quot;ArrowDown&quot;) {\n    decelerate = false;\n    return;\n  }\n});\n\nfunction animation(timestamp) {\n  if (!lastTimestamp) {\n    lastTimestamp = timestamp;\n    return;\n  }\n\n  const timeDelta = timestamp - lastTimestamp;\n\n  movePlayerCar(timeDelta);\n\n  const laps = Math.floor(Math.abs(playerAngleMoved) / (Math.PI * 2));\n\n  // Update score if it changed\n  if (laps != score) {\n    score = laps;\n    scoreElement.innerText = score;\n  }\n\n  // Add a new vehicle at the beginning and with every 5th lap\n  if (otherVehicles.length &lt; (laps + 1) / 5) addVehicle();\n\n  moveOtherVehicles(timeDelta);\n\n  hitDetection();\n\n  renderer.render(scene, camera);\n  lastTimestamp = timestamp;\n}\n\nfunction movePlayerCar(timeDelta) {\n  const playerSpeed = getPlayerSpeed();\n  playerAngleMoved -= playerSpeed * timeDelta;\n\n  const totalPlayerAngle = playerAngleInitial + playerAngleMoved;\n\n  const playerX = Math.cos(totalPlayerAngle) * trackRadius - arcCenterX;\n  const playerY = Math.sin(totalPlayerAngle) * trackRadius;\n\n  playerCar.position.x = playerX;\n  playerCar.position.y = playerY;\n\n  playerCar.rotation.z = totalPlayerAngle - Math.PI / 2;\n}\n\nfunction moveOtherVehicles(timeDelta) {\n  otherVehicles.forEach(vehicle =&gt; {\n    if (vehicle.clockwise) {\n      vehicle.angle -= speed * timeDelta * vehicle.speed;\n    } else {\n      vehicle.angle += speed * timeDelta * vehicle.speed;\n    }\n\n    const vehicleX = Math.cos(vehicle.angle) * trackRadius + arcCenterX;\n    const vehicleY = Math.sin(vehicle.angle) * trackRadius;\n    const rotation =\n    vehicle.angle + (vehicle.clockwise ? -Math.PI / 2 : Math.PI / 2);\n    vehicle.mesh.position.x = vehicleX;\n    vehicle.mesh.position.y = vehicleY;\n    vehicle.mesh.rotation.z = rotation;\n  });\n}\n\nfunction getPlayerSpeed() {\n  if (accelerate) return speed * 2;\n  if (decelerate) return speed * 0.5;\n  return speed;\n}\n\nfunction addVehicle() {\n  const vehicleTypes = [&quot;car&quot;, &quot;truck&quot;];\n\n  const type = pickRandom(vehicleTypes);\n  const speed = getVehicleSpeed(type);\n  const clockwise = Math.random() &gt;= 0.5;\n\n  const angle = clockwise ? Math.PI / 2 : -Math.PI / 2;\n\n  const mesh = type == &quot;car&quot; ? Car() : Truck();\n  scene.add(mesh);\n\n  otherVehicles.push({ mesh, type, speed, clockwise, angle });\n}\n\nfunction getVehicleSpeed(type) {\n  if (type == &quot;car&quot;) {\n    const minimumSpeed = 1;\n    const maximumSpeed = 2;\n    return minimumSpeed + Math.random() * (maximumSpeed - minimumSpeed);\n  }\n  if (type == &quot;truck&quot;) {\n    const minimumSpeed = 0.6;\n    const maximumSpeed = 1.5;\n    return minimumSpeed + Math.random() * (maximumSpeed - minimumSpeed);\n  }\n}\n\nfunction getHitZonePosition(center, angle, clockwise, distance) {\n  const directionAngle = angle + clockwise ? -Math.PI / 2 : +Math.PI / 2;\n  return {\n    x: center.x + Math.cos(directionAngle) * distance,\n    y: center.y + Math.sin(directionAngle) * distance };\n\n}\n\nfunction hitDetection() {\n  const playerHitZone1 = getHitZonePosition(\n  playerCar.position,\n  playerAngleInitial + playerAngleMoved,\n  true,\n  15);\n\n\n  const playerHitZone2 = getHitZonePosition(\n  playerCar.position,\n  playerAngleInitial + playerAngleMoved,\n  true,\n  -15);\n\n\n  if (config.showHitZones) {\n    playerCar.userData.hitZone1.position.x = playerHitZone1.x;\n    playerCar.userData.hitZone1.position.y = playerHitZone1.y;\n\n    playerCar.userData.hitZone2.position.x = playerHitZone2.x;\n    playerCar.userData.hitZone2.position.y = playerHitZone2.y;\n  }\n\n  const hit = otherVehicles.some(vehicle =&gt; {\n    if (vehicle.type == &quot;car&quot;) {\n      const vehicleHitZone1 = getHitZonePosition(\n      vehicle.mesh.position,\n      vehicle.angle,\n      vehicle.clockwise,\n      15);\n\n\n      const vehicleHitZone2 = getHitZonePosition(\n      vehicle.mesh.position,\n      vehicle.angle,\n      vehicle.clockwise,\n      -15);\n\n\n      if (config.showHitZones) {\n        vehicle.mesh.userData.hitZone1.position.x = vehicleHitZone1.x;\n        vehicle.mesh.userData.hitZone1.position.y = vehicleHitZone1.y;\n\n        vehicle.mesh.userData.hitZone2.position.x = vehicleHitZone2.x;\n        vehicle.mesh.userData.hitZone2.position.y = vehicleHitZone2.y;\n      }\n\n      // The player hits another vehicle\n      if (getDistance(playerHitZone1, vehicleHitZone1) &lt; 40) return true;\n      if (getDistance(playerHitZone1, vehicleHitZone2) &lt; 40) return true;\n\n      // Another vehicle hits the player\n      if (getDistance(playerHitZone2, vehicleHitZone1) &lt; 40) return true;\n    }\n\n    if (vehicle.type == &quot;truck&quot;) {\n      const vehicleHitZone1 = getHitZonePosition(\n      vehicle.mesh.position,\n      vehicle.angle,\n      vehicle.clockwise,\n      35);\n\n\n      const vehicleHitZone2 = getHitZonePosition(\n      vehicle.mesh.position,\n      vehicle.angle,\n      vehicle.clockwise,\n      0);\n\n\n      const vehicleHitZone3 = getHitZonePosition(\n      vehicle.mesh.position,\n      vehicle.angle,\n      vehicle.clockwise,\n      -35);\n\n\n      if (config.showHitZones) {\n        vehicle.mesh.userData.hitZone1.position.x = vehicleHitZone1.x;\n        vehicle.mesh.userData.hitZone1.position.y = vehicleHitZone1.y;\n\n        vehicle.mesh.userData.hitZone2.position.x = vehicleHitZone2.x;\n        vehicle.mesh.userData.hitZone2.position.y = vehicleHitZone2.y;\n\n        vehicle.mesh.userData.hitZone3.position.x = vehicleHitZone3.x;\n        vehicle.mesh.userData.hitZone3.position.y = vehicleHitZone3.y;\n      }\n\n      // The player hits another vehicle\n      if (getDistance(playerHitZone1, vehicleHitZone1) &lt; 40) return true;\n      if (getDistance(playerHitZone1, vehicleHitZone2) &lt; 40) return true;\n      if (getDistance(playerHitZone1, vehicleHitZone3) &lt; 40) return true;\n\n      // Another vehicle hits the player\n      if (getDistance(playerHitZone2, vehicleHitZone1) &lt; 40) return true;\n    }\n  });\n\n  if (hit) {\n    if (resultsElement) resultsElement.style.display = &quot;flex&quot;;\n    renderer.setAnimationLoop(null); // Stop animation loop\n  }\n}\n\nwindow.addEventListener(&quot;resize&quot;, () =&gt; {\n  console.log(&quot;resize&quot;, window.innerWidth, window.innerHeight);\n\n  // Adjust camera\n  const newAspectRatio = window.innerWidth / window.innerHeight;\n  const adjustedCameraHeight = cameraWidth / newAspectRatio;\n\n  camera.top = adjustedCameraHeight / 2;\n  camera.bottom = adjustedCameraHeight / -2;\n  camera.updateProjectionMatrix(); // Must be called after change\n\n  positionScoreElement();\n\n  // Reset renderer\n  renderer.setSize(window.innerWidth, window.innerHeight);\n  renderer.render(scene, camera);\n});"};
+        __preprocessors = {
+          "html": "none",
+          "css": "none",
+          "js": "none"
+        };
+        __preprocessorNames = {
+          "html": "HTML",
+          "css": "CSS",
+          "js": "JS"
+        };
+        __editable = false;
+        __embed_prefill = false;
+      </script>
+    <script src="https://cpwebassets.codepen.io/assets/embed/embed-008e8e63bc8f4f7a03df3f5da5b5c4d5e25fe5a438f147d0a2325f15fcd47555.js"></script>
+    
+    
+    </body></html>
