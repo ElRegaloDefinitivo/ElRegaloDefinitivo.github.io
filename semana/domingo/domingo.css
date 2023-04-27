@@ -11,7 +11,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom right, var(--color-verde), #65f049);
+    background-color: #2c3e50;
     color: var(--color-blanco);
     overflow-x: hidden;
     height: 1000px;
@@ -63,29 +63,26 @@ h2 {
 }
 
 /* Estilos para párrafos */
-p {
-    font-size: 20px;
-    line-height: 1.5;
-    margin-bottom: 20px;
-    padding: 10px;
-    animation-name: fadeIn;
-    animation-duration: 1s;
-    animation-fill-mode: both;
-    margin-left: 30px;
-    margin-right: 300px;
+.box {
+    width: 500px;
+    height: 500px;
+    margin: 20vh auto;
+    display: block;
+    border-radius: 20px;
+    box-shadow: 18px 18px 30px 0px rgb(28 45 54 / 20%);
 }
 
-/* Animación para párrafos */
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+p {
+    background: url("https://raw.githubusercontent.com/ElRegaloDefinitivo/ElRegaloDefinitivo.github.io/main/img/parte3.jpeg") center no-repeat;
+    background-size: cover;
+    height: 500px;
+    width: 500px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0);
+    line-height: 0.80;
+    font-size: 14px;
+    text-align: justify;
+    border-radius: 20px;
 }
 
 nav {
@@ -144,7 +141,7 @@ nav ul li a:hover {
 }
 
 /* Estilos para el texto del banner */
-.banner p {
+.banner>p {
     margin: 0;
     padding: 5px 0;
     font-size: 14px;
@@ -176,9 +173,9 @@ nav ul li a:hover {
     margin: 10px auto;
     position: relative;
     border-radius: 5px;
-  }
-  
-  .progress-bar {
+}
+
+.progress-bar {
     width: 0%;
     height: 100%;
     background-color: green;
@@ -186,9 +183,9 @@ nav ul li a:hover {
     top: 0;
     left: 0;
     transition: width 0.5s ease;
-  }
-  
-  .progress-bar-indicator {
+}
+
+.progress-bar-indicator {
     color: black;
     width: 50px;
     height: 50px;
@@ -199,7 +196,7 @@ nav ul li a:hover {
     font-size: 20px;
     text-align: center;
     line-height: 50px;
-  }
+}
 
 iframe {
     margin: 0 auto;

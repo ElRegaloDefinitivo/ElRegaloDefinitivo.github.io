@@ -4,7 +4,18 @@
 <head>
     <title>Lunes</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        // Robots don't want to stop dancing !
+        // therefore decided to restore original RAF
+        if (window.location.href.indexOf("fullcpgrid") > -1) {
+            document.addEventListener('DOMContentLoaded', function() {
+                const original = document.createElement('iframe');
+                original.style.display = 'none';
+                document.body.appendChild(original);
+                window.requestAnimationFrame = original.contentWindow.requestAnimationFrame;
+            }, false);
+        }
+        </script>
     <link rel="stylesheet" type="text/css" href="lunes.css">
     <link rel="icon" type="image/jpg" href="../../img/corazon.png" />
 </head>
@@ -36,16 +47,11 @@
     </div>
 
     <main>
-        <h1>Día #3</h1>
-        <div class="container">
-            <div id="score"></div>
-            <canvas id="game" width="375" height="375"></canvas>
-            <div id="introduction">Hold down the mouse to stretch out a stick</div>
-            <div id="perfect">DOUBLE SCORE</div>
-            <button id="restart">RESTART</button>
-          </div>
-    </main>
+        
 
+    </main>
+    <h1>Día 10</h1>
+    <canvas></canvas>
 
     <script src="lunes.js"></script>
 </body>
