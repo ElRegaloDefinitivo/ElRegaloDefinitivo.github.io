@@ -24,7 +24,7 @@ function checkPassword(event) {
                 window.location.href = "semana/viernes/index.html";
                 break;
             case 6:
-                window.location.href = "semana/sabado/sabado.html";
+                window.location.href = "semana/sabado/index.html";
                 break;
         }
     } else {
