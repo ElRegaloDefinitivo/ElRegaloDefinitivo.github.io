@@ -14,9 +14,6 @@ const felizLunes = document.getElementById("feliz-lunes");
 felizLunes.innerHTML = `¡Feliz ${diaSemana}! Hoy es ${dia}-${mes}-${anio} y son las ${hora}:${minutos}`;
 
 
-
-
-
 // CONTADOR
 
 
