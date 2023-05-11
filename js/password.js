@@ -12,19 +12,19 @@ function checkPassword(event) {
                 window.location.href = "semana/lunes/lunes.html";
                 break;
             case 2:
-                window.location.href = "semana/martes/index.html";
+                window.location.href = "semana/martes/martes.html";
                 break;
             case 3:
-                window.location.href = "semana/miercoles/index.html";
+                window.location.href = "semana/miercoles/miercoles.html";
                 break;
             case 4:
                 window.location.href = "semana/jueves/jueves.html";
                 break;
             case 5:
-                window.location.href = "semana/viernes/index.html";
+                window.location.href = "semana/viernes/viernes.html";
                 break;
             case 6:
-                window.location.href = "semana/sabado/index.html";
+                window.location.href = "semana/sabado/sabado.html";
                 break;
         }
     } else {
