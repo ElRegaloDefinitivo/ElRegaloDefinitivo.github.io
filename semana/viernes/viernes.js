@@ -1,298 +1,293 @@
-"use strict";
+//COMPROBAR HORA
+
+const fechaHora = new Date();
+const dia = fechaHora.getDate().toString().padStart(2, "0");
+const mes = (fechaHora.getMonth() + 1).toString().padStart(2, "0");
+const anio = fechaHora.getFullYear();
+const hora = fechaHora.getHours().toString().padStart(2, "0");
+const minutos = fechaHora.getMinutes().toString().padStart(2, "0");
+
+const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+const diaSemana = diasSemana[fechaHora.getDay()];
+
+const felizLunes = document.getElementById("feliz-viernes");
+felizLunes.innerHTML = `¡Feliz ${diaSemana}! Hoy es ${dia}-${mes}-${anio} y son las ${hora}:${minutos}`;
+
+
+// CONTADOR
+
+
+// Obtener la fecha actual y la fecha del regalo
+var fechaRegalo = new Date("08-22-2023");
+var fechaActual = new Date();
+
+// Calcular la diferencia entre las fechas
+var diferencia = fechaRegalo.getTime() - fechaActual.getTime();
+
+// Calcular la cantidad de días, horas y minutos restantes
+var diasRestantes = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+var horasRestantes = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+var minutosRestantes = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+
+// Mostrar el contador en el banner
+var contadorBanner = document.createElement("p");
+contadorBanner.innerHTML = "Quedan " + diasRestantes + " días, " + horasRestantes + " horas y " + minutosRestantes + " minutos para tu regalo";
+document.querySelector(".banner").appendChild(contadorBanner);
+
+// Actualizar el contador cada segundo
+setInterval(function () {
+  // Obtener la fecha actual
+  fechaActual = new Date();
+
+  // Calcular la diferencia entre las fechas
+  diferencia = fechaRegalo.getTime() - fechaActual.getTime();
+
+  // Calcular la cantidad de días, horas y minutos restantes
+  diasRestantes = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+  horasRestantes = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  minutosRestantes = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+
+  // Actualizar el texto del contador
+  contadorBanner.innerHTML = "Quedan " + diasRestantes + " días, " + horasRestantes + " horas y " + minutosRestantes + " minutos para tu regalo";
+}, 1000);
+
+
+
+
+
+//BARRA PROGRESO
+
+const startDate = new Date("2023-04-20");
+const endDate = new Date("2023-08-22");
+const progressIndicator = document.querySelector(".progress-bar-indicator");
+const progressBar = document.querySelector(".progress-bar");
+
+function updateProgressBar() {
+  const currentDate = new Date();
+  const progress = (currentDate - startDate) / (endDate - startDate) * 100;
+  progressBar.style.width = `${progress}%`;
+  progressIndicator.textContent = `${Math.round(progress)}%`;
+}
+
+updateProgressBar();
+setInterval(updateProgressBar, 1000 * 60 * 60 * 24);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// This is a simple Password Generator App that will generate random password maybe you can you them to secure your account.
+// I tried my best to make the code as simple as possible please dont mind the variable names.
+// Also this idea came in my mind after checking Traversy Media's latest video.
+
+// Clear the concole on every refresh
 console.clear();
-class Stage {
-    constructor() {
-        // container
-        this.render = function () {
-            this.renderer.render(this.scene, this.camera);
-        };
-        this.add = function (elem) {
-            this.scene.add(elem);
-        };
-        this.remove = function (elem) {
-            this.scene.remove(elem);
-        };
-        this.container = document.getElementById('game');
-        // renderer
-        this.renderer = new THREE.WebGLRenderer({
-            antialias: true,
-            alpha: false
-        });
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
-        this.renderer.setClearColor('#D0CBC7', 1);
-        this.container.appendChild(this.renderer.domElement);
-        // scene
-        this.scene = new THREE.Scene();
-        // camera
-        let aspect = window.innerWidth / window.innerHeight;
-        let d = 20;
-        this.camera = new THREE.OrthographicCamera(-d * aspect, d * aspect, d, -d, -100, 1000);
-        this.camera.position.x = 2;
-        this.camera.position.y = 2;
-        this.camera.position.z = 2;
-        this.camera.lookAt(new THREE.Vector3(0, 0, 0));
-        //light
-        this.light = new THREE.DirectionalLight(0xffffff, 0.5);
-        this.light.position.set(0, 499, 0);
-        this.scene.add(this.light);
-        this.softLight = new THREE.AmbientLight(0xffffff, 0.4);
-        this.scene.add(this.softLight);
-        window.addEventListener('resize', () => this.onResize());
-        this.onResize();
-    }
-    setCamera(y, speed = 0.3) {
-        TweenLite.to(this.camera.position, speed, { y: y + 4, ease: Power1.easeInOut });
-        TweenLite.to(this.camera.lookAt, speed, { y: y, ease: Power1.easeInOut });
-    }
-    onResize() {
-        let viewSize = 30;
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
-        this.camera.left = window.innerWidth / -viewSize;
-        this.camera.right = window.innerWidth / viewSize;
-        this.camera.top = window.innerHeight / viewSize;
-        this.camera.bottom = window.innerHeight / -viewSize;
-        this.camera.updateProjectionMatrix();
-    }
+// set the body to full height
+// document.body.style.height = `${innerHeight}px`
+
+// Range Slider Properties.
+// Fill : The trailing color that you see when you drag the slider.
+// background : Default Range Slider Background
+const sliderProps = {
+	fill: "#0B1EDF",
+	background: "rgba(255, 255, 255, 0.214)",
+};
+
+// Selecting the Range Slider container which will effect the LENGTH property of the password.
+const slider = document.querySelector(".range__slider");
+
+// Text which will show the value of the range slider.
+const sliderValue = document.querySelector(".length__title");
+
+// Using Event Listener to apply the fill and also change the value of the text.
+slider.querySelector("input").addEventListener("input", event => {
+	sliderValue.setAttribute("data-length", event.target.value);
+	applyFill(event.target);
+});
+// Selecting the range input and passing it in the applyFill func.
+applyFill(slider.querySelector("input"));
+// This function is responsible to create the trailing color and setting the fill.
+function applyFill(slider) {
+	const percentage = (100 * (slider.value - slider.min)) / (slider.max - slider.min);
+	const bg = `linear-gradient(90deg, ${sliderProps.fill} ${percentage}%, ${sliderProps.background} ${percentage +
+			0.1}%)`;
+	slider.style.background = bg;
+	sliderValue.setAttribute("data-length", slider.value);
 }
-class Block {
-    constructor(block) {
-        // set size and position
-        this.STATES = { ACTIVE: 'active', STOPPED: 'stopped', MISSED: 'missed' };
-        this.MOVE_AMOUNT = 12;
-        this.dimension = { width: 0, height: 0, depth: 0 };
-        this.position = { x: 0, y: 0, z: 0 };
-        this.targetBlock = block;
-        this.index = (this.targetBlock ? this.targetBlock.index : 0) + 1;
-        this.workingPlane = this.index % 2 ? 'x' : 'z';
-        this.workingDimension = this.index % 2 ? 'width' : 'depth';
-        // set the dimensions from the target block, or defaults.
-        this.dimension.width = this.targetBlock ? this.targetBlock.dimension.width : 10;
-        this.dimension.height = this.targetBlock ? this.targetBlock.dimension.height : 2;
-        this.dimension.depth = this.targetBlock ? this.targetBlock.dimension.depth : 10;
-        this.position.x = this.targetBlock ? this.targetBlock.position.x : 0;
-        this.position.y = this.dimension.height * this.index;
-        this.position.z = this.targetBlock ? this.targetBlock.position.z : 0;
-        this.colorOffset = this.targetBlock ? this.targetBlock.colorOffset : Math.round(Math.random() * 100);
-        // set color
-        if (!this.targetBlock) {
-            this.color = 0x333344;
-        }
-        else {
-            let offset = this.index + this.colorOffset;
-            var r = Math.sin(0.3 * offset) * 55 + 200;
-            var g = Math.sin(0.3 * offset + 2) * 55 + 200;
-            var b = Math.sin(0.3 * offset + 4) * 55 + 200;
-            this.color = new THREE.Color(r / 255, g / 255, b / 255);
-        }
-        // state
-        this.state = this.index > 1 ? this.STATES.ACTIVE : this.STATES.STOPPED;
-        // set direction
-        this.speed = -0.1 - (this.index * 0.005);
-        if (this.speed < -4)
-            this.speed = -4;
-        this.direction = this.speed;
-        // create block
-        let geometry = new THREE.BoxGeometry(this.dimension.width, this.dimension.height, this.dimension.depth);
-        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(this.dimension.width / 2, this.dimension.height / 2, this.dimension.depth / 2));
-        this.material = new THREE.MeshToonMaterial({ color: this.color, shading: THREE.FlatShading });
-        this.mesh = new THREE.Mesh(geometry, this.material);
-        this.mesh.position.set(this.position.x, this.position.y + (this.state == this.STATES.ACTIVE ? 0 : 0), this.position.z);
-        if (this.state == this.STATES.ACTIVE) {
-            this.position[this.workingPlane] = Math.random() > 0.5 ? -this.MOVE_AMOUNT : this.MOVE_AMOUNT;
-        }
-    }
-    reverseDirection() {
-        this.direction = this.direction > 0 ? this.speed : Math.abs(this.speed);
-    }
-    place() {
-        this.state = this.STATES.STOPPED;
-        let overlap = this.targetBlock.dimension[this.workingDimension] - Math.abs(this.position[this.workingPlane] - this.targetBlock.position[this.workingPlane]);
-        let blocksToReturn = {
-            plane: this.workingPlane,
-            direction: this.direction
-        };
-        if (this.dimension[this.workingDimension] - overlap < 0.3) {
-            overlap = this.dimension[this.workingDimension];
-            blocksToReturn.bonus = true;
-            this.position.x = this.targetBlock.position.x;
-            this.position.z = this.targetBlock.position.z;
-            this.dimension.width = this.targetBlock.dimension.width;
-            this.dimension.depth = this.targetBlock.dimension.depth;
-        }
-        if (overlap > 0) {
-            let choppedDimensions = { width: this.dimension.width, height: this.dimension.height, depth: this.dimension.depth };
-            choppedDimensions[this.workingDimension] -= overlap;
-            this.dimension[this.workingDimension] = overlap;
-            let placedGeometry = new THREE.BoxGeometry(this.dimension.width, this.dimension.height, this.dimension.depth);
-            placedGeometry.applyMatrix(new THREE.Matrix4().makeTranslation(this.dimension.width / 2, this.dimension.height / 2, this.dimension.depth / 2));
-            let placedMesh = new THREE.Mesh(placedGeometry, this.material);
-            let choppedGeometry = new THREE.BoxGeometry(choppedDimensions.width, choppedDimensions.height, choppedDimensions.depth);
-            choppedGeometry.applyMatrix(new THREE.Matrix4().makeTranslation(choppedDimensions.width / 2, choppedDimensions.height / 2, choppedDimensions.depth / 2));
-            let choppedMesh = new THREE.Mesh(choppedGeometry, this.material);
-            let choppedPosition = {
-                x: this.position.x,
-                y: this.position.y,
-                z: this.position.z
-            };
-            if (this.position[this.workingPlane] < this.targetBlock.position[this.workingPlane]) {
-                this.position[this.workingPlane] = this.targetBlock.position[this.workingPlane];
-            }
-            else {
-                choppedPosition[this.workingPlane] += overlap;
-            }
-            placedMesh.position.set(this.position.x, this.position.y, this.position.z);
-            choppedMesh.position.set(choppedPosition.x, choppedPosition.y, choppedPosition.z);
-            blocksToReturn.placed = placedMesh;
-            if (!blocksToReturn.bonus)
-                blocksToReturn.chopped = choppedMesh;
-        }
-        else {
-            this.state = this.STATES.MISSED;
-        }
-        this.dimension[this.workingDimension] = overlap;
-        return blocksToReturn;
-    }
-    tick() {
-        if (this.state == this.STATES.ACTIVE) {
-            let value = this.position[this.workingPlane];
-            if (value > this.MOVE_AMOUNT || value < -this.MOVE_AMOUNT)
-                this.reverseDirection();
-            this.position[this.workingPlane] += this.direction;
-            this.mesh.position[this.workingPlane] = this.position[this.workingPlane];
-        }
-    }
+
+// Object of all the function names that we will use to create random letters of password
+const randomFunc = {
+	lower: getRandomLower,
+	upper: getRandomUpper,
+	number: getRandomNumber,
+	symbol: getRandomSymbol,
+};
+
+// Random more secure value
+function secureMathRandom() {
+	return window.crypto.getRandomValues(new Uint32Array(1))[0] / (Math.pow(2, 32) - 1);
 }
-class Game {
-    constructor() {
-        this.STATES = {
-            'LOADING': 'loading',
-            'PLAYING': 'playing',
-            'READY': 'ready',
-            'ENDED': 'ended',
-            'RESETTING': 'resetting'
-        };
-        this.blocks = [];
-        this.state = this.STATES.LOADING;
-        this.stage = new Stage();
-        this.mainContainer = document.getElementById('container');
-        this.scoreContainer = document.getElementById('score');
-        this.startButton = document.getElementById('start-button');
-        this.instructions = document.getElementById('instructions');
-        this.scoreContainer.innerHTML = '0';
-        this.newBlocks = new THREE.Group();
-        this.placedBlocks = new THREE.Group();
-        this.choppedBlocks = new THREE.Group();
-        this.stage.add(this.newBlocks);
-        this.stage.add(this.placedBlocks);
-        this.stage.add(this.choppedBlocks);
-        this.addBlock();
-        this.tick();
-        this.updateState(this.STATES.READY);
-        document.addEventListener('keydown', e => {
-            if (e.keyCode == 32)
-                this.onAction();
-        });
-        document.addEventListener('click', e => {
-            this.onAction();
-        });
-        document.addEventListener('touchstart', e => {
-            e.preventDefault();
-            // this.onAction();
-            // ☝️ this triggers after click on android so you
-            // insta-lose, will figure it out later.
-        });
-    }
-    updateState(newState) {
-        for (let key in this.STATES)
-            this.mainContainer.classList.remove(this.STATES[key]);
-        this.mainContainer.classList.add(newState);
-        this.state = newState;
-    }
-    onAction() {
-        switch (this.state) {
-            case this.STATES.READY:
-                this.startGame();
-                break;
-            case this.STATES.PLAYING:
-                this.placeBlock();
-                break;
-            case this.STATES.ENDED:
-                this.restartGame();
-                break;
-        }
-    }
-    startGame() {
-        if (this.state != this.STATES.PLAYING) {
-            this.scoreContainer.innerHTML = '0';
-            this.updateState(this.STATES.PLAYING);
-            this.addBlock();
-        }
-    }
-    restartGame() {
-        this.updateState(this.STATES.RESETTING);
-        let oldBlocks = this.placedBlocks.children;
-        let removeSpeed = 0.2;
-        let delayAmount = 0.02;
-        for (let i = 0; i < oldBlocks.length; i++) {
-            TweenLite.to(oldBlocks[i].scale, removeSpeed, { x: 0, y: 0, z: 0, delay: (oldBlocks.length - i) * delayAmount, ease: Power1.easeIn, onComplete: () => this.placedBlocks.remove(oldBlocks[i]) });
-            TweenLite.to(oldBlocks[i].rotation, removeSpeed, { y: 0.5, delay: (oldBlocks.length - i) * delayAmount, ease: Power1.easeIn });
-        }
-        let cameraMoveSpeed = removeSpeed * 2 + (oldBlocks.length * delayAmount);
-        this.stage.setCamera(2, cameraMoveSpeed);
-        let countdown = { value: this.blocks.length - 1 };
-        TweenLite.to(countdown, cameraMoveSpeed, { value: 0, onUpdate: () => { this.scoreContainer.innerHTML = String(Math.round(countdown.value)); } });
-        this.blocks = this.blocks.slice(0, 1);
-        setTimeout(() => {
-            this.startGame();
-        }, cameraMoveSpeed * 1000);
-    }
-    placeBlock() {
-        let currentBlock = this.blocks[this.blocks.length - 1];
-        let newBlocks = currentBlock.place();
-        this.newBlocks.remove(currentBlock.mesh);
-        if (newBlocks.placed)
-            this.placedBlocks.add(newBlocks.placed);
-        if (newBlocks.chopped) {
-            this.choppedBlocks.add(newBlocks.chopped);
-            let positionParams = { y: '-=30', ease: Power1.easeIn, onComplete: () => this.choppedBlocks.remove(newBlocks.chopped) };
-            let rotateRandomness = 10;
-            let rotationParams = {
-                delay: 0.05,
-                x: newBlocks.plane == 'z' ? ((Math.random() * rotateRandomness) - (rotateRandomness / 2)) : 0.1,
-                z: newBlocks.plane == 'x' ? ((Math.random() * rotateRandomness) - (rotateRandomness / 2)) : 0.1,
-                y: Math.random() * 0.1,
-            };
-            if (newBlocks.chopped.position[newBlocks.plane] > newBlocks.placed.position[newBlocks.plane]) {
-                positionParams[newBlocks.plane] = '+=' + (40 * Math.abs(newBlocks.direction));
-            }
-            else {
-                positionParams[newBlocks.plane] = '-=' + (40 * Math.abs(newBlocks.direction));
-            }
-            TweenLite.to(newBlocks.chopped.position, 1, positionParams);
-            TweenLite.to(newBlocks.chopped.rotation, 1, rotationParams);
-        }
-        this.addBlock();
-    }
-    addBlock() {
-        let lastBlock = this.blocks[this.blocks.length - 1];
-        if (lastBlock && lastBlock.state == lastBlock.STATES.MISSED) {
-            return this.endGame();
-        }
-        this.scoreContainer.innerHTML = String(this.blocks.length - 1);
-        let newKidOnTheBlock = new Block(lastBlock);
-        this.newBlocks.add(newKidOnTheBlock.mesh);
-        this.blocks.push(newKidOnTheBlock);
-        this.stage.setCamera(this.blocks.length * 2);
-        if (this.blocks.length >= 5)
-            this.instructions.classList.add('hide');
-    }
-    endGame() {
-        this.updateState(this.STATES.ENDED);
-    }
-    tick() {
-        this.blocks[this.blocks.length - 1].tick();
-        this.stage.render();
-        requestAnimationFrame(() => { this.tick(); });
-    }
+
+// Generator Functions
+// All the functions that are responsible to return a random value taht we will use to create password.
+function getRandomLower() {
+	return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
 }
-let game = new Game();
+function getRandomUpper() {
+	return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+}
+function getRandomNumber() {
+	return String.fromCharCode(Math.floor(secureMathRandom() * 10) + 48);
+}
+function getRandomSymbol() {
+	const symbols = '~!@#$%^&*()_+{}":?><;.,';
+	return symbols[Math.floor(Math.random() * symbols.length)];
+}
+
+// Selecting all the DOM Elements that are necessary -->
+
+// The Viewbox where the result will be shown
+const resultEl = document.getElementById("result");
+// The input slider, will use to change the length of the password
+const lengthEl = document.getElementById("slider");
+
+// Checkboxes representing the options that is responsible to create differnt type of password based on user
+const uppercaseEl = document.getElementById("uppercase");
+const lowercaseEl = document.getElementById("lowercase");
+const numberEl = document.getElementById("number");
+const symbolEl = document.getElementById("symbol");
+
+// Button to generate the password
+const generateBtn = document.getElementById("generate");
+// Button to copy the text
+const copyBtn = document.getElementById("copy-btn");
+// Result viewbox container
+const resultContainer = document.querySelector(".result");
+// Text info showed after generate button is clicked
+const copyInfo = document.querySelector(".result__info.right");
+// Text appear after copy button is clicked
+const copiedInfo = document.querySelector(".result__info.left");
+
+// if this variable is trye only then the copyBtn will appear, i.e. when the user first click generate the copyBth will interact.
+let generatedPassword = false;
+
+// Update Css Props of the COPY button
+// Getting the bounds of the result viewbox container
+let resultContainerBound = {
+	left: resultContainer.getBoundingClientRect().left,
+	top: resultContainer.getBoundingClientRect().top,
+};
+// This will update the position of the copy button based on mouse Position
+resultContainer.addEventListener("mousemove", e => {
+	resultContainerBound = {
+		left: resultContainer.getBoundingClientRect().left,
+		top: resultContainer.getBoundingClientRect().top,
+	};
+	if(generatedPassword){
+		copyBtn.style.opacity = '1';
+		copyBtn.style.pointerEvents = 'all';
+		copyBtn.style.setProperty("--x", `${e.x - resultContainerBound.left}px`);
+		copyBtn.style.setProperty("--y", `${e.y - resultContainerBound.top}px`);
+	}else{
+		copyBtn.style.opacity = '0';
+		copyBtn.style.pointerEvents = 'none';
+	}
+});
+window.addEventListener("resize", e => {
+	resultContainerBound = {
+		left: resultContainer.getBoundingClientRect().left,
+		top: resultContainer.getBoundingClientRect().top,
+	};
+});
+
+// Copy Password in clipboard
+copyBtn.addEventListener("click", () => {
+	const textarea = document.createElement("textarea");
+	const password = resultEl.innerText;
+	if (!password || password == "CLICK GENERATE") {
+		return;
+	}
+	textarea.value = password;
+	document.body.appendChild(textarea);
+	textarea.select();
+	document.execCommand("copy");
+	textarea.remove();
+
+	copyInfo.style.transform = "translateY(200%)";
+	copyInfo.style.opacity = "0";
+	copiedInfo.style.transform = "translateY(0%)";
+	copiedInfo.style.opacity = "0.75";
+});
+
+// When Generate is clicked Password id generated.
+generateBtn.addEventListener("click", () => {
+	const length = +lengthEl.value;
+	const hasLower = lowercaseEl.checked;
+	const hasUpper = uppercaseEl.checked;
+	const hasNumber = numberEl.checked;
+	const hasSymbol = symbolEl.checked;
+	generatedPassword = true;
+	resultEl.innerText = generatePassword(length, hasLower, hasUpper, hasNumber, hasSymbol);
+	copyInfo.style.transform = "translateY(0%)";
+	copyInfo.style.opacity = "0.75";
+	copiedInfo.style.transform = "translateY(200%)";
+	copiedInfo.style.opacity = "0";
+});
+
+// Function responsible to generate password and then returning it.
+function generatePassword(length, lower, upper, number, symbol) {
+	let generatedPassword = "";
+	const typesCount = lower + upper + number + symbol;
+	const typesArr = [{ lower }, { upper }, { number }, { symbol }].filter(item => Object.values(item)[0]);
+	if (typesCount === 0) {
+		return "";
+	}
+	for (let i = 0; i < length; i++) {
+		typesArr.forEach(type => {
+			const funcName = Object.keys(type)[0];
+			generatedPassword += randomFunc[funcName]();
+		});
+	}
+	return generatedPassword.slice(0, length)
+									.split('').sort(() => Math.random() - 0.5)
+									.join('');
+}
+
+// function that handles the checkboxes state, so at least one needs to be selected. The last checkbox will be disabled.
+function disableOnlyCheckbox(){
+	let totalChecked = [uppercaseEl, lowercaseEl, numberEl, symbolEl].filter(el => el.checked)
+	totalChecked.forEach(el => {
+		if(totalChecked.length == 1){
+			el.disabled = true;
+		}else{
+			el.disabled = false;
+		}
+	})
+}
+
+[uppercaseEl, lowercaseEl, numberEl, symbolEl].forEach(el => {
+	el.addEventListener('click', () => {
+		disableOnlyCheckbox()
+	})
+})

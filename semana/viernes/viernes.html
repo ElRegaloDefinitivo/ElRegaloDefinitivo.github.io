@@ -1,33 +1,80 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html>
+
 <head>
+  <title>Viernes</title>
   <meta charset="UTF-8">
-  <title>CodePen - Tower Blocks</title>
-  <link rel="stylesheet" href="./viernes.css">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="viernes.css">
+  <link rel="icon" type="image/jpg" href="../../img/corazon.png" />
 </head>
+
 <body>
-<!-- partial:index.partial.html -->
-<meta name="viewport" content="width=device-width,user-scalable=no">
+  <header id="headerArriba">
+    <nav>
+      <ul>
+        <img src="../../img/corazon.png" height="40px" alt="Logo de mi sitio web">
+        <li><a href="../../index.html">Inicio</a></li>
+        <li><a href="../../password.html">Contraseña</a></li>
+        <li><a href="../../extra/resumen.html">Resumen</a></li>
+        <img src="../../img/corazon.png" height="40px" alt="Logo de mi sitio web">
+      </ul>
+    </nav>
+    <br>
+    <br>
+    <h2 id="feliz-viernes"></h2>
 
-<div id="container">
-	<div id="game"></div>
-	<div id="score">0</div>
-	<div id="instructions">Click (or press the spacebar) to place the block</div>
-	<div class="game-over">
-		<h2>Game Over</h2>
-		<p>You did great, you're the best.</p>
-		<p>Click or spacebar to start again</p>
-	</div>
-	<div class="game-ready">
-		<div id="start-button">Start</div>
-		<div></div>
-	</div>
-</div>
-<!-- partial -->
-  <script src='https://codepen.io/ste-vg/pen/zBVaZw.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r83/three.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js'></script><script  src="./script.js"></script>
+    <div class="banner">
+      <p>❤</p>
+      <p><span id="fecha-regalo"></span></p>
+      <div class="progress-bar-container">
+        <div class="progress-bar"></div>
+        <div class="progress-bar-indicator"></div>
+      </div>
+    </div>
+  </header>
 
+
+  <main>
+    <h1 id="Dia"> Día 21 </h1>
+    <div class="container">
+      <h2 class="title">Password Generator</h2>
+      <div class="result">
+        <div class="result__title field-title">Generated Password</div>
+        <div class="result__info right">click to copy</div>
+        <div class="result__info left">copied</div>
+        <div class="result__viewbox" id="result">CLICK GENERATE</div>
+        <button id="copy-btn" style="--x: 0; --y: 0"><i class="far fa-copy"></i></button>
+      </div>
+      <div class="length range__slider" data-min="4" data-max="32">
+        <div class="length__title field-title" data-length='0'>length:</div>
+        <input id="slider" type="range" min="4" max="32" value="16" />
+      </div>
+
+      <div class="settings">
+        <span class="settings__title field-title">settings</span>
+        <div class="setting">
+          <input type="checkbox" id="uppercase" checked />
+          <label for="uppercase">Include Uppercase</label>
+        </div>
+        <div class="setting">
+          <input type="checkbox" id="lowercase" checked />
+          <label for="lowercase">Include Lowercase</label>
+        </div>
+        <div class="setting">
+          <input type="checkbox" id="number" checked />
+          <label for="number">Include Numbers</label>
+        </div>
+        <div class="setting">
+          <input type="checkbox" id="symbol" />
+          <label for="symbol">Include Symbols</label>
+        </div>
+      </div>
+
+      <button class="btn generate" id="generate">Generate Password</button>
+    </div>
+  </main>
+  <script src="viernes.js"></script>
 </body>
+
 </html>

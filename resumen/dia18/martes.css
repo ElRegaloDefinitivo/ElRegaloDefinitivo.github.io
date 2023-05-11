@@ -14,8 +14,9 @@ body {
     height: 2100px;
     justify-content: center;
     align-items: center;
-    font-family: verdana;
-    text-align: center;
+    font-family:verdana; 
+    padding: 5px; 
+    text-align:center;
 }
 
 
