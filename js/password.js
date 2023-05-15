@@ -6,7 +6,7 @@ function checkPassword(event) {
         var dayOfWeek = d.getDay();
         switch (dayOfWeek) {
             case 0:
-                window.location.href = "semana/domingo/index.html";
+                window.location.href = "semana/domingo/domingo.html";
                 break;
             case 1:
                 window.location.href = "semana/lunes/lunes.html";
@@ -15,7 +15,7 @@ function checkPassword(event) {
                 window.location.href = "semana/martes/martes.html";
                 break;
             case 3:
-                window.location.href = "semana/miercoles/miercoles.html";
+                window.location.href = "semana/miercoles/index.html";
                 break;
             case 4:
                 window.location.href = "semana/jueves/jueves.html";
@@ -24,7 +24,7 @@ function checkPassword(event) {
                 window.location.href = "semana/viernes/viernes.html";
                 break;
             case 6:
-                window.location.href = "semana/sabado/index.html";
+                window.location.href = "semana/sabado/sabado.html";
                 break;
         }
     } else {
