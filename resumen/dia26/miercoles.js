@@ -10,7 +10,7 @@ const minutos = fechaHora.getMinutes().toString().padStart(2, "0");
 const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
 const diaSemana = diasSemana[fechaHora.getDay()];
 
-const felizLunes = document.getElementById("feliz-sabado");
+const felizLunes = document.getElementById("feliz-miercoles");
 felizLunes.innerHTML = `¡Feliz ${diaSemana}! Hoy es ${dia}-${mes}-${anio} y son las ${hora}:${minutos}`;
 
 
@@ -71,3 +71,18 @@ function updateProgressBar() {
 
 updateProgressBar();
 setInterval(updateProgressBar, 1000 * 60 * 60 * 24);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

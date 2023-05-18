@@ -36,44 +36,48 @@
 
 
   <main>
-    <h1 id="Dia"> Día 21 </h1>
-    <div class="container">
-      <h2 class="title">Password Generator</h2>
-      <div class="result">
-        <div class="result__title field-title">Generated Password</div>
-        <div class="result__info right">click to copy</div>
-        <div class="result__info left">copied</div>
-        <div class="result__viewbox" id="result">CLICK GENERATE</div>
-        <button id="copy-btn" style="--x: 0; --y: 0"><i class="far fa-copy"></i></button>
+    <h1 id="Dia">Día 28</h1>
+    <div id="preguntas">
+      <div id="pregunta1">
+        <p id="textoPregunta1">¿Eres mi novia, verdad?</p>
+        <button id="respuestaSi" onclick="respuestaSi()">Sí</button>
+        <button id="respuestaQue" onclick="alert('😰 QUE?! ENCIMA DE PUTA, MENTIROSA 🤬')">No</button>
       </div>
-      <div class="length range__slider" data-min="4" data-max="32">
-        <div class="length__title field-title" data-length='0'>length:</div>
-        <input id="slider" type="range" min="4" max="32" value="16" />
+      <div id="pregunta2" style="display: none;">
+        <p id="textoPregunta2">¿Segura?</p>
+        <button id="respuestaOk" onclick="alert('🤬 OTRA VEZ, PUTAAAAA!')">No</button>
+        <button id="respuestaPuesClaro" onclick="respuestaPuesClaro()">Pues claro bb ❤</button>
       </div>
-
-      <div class="settings">
-        <span class="settings__title field-title">settings</span>
-        <div class="setting">
-          <input type="checkbox" id="uppercase" checked />
-          <label for="uppercase">Include Uppercase</label>
-        </div>
-        <div class="setting">
-          <input type="checkbox" id="lowercase" checked />
-          <label for="lowercase">Include Lowercase</label>
-        </div>
-        <div class="setting">
-          <input type="checkbox" id="number" checked />
-          <label for="number">Include Numbers</label>
-        </div>
-        <div class="setting">
-          <input type="checkbox" id="symbol" />
-          <label for="symbol">Include Symbols</label>
-        </div>
+      <div id="pregunta3" style="display: none;">
+        <p id="textoPregunta3">Tengo una pregunta para ti, ¿preparada?</p>
+        <button id="respuestaNo2"
+          onclick="alert('Y ENTONCES PARA QUE LLEGAS HASTA AQUI, YO FLIPO 🤬🤬🤬🤬🤬')">No</button>
+        <button id="respuestaSi2" onclick="respuestaSi2()">Creo que si</button>
+      </div>
+      <div id="pregunta4" style="display: none;">
+        <p id="textoPregunta4">Are you <span style="color:rgb(0, 110, 255);">B</span><span
+            style="color:rgb(17, 17, 219);">M</span><span style="color:rgb(252, 2, 2);">W</span>? </p>
+        <button id="respuestaNo3" onclick="alert('Puede? 🙄')">Tu estas gilipollas</button>
+        <button id="respuestaSi3" onclick="respuestaSi3()">¿Que?</button>
+      </div>
+      <div id="pregunta5" style="display: none;">
+        <p id="textoPregunta5">Do you want to <span style="color:rgb(0, 110, 255);">B</span>e <span
+            style="color:rgb(17, 17, 219);">M</span>y <span style="color:rgb(252, 2, 2);">W</span>ife ?</p>
+        <button id="respuestaNo4"
+          onclick="alert('Ambos sabemos que has pulsado esto para saber que ponia, BMW POWER🔥🔝 ALWAYS!!')">No, soy de
+          mercedes, gracias</button>
+        <button id="respuestaSi4" onclick="respuestaSi4()">SIIIIII 💍</button>
       </div>
 
-      <button class="btn generate" id="generate">Generate Password</button>
+      <div id="pregunta6" style="display: none;">
+        <p id="texto">Necesito que te cambies tu foto de perfil de Discord por esta, esta calculada para el perfil, es un BMW E92 M3 sin bubbles porque es una foto, esta hecha con Inteligencia Artificial y un poco modificada con Paint, solo tienes que ponertela.</p>
+        <br>
+        <p id="texto">Dale click derecho a la imagen > Guardar Imagen como > y la guardas</p>
+        <img id="imagen" src="../../img/BMW_M3_E92.jpg" alt="BMW M3 E92" width="700px" height="600px">
+      </div>
     </div>
   </main>
+
   <script src="viernes.js"></script>
 </body>
 

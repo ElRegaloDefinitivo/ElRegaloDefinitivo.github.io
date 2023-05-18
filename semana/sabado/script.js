@@ -1,132 +1,50 @@
-const earth = document.querySelectorAll(".earth path"),
-land = document.querySelectorAll(".land path"),
-water = document.querySelectorAll(".water path"),
-feTurb = document.querySelector('#feturbulence'),
-boomL = document.querySelectorAll('#boomlines path'),
-boomG = document.querySelectorAll('#booms g');
+/*------------------------------
+Register plugins
+------------------------------*/
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+const content = document.querySelector('#content');
 
-//sounds
-const audio = new Audio('https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/bomby2.mp3');
+/*------------------------------
+Making some circles noise
+------------------------------*/
+const simplex = new SimplexNoise();
+for (let i = 0; i < 5000; i++) {
+  const div = document.createElement('div');
+  div.classList.add('circle');
+  const n1 = simplex.noise2D(i * 0.003, i * 0.0033);
+  const n2 = simplex.noise2D(i * 0.002, i * 0.001);
 
-const start = document.getElementById('start');
+  const style = {
+    transform: `translate(${n2 * 200}px) rotate(${n2 * 270}deg) scale(${3 + n1 * 2}, ${3 + n2 * 2})`,
+    boxShadow: `0 0 0 .2px hsla(${Math.floor(i * 0.3)}, 70%, 70%, .6)` };
 
-start.addEventListener('click', function () {
-  setTimeout(function () {audio.play();}, 600);
-  master.restart();
-  TweenMax.to(start, 0.3, {
-    autoAlpha: 0 });
-
-}, false);
-
-TweenMax.set("#booms, #boomlines", {
-  visibility: 'visible' });
-
-
-TweenMax.set("#booms g", {
-  transformOrigin: "50% 50%" });
-
-
-function sceneOne() {
-  const tl = new TimelineMax();
-
-  tl.add("start");
-  tl.staggerFromTo("#boomlines path", 0.5, {
-    drawSVG: "0%" },
-  {
-    drawSVG: "100%" },
-  0.3, "start");
-  tl.staggerTo("#boomlines path", 0.4, {
-    drawSVG: "0%" },
-  0.3, "start+=0.5");
-  tl.staggerFromTo("#booms g", 1, {
-    scale: 0,
-    opacity: 0 },
-  {
-    scale: 1,
-    opacity: 1 },
-  0.1, "start");
-  tl.staggerTo("#booms g", 1, {
-    scale: 2,
-    opacity: 0 },
-  0.1, "start+=0.5");
-  tl.staggerTo(water, 0.5, {
-    cycle: {
-      scale: [0.8, 0.6, 0.3, 0.5, 0.1] },
-
-    transformOrigin: "50% 50%",
-    ease: Bounce.easeIn },
-  0.001, "start+=2.5");
-  tl.staggerTo(water, 1, {
-    scale: 1,
-    transformOrigin: "50% 50%",
-    ease: Bounce.easeOut },
-  0.001, "start+=3");
-
-  return tl;
+  Object.assign(div.style, style);
+  content.appendChild(div);
 }
+const Circles = document.querySelectorAll('.circle');
 
-function sceneTwo() {
-  const tl = new TimelineMax();
+/*------------------------------
+Init ScrollSmoother
+------------------------------*/
+const scrollerSmoother = ScrollSmoother.create({
+  content: content,
+  wrapper: '#wrapper',
+  smooth: 1,
+  effects: false });
 
-  tl.call(addAttr);
-  tl.fromTo(feTurb, 1, {
-    attr: {
-      baseFrequency: '0 0' } },
 
-  {
-    attr: {
-      baseFrequency: '0.8 1.2' },
+/*------------------------------
+Scroll Trigger
+------------------------------*/
+const main = gsap.timeline({
+  scrollTrigger: {
+    scrub: .7,
+    start: "top 25%",
+    end: "bottom bottom" } });
 
-    ease: Sine.easeOut });
 
-  tl.to(feTurb, 1, {
-    attr: {
-      baseFrequency: '0 0' },
+Circles.forEach(circle => {
+  main.to(circle, {
+    opacity: 1 });
 
-    ease: Sine.easeIn });
-
-  tl.call(removeAttr);
-  tl.add("boom");
-  tl.to(".earthbk", 0.3, {
-    opacity: 0,
-    ease: Circ.easeIn },
-  "boom");
-  tl.staggerTo(land, 3, {
-    cycle: {
-      y: [700, -700, -1000, 1000],
-      x: [200, -200, -700, 700],
-      rotation: function (i) {
-        return i * 20;
-      } },
-
-    opacity: 0,
-    ease: Circ.easeInOut },
-  0.001, "boom");
-  tl.staggerTo(water, 3, {
-    cycle: {
-      y: [-700, 700],
-      x: [700, -700],
-      rotation: function (i) {
-        return i * 20;
-      } },
-
-    opacity: 0,
-    ease: Circ.easeInOut },
-  0.001, "boom");
-
-  return tl;
-}
-
-const master = new TimelineMax({ paused: true });
-master.add(sceneOne());
-master.add(sceneTwo(), "-=0.3");
-
-// filter attribute helpers
-function addAttr() {
-  feTurb.setAttribute('baseFrequency', '0 0');
-}
-
-function removeAttr() {
-  var applyFilter = document.getElementById("applyFilter");
-  applyFilter.removeAttribute("filter");
-}
+});
