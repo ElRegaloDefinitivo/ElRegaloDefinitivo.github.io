@@ -6,7 +6,7 @@ function checkPassword(event) {
         var dayOfWeek = d.getDay();
         switch (dayOfWeek) {
             case 0:
-                window.location.href = "semana/domingo/domingo.html";
+                window.location.href = "semana/domingo/index.html";
                 break;
             case 1:
                 window.location.href = "semana/lunes/lunes.html";
