@@ -8,10 +8,10 @@
 /* Estilos generales */
 body {
     margin: 0;
-    background: #050801;
+    background: linear-gradient(to bottom right, var(--color-color1), var(--color-color2));
     color: var(--color-blanco);
     overflow-x: hidden;
-    height: 900px;
+    height: 2100px;
     justify-content: center;
     align-items: center;
     font-family: verdana;
@@ -44,7 +44,7 @@ body {
     text-shadow: 1px black;
 }
 
-#feliz-martes h2 {
+#headerArriba>h2 {
     animation: slideInLeft 1s ease-in-out;
     text-align: center;
 }
@@ -205,217 +205,133 @@ body {
 
 
 
-
-
-
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
-
-#btn1 {
-    position: relative;
-    display: inline-block;
-    padding: 25px 30px;
-    margin: 40px 0;
-    color: #03e9f4;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: 0.5s;
-    letter-spacing: 4px;
-    overflow: hidden;
-    margin-right: 50px;
-}
-
-#btn2 {
-    position: relative;
-    display: inline-block;
-    padding: 25px 30px;
-    margin: 40px 0;
-    color: #03e9f4;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: 0.5s;
-    letter-spacing: 4px;
-    overflow: hidden;
-    margin-right: 50px;
-}
-
-#btn3 {
-    position: relative;
-    display: inline-block;
-    padding: 25px 30px;
-    margin: 40px 0;
-    color: #ff6308;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: 0.5s;
-    letter-spacing: 4px;
-    overflow: hidden;
-    margin-right: 50px;
-}
-
-a:hover{
-    background: #03e9f4;
-    color: #050801;
-    box-shadow: 0 0 5px #03e9f4,
-                0 0 25px #03e9f4,
-                0 0 50px #f74600,
-                0 0 200px #f4a003;
-     -webkit-box-reflect:below 1px linear-gradient(transparent, #0005);
-}
-a:nth-child(1){
-    filter: hue-rotate(270deg);
-}
-a:nth-child(2){
-    filter: hue-rotate(110deg);
-    color: #f46303;
-}
-a span{
-    position: absolute;
-    display: block;
-}
-a span:nth-child(1){
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg,transparent,#03e9f4);
-    animation: animate1 1s linear infinite;
-}
-@keyframes animate1{
-    0%{
-        left: -100%;
-    }
-    50%,100%{
-        left: 100%;
-    }
-}
-a span:nth-child(2){
-    top: -100%;
-    right: 0;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(180deg,transparent,#03e9f4);
-    animation: animate2 1s linear infinite;
-    animation-delay: 0.25s;
-}
-@keyframes animate2{
-    0%{
-        top: -100%;
-    }
-    50%,100%{
-        top: 100%;
-    }
-}
-a span:nth-child(3){
-    bottom: 0;
-    right: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(270deg,transparent,#f46303);
-    animation: animate3 1s linear infinite;
-    animation-delay: 0.50s;
-}
-@keyframes animate3{
-    0%{
-        right: -100%;
-    }
-    50%,100%{
-        right: 100%;
-    }
-}
-
-
-a span:nth-child(4){
-    bottom: -100%;
-    left: 0;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(360deg,transparent,#03e9f4);
-    animation: animate4 1s linear infinite;
-    animation-delay: 0.75s;
-}
-@keyframes animate4{
-    0%{
-        bottom: -100%;
-    }
-    50%,100%{
-        bottom: 100%;
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-h2 {
-    color: #666;
-    font-family: monospace;
+.labels {
+    margin: auto;
+    margin-top: 10px;
     text-align: center;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    color: #303a21;
+    word-wrap: break-word;
+    margin-bottom: 50px;
   }
   
-  .background {
-    table-layout: fixed;
-    border-spacing: 0;
+  .frame {
+    margin: auto;
+    padding: 5px 0px;
+    width: 56px;
+    border: 2px solid #303a21;
   }
   
-  .background td {
-    padding: 0;
+  .btn {
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    background-color: #303a21;
+    color: #c4d6a7;
+    padding: 10px 5px;
+    text-transform: uppercase;
+    font-size: 10px;
+    border: 0px;
+    cursor: pointer;
+    border: 0px;
   }
   
-  .lava, .actor {
-    background: #e55;
-  }
-  
-  .wall {
-    background: #444;
-    border: solid 3px #333;
-    box-sizing: content-box;
-  }
-  
-  .actor {
-    position: absolute;
-  }
-  
-  .coin {
-    background: #e2e838;
+  .btn-rounded {
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
   }
   
-  .player {
-    background: #335699;
-    box-shadow: none;
+  .fa {
+    font-size: 14px;
   }
   
-  .lost .player {
-    background: #a04040;
+  .flipx {
+    transform: scaleX(-1);
   }
   
-  .won .player {
-    background: green;
+  #score {
+    margin-top: 5px;
   }
   
-  .game {
+  #outer-board {
+    width: 365px;
+    margin: auto;
+  }
+  
+  #board {
+    float: left;
     position: relative;
-    overflow: hidden;
+    background-color: #c4d6a7;
+    width: 280px;
+    height: 448px;
+    margin: 10px auto;
+    border: 2px solid #303a21;
+  }
+  
+  #stats {
+    float: right;
+    position: relative;
+    background-color: #c4d6a7;
+    width: 70px;
+    height: 448px;
+    margin: 10px auto;
+    border: 2px solid #303a21;
+  }
+  
+  #banner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 100px;
+    background-color: #303a21;
+    color: #c4d6a7;
+    z-index: 2;
+    text-align: center;
+  }
+  
+  #message {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 23px;
+    margin: 10px;
+    margin-top: 20px;
+  }
+  
+  #new-game {
+    font-weight: 100;
+    cursor: pointer;
+  }
+  
+  .block,
+  .empty {
+    position: absolute;
+    background-color: #c4d6a7;
+    width: 28px;
+    height: 28px;
+  }
+  
+  .empty {
+    opacity: 0.2;
+  }
+  
+  .inner-tile {
+    position: absolute;
+    background-color: #c4d6a7;
+    border: 4px solid #303a21;
+    width: 14px;
+    height: 14px;
+    margin: 3px;
+  }
+  
+  .inner-inner-tile {
+    position: absolute;
+    background-color: #303a21;
+    width: 8px;
+    height: 8px;
+    margin: 3px;
   }
