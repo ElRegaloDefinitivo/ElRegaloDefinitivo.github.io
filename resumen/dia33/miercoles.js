@@ -10,9 +10,8 @@ const minutos = fechaHora.getMinutes().toString().padStart(2, "0");
 const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
 const diaSemana = diasSemana[fechaHora.getDay()];
 
-const felizLunes = document.getElementById("feliz-jueves");
+const felizLunes = document.getElementById("feliz-miercoles");
 felizLunes.innerHTML = `¡Feliz ${diaSemana}! Hoy es ${dia}-${mes}-${anio} y son las ${hora}:${minutos}`;
-
 
 
 // CONTADOR
@@ -36,18 +35,18 @@ contadorBanner.innerHTML = "Quedan " + diasRestantes + " días, " + horasRestant
 document.querySelector(".banner").appendChild(contadorBanner);
 
 // Actualizar el contador cada segundo
-setInterval(function() {
+setInterval(function () {
   // Obtener la fecha actual
   fechaActual = new Date();
-  
+
   // Calcular la diferencia entre las fechas
   diferencia = fechaRegalo.getTime() - fechaActual.getTime();
-  
+
   // Calcular la cantidad de días, horas y minutos restantes
   diasRestantes = Math.floor(diferencia / (1000 * 60 * 60 * 24));
   horasRestantes = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   minutosRestantes = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
-  
+
   // Actualizar el texto del contador
   contadorBanner.innerHTML = "Quedan " + diasRestantes + " días, " + horasRestantes + " horas y " + minutosRestantes + " minutos para tu regalo";
 }, 1000);
@@ -87,65 +86,3 @@ setInterval(updateProgressBar, 1000 * 60 * 60 * 24);
 
 
 
-
-
-
-
-
-
-const imageInput = document.getElementById('imageInput');
-const convertBtn = document.getElementById('convertBtn');
-const imageName = document.getElementById('imageName');
-const conversionOptions = document.getElementById('conversionOptions');
-
-imageInput.addEventListener('change', handleImageUpload);
-
-function handleImageUpload() {
-    const file = imageInput.files[0];
-    if (file) {
-        imageName.textContent = `Imagen seleccionada: ${file.name}`;
-        convertBtn.disabled = false;
-        conversionOptions.innerHTML = '';
-
-        const fileExtension = getFileExtension(file.name);
-
-        if (fileExtension === 'jpg' || fileExtension === 'jpeg') {
-            conversionOptions.innerHTML = `
-                <button onclick="convertTo('png')">JPG to PNG</button>
-                <button onclick="convertTo('webp')">JPG to WEBP</button>
-                <button onclick="convertTo('svg')">JPG to SVG</button>
-            `;
-        } else if (fileExtension === 'png') {
-            conversionOptions.innerHTML = `
-                <button onclick="convertTo('webp')">PNG to WEBP</button>
-                <button onclick="convertTo('jpg')">PNG to JPG</button>
-                <button onclick="convertTo('svg')">PNG to SVG</button>
-            `;
-        } else if (fileExtension === 'webp') {
-            conversionOptions.innerHTML = `
-                <button onclick="convertTo('jpg')">WEBP to JPG</button>
-                <button onclick="convertTo('png')">WEBP to PNG</button>
-                <button onclick="convertTo('svg')">WEBP to SVG</button>
-            `;
-        }
-    }
-}
-
-function getFileExtension(filename) {
-    return filename.split('.').pop().toLowerCase();
-}
-
-function convertTo(format) {
-    const file = imageInput.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function () {
-            const result = reader.result;
-            const link = document.createElement('a');
-            link.href = result;
-            link.download = `converted.${format}`;
-            link.click();
-        }
-        reader.readAsDataURL(file);
-    }
-}
