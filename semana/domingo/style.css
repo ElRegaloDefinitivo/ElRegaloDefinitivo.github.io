@@ -1,32 +1,64 @@
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;900&display=swap');
-
-body {
-  margin: 0;
-  padding: 0;
-  background: #000fff;
-  color: transparent;
-  font-family: 'Inconsolata', monospace;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
-* {
+html, body {
+  height: 100%;
   user-select: none;
 }
-.word {
-  position: absolute;
-  cursor: grab;
-  font-size: 30px;
-  color: #ffeb3b;
+body {
+  color: #999;
+  background: #111;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+  text-align: center;
 }
-.word.highlighted {
-  font-weight: bold;
-  color: black;
-}
-
 a {
-  text-decoration: none;
-  color: black;
-  display: block;
-  padding: 1rem;
+  color: #FF2948;
+  font-weight: 700;
+}
+canvas{
+	flex-shrink: 0;
+	background-color:#000;
+	image-rendering: crisp-edges;
+	image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -o-crisp-edges;
+  -ms-interpolation-mode: nearest-neighbor;
+	}
+.method {
+  color: grey;
+}
+.enfonceMarque {
+  position: absolute;
+  left: 0px;
+  top: 20px;
+  visibility: hidden;
+  width: 50px;
+  height: 50px;
+  border: 2px solid #222;
+  border-radius: 100%;
+  background: grey;
+  opacity: 0.5;
+}
+.enfonceDist {
+  position: absolute;
+  left: 0px;
+  top: 20px;
+  visibility: hidden;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #111;
+  border-radius: 100%;
+  background: #222;
+  opacity: 0.8;
+}
+.message {
+  font-weight: 600;
+  margin: 20px;
 }
