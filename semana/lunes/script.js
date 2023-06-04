@@ -1,131 +1,173 @@
-// config
-baseSpeed = 0.05;
-notchWidth = 0.25;
+/**
+Submission for the GSAP weekly challenge LOOP!
 
-colors = {
-	green: {
-		body: "hsl(168, 75%, 42%)",
-		lock: "hsl(210, 61%, 18%)"
-	},
-	violet: {
-		body: "hsl(267, 35%, 39%)",
-		lock: "hsl(220, 86%, 11%)"
-	},
-	orange: {
-		body: "hsl(24, 62%, 53%)",
-		lock: "hsl(35, 20%, 12%)"
-	},
-	blue: {
-		body: "hsl(186, 85%, 37%)",
-		lock: "hsl(32, 67%, 8%)"
-	},
-	olive: {
-		body: "hsl(55, 16%, 41%)",
-		lock: "hsl(0, 0%, 0%)"
-	}
+A animation of a Roller Coaster car doing a loop using GSAP.
+
+A souvenir photograph is taken at the loops peak which rider can purchase at the kiosk after the ride!
+*/
+
+
+gsap.registerPlugin(MotionPathPlugin);
+
+const coasterTimeline = gsap.timeline({ repeat: -1 });
+
+/**
+ * Generates a string containing a combination of letters and numbers
+ * @returns string
+ */
+const randomSeed = () => {
+  return Math.random().toString(36).slice(2);
 };
-//end config 
 
-function setColor(color) {	
-	$("body").css({"background": colors[color].body});
-	$("#shackle, #lock").css({"border-color": colors[color].lock});
-}
-function newNotch() {
-	notchPosition = (((Math.random() * 0.75 * Math.PI) + 0.25 * Math.PI) * ((clockwise * 2) - 1)) + linePosition;
-	$("#notch-dial").css({"-webkit-transform": "rotate(" + notchPosition + "rad)"});
-	$("#notch-dial").css({"-moz-transform": "rotate(" + notchPosition + "rad)"});
-	$("#notch-dial").css({"transform": "rotate(" + notchPosition + "rad)"});
-	$("#notch").show();
-	$("#notch").toggleClass("appear-b");
-}
-function setStatus(newStatus) {
-	status = newStatus;
-	switch (newStatus) {
-  	case "start":
-			if (level < 10) setColor("green");
-			else if (level < 20) setColor("violet");
-			else if (level < 30) setColor("orange");
-			else if (level < 40) setColor("blue");
-			else setColor("olive");
-			setCount(level);
-			linePosition = 0;
-    	clockwise = true;
-			newNotch();
-			$("body").removeClass("fail");
-      break;
-    case "move":
-      break;
-		case "fail":
-			$("#notch").hide();
-			$("body").addClass("fail");
-			break;
-		case "win":
-			$("#notch").hide();
-			$("body").addClass("next");
-			$("#shackle").addClass("unlock");
-			setTimeout(function() {
-				setLevel(level + 1);
-				setStatus("start");
-				$("#shackle").removeClass("unlock");
-			}, 1000);
-			setTimeout(function() {
-				$("body").removeClass("next");
-			}, 2000);
-			break;
-	} 
-}
-function setCount(newCount) {
-	count = newCount;
-	$("#lock").text(count);
-}
-function setLevel(newLevel) {
-	level = newLevel;
-	$("#level").text(level);
-	window.localStorage.setItem("level", level);
-}
-function click() {
-	switch (status) {
-		case "start":
-			setStatus("move")
-			break;
-		case "move":
-			if (Math.abs(Math.atan2(Math.sin(linePosition - notchPosition), Math.cos(linePosition - notchPosition))) < notchWidth) {
-				setCount(count - 1);
-				if (count == 0) {
-					setStatus("win");
-				}
-				else {
-					clockwise = !clockwise;
-					newNotch();
-				}
-			}
-			else {
-				setStatus("fail");
-			}
-			break;
-		case "fail":
-			setStatus("start");
-			break;
-		case "win":
-			setStatus("start");
-			break;
-	}
-}
-function step() {
-	if (status == "move") linePosition += baseSpeed * (clockwise * 2 - 1);
-	$("#line-dial").css({"-webkit-transform": "rotate(" + linePosition + "rad)"});
-	$("#line-dial").css({"-moz-transform": "rotate(" + linePosition + "rad)"});
-	$("#line-dial").css({"transform": "rotate(" + linePosition + "rad)"});
-	if ((Math.atan2(Math.sin(linePosition - notchPosition), Math.cos(linePosition - notchPosition))) * (clockwise * 2 - 1) > notchWidth) setStatus("fail");
-	window.requestAnimationFrame(step);
-}
-window.requestAnimationFrame(step);
-window.addEventListener("mousedown", click);
-window.addEventListener("touchstart", function(event) {
-	event.preventDefault();
-	click();
-});
-window.addEventListener("keydown", click);
+/**
+ * Returns a random hex colour from a list of colours
+ * @param frontRiderColour if provided, the returned colour will not be the same as the one provided
+ * @returns string
+ */
+const randomColour = (frontRiderColour = false) => {
+  const colours = [
+  "#D56C0C",
+  "#605DE4",
+  "#238D80",
+  "#333333",
+  "#E9B729",
+  "#9A3E91"];
 
-setLevel(parseInt(window.localStorage.getItem("level")) || 1);
-setStatus("start");
+  let randomColour = colours[Math.floor(Math.random() * colours.length)];
+
+  while (randomColour === frontRiderColour) {
+    randomColour = colours[Math.floor(Math.random() * colours.length)];
+  }
+
+  return randomColour;
+};
+
+/**
+ * Changes the faces abd colours of both riders
+ */
+const changeRiders = () => {
+  // Get all riders
+  const riders = document.querySelectorAll("#photo-frame image");
+
+  // Change front rider head
+  riders[0].setAttribute(
+  "href",
+  `https://avatars.dicebear.com/api/big-smile/${randomSeed()}.svg?w=200&scale=90`);
+
+
+  // Get a new colour for the front rider
+  const frontRiderColour = randomColour();
+  // Change front riders clothing colour
+  document.
+  getElementById("photo-front-body").
+  setAttribute("fill", frontRiderColour);
+  document.
+  getElementById("photo-front-left-arm").
+  setAttribute("fill", frontRiderColour);
+  document.
+  getElementById("photo-front-right-arm").
+  setAttribute("fill", frontRiderColour);
+
+  // Change back rider head
+  riders[1].setAttribute(
+  "href",
+  `https://avatars.dicebear.com/api/big-smile/${randomSeed()}.svg?w=200&scale=90`);
+
+
+  // Get a new colour for the back rider (not the same as the front rider)
+  const backRiderColour = randomColour(frontRiderColour);
+  // Change front riders clothing colour
+  document.
+  getElementById("photo-back-body").
+  setAttribute("fill", backRiderColour);
+  document.
+  getElementById("photo-back-left-arm").
+  setAttribute("fill", backRiderColour);
+  document.
+  getElementById("photo-back-right-arm").
+  setAttribute("fill", backRiderColour);
+};
+
+const coasterDuration = 5;
+
+// -------------------------
+// Start of coaster timeline
+// -------------------------
+coasterTimeline.set("#camera", { scale: 1 });
+coasterTimeline.to("#car", {
+  motionPath: {
+    path: "#path",
+    align: "#path",
+    alignOrigin: [0.5, 0.4],
+    autoRotate: 180,
+    start: 0,
+    end: 1 },
+
+  transformOrigin: "50% 50%",
+  duration: coasterDuration,
+  ease: "slow(0.01, 0.9, false)" });
+
+
+// Timeline labels
+coasterTimeline.addLabel("slowMoStart", "<35%");
+coasterTimeline.addLabel("cameraFlash", "<40%");
+coasterTimeline.addLabel("slowMoEnd", "<75%");
+
+// Photo fade out
+coasterTimeline.add(
+gsap.to("#photo", { duration: 1, opacity: 0, onComplete: () => changeRiders() }),
+"<0%");
+
+
+// Camera flash
+coasterTimeline.add(
+gsap.fromTo(
+"#camera-flash",
+{ strokeWidth: 30, scale: 0, transformOrigin: "50% 50%", opacity: 1 },
+{
+  duration: 1,
+  strokeWidth: 2,
+  scale: 4,
+  transformOrigin: "50% 50%",
+  opacity: 0,
+  ease: "power3.out" }),
+
+
+"cameraFlash");
+
+
+// Camera bounce
+coasterTimeline.add(
+gsap.fromTo(
+"#camera",
+{ scale: 0.5 },
+{ duration: 1, scale: 1, ease: "elastic" }),
+
+"cameraFlash");
+
+
+// Photo fade in
+coasterTimeline.add(
+gsap.to("#photo", { duration: 0.3, opacity: 1, delay: 0.3 }),
+"cameraFlash");
+
+
+// Riders arm animation(s)
+coasterTimeline.add(
+gsap.from(["#front-arm", "#back-arm"], {
+  duration: coasterDuration / 2,
+  rotation: 90,
+  transformOrigin: "50% 100%",
+  ease: "elastic.out" }),
+
+"slowMoStart");
+
+
+coasterTimeline.add(
+gsap.to(["#front-arm", "#back-arm"], {
+  duration: coasterDuration / 5,
+  rotation: 90,
+  transformOrigin: "50% 100%",
+  ease: "none" }),
+
+"slowMoEnd");

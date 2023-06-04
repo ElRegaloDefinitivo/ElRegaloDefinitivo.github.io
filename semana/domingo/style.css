@@ -1,64 +1,141 @@
-html, body {
-  height: 100%;
-  user-select: none;
-}
 body {
-  color: #999;
-  background: #111;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.3;
-  margin: 0;
-  padding: 0;
   display: flex;
-  align-items: center;
   justify-content: center;
-  flex-direction: column;
-  overflow: hidden;
-  text-align: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #fff;
+  font-size: 3em;
 }
-a {
-  color: #FF2948;
-  font-weight: 700;
+
+.slider-wrapper {
+  --slider-height: .3125em;
+  --slider-thumb-size: 1.75em;
+  --slider-progress: 50;
+  border-radius: 50px;
+  width: 7em;
+  max-width: 100%;
+  transition: width 0.2s;
 }
-canvas{
-	flex-shrink: 0;
-	background-color:#000;
-	image-rendering: crisp-edges;
-	image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: -o-crisp-edges;
-  -ms-interpolation-mode: nearest-neighbor;
-	}
-.method {
-  color: grey;
+.slider-wrapper.unlocked {
+  width: 8em;
 }
-.enfonceMarque {
+
+.slider-track {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: inherit;
+  width: 100%;
+  height: var(--slider-height);
+  background-image: linear-gradient(to right, transparent 0% calc(var(--slider-progress) * 1%), #aaa calc(var(--slider-progress) * 1%) 100%), linear-gradient(to right, #62ad1d, #fbbd1e, #fb6e1e, #e71a1a, #220000);
+  background-size: auto, 125% 100%;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.6), inset 0 -2px 4px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-size 0.2s;
+}
+.slider-wrapper.unlocked > .slider-track {
+  background-size: auto, 100% 100%;
+}
+
+.slider-input {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
   position: absolute;
-  left: 0px;
-  top: 20px;
-  visibility: hidden;
-  width: 50px;
-  height: 50px;
-  border: 2px solid #222;
-  border-radius: 100%;
-  background: grey;
-  opacity: 0.5;
+  z-index: 1;
+  left: 50%;
+  transform: translate(-50%);
+  border-radius: inherit;
+  width: calc(100% + var(--slider-thumb-size));
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
 }
-.enfonceDist {
+.slider-input::-webkit-slider-runnable-track {
+  height: 100%;
+}
+.slider-input::-webkit-slider-thumb {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: calc((var(--slider-height) / 2) - (var(--slider-thumb-size) / 2));
+  border-width: 0;
+  border-radius: 50%;
+  width: var(--slider-thumb-size);
+  height: var(--slider-thumb-size);
+}
+.slider-input::-moz-range-thumb {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: calc((var(--slider-height) / 2) - (var(--slider-thumb-size) / 2));
+  border-width: 0;
+  border-radius: 50%;
+  width: var(--slider-thumb-size);
+  height: var(--slider-thumb-size);
+}
+
+.slider-thumb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  left: 0px;
-  top: 20px;
-  visibility: hidden;
-  width: 30px;
-  height: 30px;
-  border: 2px solid #111;
-  border-radius: 100%;
-  background: #222;
-  opacity: 0.8;
+  left: calc(var(--slider-progress) / 100 * (100% - var(--slider-height)) + var(--slider-height) / 2);
+  left: calc(var(--slider-progress) * 1%);
+  transform: translateX(-50%);
+  width: var(--slider-thumb-size);
+  height: var(--slider-thumb-size);
+  transition: transform 0.2s;
 }
-.message {
-  font-weight: 600;
-  margin: 20px;
+.slider-input:active + .slider-thumb {
+  transform: translateX(-50%) scale(0.86);
+}
+.slider-thumb::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  width: 150%;
+  height: 150%;
+  background-image: url("https://assets.codepen.io/4175254/explosion-2.png");
+  background-size: 800%;
+  opacity: 0;
+}
+.slider-thumb.play-explosion::after {
+  animation: explosion 0.5s steps(8) forwards;
+  opacity: 1;
+}
+
+@keyframes explosion {
+  to {
+    background-position-x: -800%;
+  }
+}
+.slider-thumb-image {
+  --slider-thumb-image-color: rgb(251 150 30);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  fill: var(--slider-thumb-image-color);
+  transition: transform 0.2s;
+}
+.slider-thumb-image.shake {
+  animation: shake 0.2s infinite;
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(0eg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
