@@ -1,403 +1,365 @@
-//CARS
-var car = document.getElementById('car');
-car.init = function () { 
-  car.speed = 0.2;
-  car.turn = 0;
-  car.x = car.offsetLeft;
-  car.y = 0;
-  car.width = car.offsetWidth;
-  car.height = car.offsetHeight;
-  car.maxSpeed = 5.;
-  car.km = 0;
-  car.motor = 1;  
-  car.crashed = false;
-  car.acc = 0.025,
-  car.break = 0.02;
+// Global Variables
+var DIRECTION = {
+	IDLE: 0,
+	UP: 1,
+	DOWN: 2,
+	LEFT: 3,
+	RIGHT: 4
 };
-car.frame = function () {
-  car.motor *= -1;
-  car.style.left = parseInt(car.x) + 'px';
-  car.style.transform = 'scaleX('+car.motor+')';
-  car.steer();
-};
-car.steer = function () {
-  car.x += car.sx;
-  road.P0.x -= car.sx/4;
-};
-car.crash = function (d) {
-  if (!car.crashed) {
-    car.crashed = true;
-    car.speed = 0.2;
-    car.sx = d ? d : 0;
-    game.audio.oscillator.frequency.value = 15;
-    setTimeout(function () {
-      game.audio.oscillator.frequency.value = 60;
-      car.crashed = false;
-      car.sx = 0;
-    }, 800);
-  }
-}
-var cars = document.getElementById('cars');
-cars.init = function () {
-  cars.n = 32;
-  cars.x = 0;
-  cars.speed = 1;  
-  cars.interval = 500;
-  cars.oponents = [];
-  cars.easy = 0.2;
-  for (var j=0; j<cars.n; j++) {
-    cars.oponents[j] = [];
-    for (var i=0; i<3; i++) {
-      cars.oponents[j][i] = cars.create(i,j); 
-    }
-  }
-  car.st = document.createElement('style');
-  document.body.appendChild(car.st);
-  cars.builded = true;
-};
-cars.frame = function () {
-  var relative = cars.speed - car.speed;
-  for (var j=0; j<cars.n; j++) {
-    for (var i=0; i<3; i++) { 
-      var c = cars.oponents[j][i];   
-      var d = road.width * 0.42, 
-        w = road.width - d - car.width; 
-      c.x = (road.P0.x - road.height - 40) * (c.y * c.y * 0.00001) + 
-            (d/2) + (i * (w/2)); 
-      c.y += relative;
-      var h = cars.n * car.height * 3;
-      if (!c.classList.contains('hidden') && 
-          c.y < car.height - 5 && c.y > 0) {
-        //collision
-        if (car.x < 115 && i == 0) car.crash(0.1);
-        if (car.x > 100 && car.x < 175 && i == 1) car.crash();
-        if (car.x > 165 && i == 2) car.crash(-0.1);
-      }
-      if (c.y > h) {
-        // back to bottom
-        cars.color(c);  
-        c.classList.remove('hidden');
-        if (car.x < 115 && i == 0) c.classList.add('hidden');
-        if (car.x > 100 && car.x < 175 && i == 1) c.classList.add('hidden');
-        if (car.x > 165 && i == 2) c.classList.add('hidden');
-        if (Math.random() > cars.easy) c.classList.add('hidden');
-        if (!c.classList.contains('hidden')) car.position++;
-        c.y = 0;
-      } else if (c.y < 0)  {
-        //passing
-        if (!c.classList.contains('hidden')) {
-          car.position--;
-        } 
-        cars.color(c);
-        c.classList.remove('hidden');
-        if (Math.random() > cars.easy) c.classList.add('hidden');
-        c.y = h;
-        cars.color(c);
-      }
-      c.style.left = parseInt(c.x) + 'px';
-      c.style.bottom = parseInt(c.y) + 'px';
-      var o = 1 / (c.y * fog.value);
-      c.style.opacity = Math.min(o, 1);
-    }
-    if (!cars.oponents[j][0].classList.contains('hidden') &&
-        !cars.oponents[j][1].classList.contains('hidden') &&
-        !cars.oponents[j][2].classList.contains('hidden')) {
-      cars.oponents[j][parseInt(Math.random() * 3)].classList.add('hidden');
-    }
-  }
-  car.st.innerHTML = '#cars .car {transform: rotateX(-56deg) scaleX('+car.motor+') }';
-  car.style.left = parseInt(car.x) + 'px';
-};
-cars.create = function (i,j) {  
-  var c = document.createElement('div');
-  c.className = 'car';
-  cars.color(c);
-  var d = road.width * 0.42, 
-      w = road.width - d - car.width; 
-  c.x = (d/2) + (i * (w/2)); 
-  c.y = -car.height + (j * car.height*3); 
-  cars.appendChild(c);   
-  if (Math.random() > 0.1) c.classList.add('hidden');
-  if (i == 1 && j == 0 || i == 1 && j == 1) c.classList.add('hidden');
-  return c;
-};
-cars.color = function (c) {
-  var randomColor = Math.random()*360;
-  var randomLight = 2.5 + (Math.random() * 2);
-  c.style['filter'] = 'hue-rotate('+randomColor+'deg) brightness('+randomLight+')';
-};
-//ROAD
-var road = document.getElementById('road');
-road.init = function() {
-  road.ctx = road.getContext('2d');
-  road.width = road.offsetWidth; 
-  road.height = road.offsetHeight;
-  road.state = 0;
-  road.x = 0;
-  road.offset = 40;
-  road.lineWidth = 2.5;
-  road.lineColor = 'rgba(255,255,255,0.7)';
-  road.lineDashOffset = 0;
-  road.P0 =  {x: parseInt(road.width/2), y: 0, xs: 0};
-  road.P1 =  {x: road.offset, y: road.height};
-  road.P2 =  {x: road.width - road.offset, y: road.height};
-  road.Pc =  {x1: road.P1.x + 86, x2: road.P2.x - 86};
-  road.frame();
-};
-road.frame = function () {
-  road.P0.x  += road.P0.xs/2;
-  road.Pc.x1 -= road.P0.xs/3;
-  road.Pc.x2 -= road.P0.xs/3; 
-  road.lineDashOffset -= car.speed;
-  
-  road.ctx.clearRect(0, 0, road.width, road.height);
-  road.ctx.beginPath();
 
-  road.ctx.moveTo(       road.P1.x,  road.P1.y);
-  road.ctx.bezierCurveTo(road.Pc.x1, road.P1.y - (road.height*0.7),
-                         road.P0.x,  road.P0.y,
-                         road.P0.x,  road.P0.y);
+var rounds = [5, 5, 3, 3, 2];
+var colors = ['#1abc9c', '#2ecc71', '#3498db', '#e74c3c', '#9b59b6'];
 
-  road.ctx.moveTo(       road.P2.x,  road.P2.y);
-  road.ctx.bezierCurveTo(road.Pc.x2, road.P2.y - (road.height*0.7),
-                         road.P0.x,  road.P0.y,
-                         road.P0.x,  road.P0.y);
+// The ball object (The cube that bounces back and forth)
+var Ball = {
+	new: function (incrementedSpeed) {
+		return {
+			width: 18,
+			height: 18,
+			x: (this.canvas.width / 2) - 9,
+			y: (this.canvas.height / 2) - 9,
+			moveX: DIRECTION.IDLE,
+			moveY: DIRECTION.IDLE,
+			speed: incrementedSpeed || 9
+		};
+	}
+};
 
-  road.ctx.strokeStyle = road.lineColor;
-  road.ctx.lineWidth = road.lineWidth;
-  road.ctx.setLineDash([road.lineWidth, road.lineWidth]);
-  road.ctx.lineDashOffset = road.lineDashOffset * -0.5;
-  road.ctx.stroke();
+// The paddle object (The two lines that move up and down)
+var Paddle = {
+	new: function (side) {
+		return {
+			width: 18,
+			height: 70,
+			x: side === 'left' ? 150 : this.canvas.width - 150,
+			y: (this.canvas.height / 2) - 35,
+			score: 0,
+			move: DIRECTION.IDLE,
+			speed: 10
+		};
+	}
 };
-road.curve = function (side) {
-  if (!(road.state == -1 && side == 'left') &&
-      !(road.state == 1 && side == 'right')) {
-    if (road.state == 1 && side == 'left') road.state = 0;
-    else if (road.state == -1 && side == 'right') road.state = 0;  
-    else if (road.state == 0 && side == 'left') road.state = -1;
-    else if (road.state == 0 && side == 'right') road.state = 1;
-    road.P0.xs = 1.5 * ((side == 'left') ? -1 : 1);
-  }
-  road.randomCurve();
-  setTimeout(function () {
-    road.P0.xs = 0;
-  }, 1000);
+
+var Game = {
+	initialize: function () {
+		this.canvas = document.querySelector('canvas');
+		this.context = this.canvas.getContext('2d');
+
+		this.canvas.width = 1400;
+		this.canvas.height = 1000;
+
+		this.canvas.style.width = (this.canvas.width / 2) + 'px';
+		this.canvas.style.height = (this.canvas.height / 2) + 'px';
+
+		this.player = Paddle.new.call(this, 'left');
+		this.paddle = Paddle.new.call(this, 'right');
+		this.ball = Ball.new.call(this);
+
+		this.paddle.speed = 8;
+		this.running = this.over = false;
+		this.turn = this.paddle;
+		this.timer = this.round = 0;
+		this.color = '#2c3e50';
+
+		Pong.menu();
+		Pong.listen();
+	},
+
+	endGameMenu: function (text) {
+		// Change the canvas font size and color
+		Pong.context.font = '50px Courier New';
+		Pong.context.fillStyle = this.color;
+
+		// Draw the rectangle behind the 'Press any key to begin' text.
+		Pong.context.fillRect(
+			Pong.canvas.width / 2 - 350,
+			Pong.canvas.height / 2 - 48,
+			700,
+			100
+		);
+
+		// Change the canvas color;
+		Pong.context.fillStyle = '#ffffff';
+
+		// Draw the end game menu text ('Game Over' and 'Winner')
+		Pong.context.fillText(text,
+			Pong.canvas.width / 2,
+			Pong.canvas.height / 2 + 15
+		);
+
+		setTimeout(function () {
+			Pong = Object.assign({}, Game);
+			Pong.initialize();
+		}, 3000);
+	},
+
+	menu: function () {
+		// Draw all the Pong objects in their current state
+		Pong.draw();
+
+		// Change the canvas font size and color
+		this.context.font = '50px Courier New';
+		this.context.fillStyle = this.color;
+
+		// Draw the rectangle behind the 'Press any key to begin' text.
+		this.context.fillRect(
+			this.canvas.width / 2 - 350,
+			this.canvas.height / 2 - 48,
+			700,
+			100
+		);
+
+		// Change the canvas color;
+		this.context.fillStyle = '#ffffff';
+
+		// Draw the 'press any key to begin' text
+		this.context.fillText('Press any key to begin',
+			this.canvas.width / 2,
+			this.canvas.height / 2 + 15
+		);
+	},
+
+	// Update all objects (move the player, paddle, ball, increment the score, etc.)
+	update: function () {
+		if (!this.over) {
+			// If the ball collides with the bound limits - correct the x and y coords.
+			if (this.ball.x <= 0) Pong._resetTurn.call(this, this.paddle, this.player);
+			if (this.ball.x >= this.canvas.width - this.ball.width) Pong._resetTurn.call(this, this.player, this.paddle);
+			if (this.ball.y <= 0) this.ball.moveY = DIRECTION.DOWN;
+			if (this.ball.y >= this.canvas.height - this.ball.height) this.ball.moveY = DIRECTION.UP;
+
+			// Move player if they player.move value was updated by a keyboard event
+			if (this.player.move === DIRECTION.UP) this.player.y -= this.player.speed;
+			else if (this.player.move === DIRECTION.DOWN) this.player.y += this.player.speed;
+
+			// On new serve (start of each turn) move the ball to the correct side
+			// and randomize the direction to add some challenge.
+			if (Pong._turnDelayIsOver.call(this) && this.turn) {
+				this.ball.moveX = this.turn === this.player ? DIRECTION.LEFT : DIRECTION.RIGHT;
+				this.ball.moveY = [DIRECTION.UP, DIRECTION.DOWN][Math.round(Math.random())];
+				this.ball.y = Math.floor(Math.random() * this.canvas.height - 200) + 200;
+				this.turn = null;
+			}
+
+			// If the player collides with the bound limits, update the x and y coords.
+			if (this.player.y <= 0) this.player.y = 0;
+			else if (this.player.y >= (this.canvas.height - this.player.height)) this.player.y = (this.canvas.height - this.player.height);
+
+			// Move ball in intended direction based on moveY and moveX values
+			if (this.ball.moveY === DIRECTION.UP) this.ball.y -= (this.ball.speed / 1.5);
+			else if (this.ball.moveY === DIRECTION.DOWN) this.ball.y += (this.ball.speed / 1.5);
+			if (this.ball.moveX === DIRECTION.LEFT) this.ball.x -= this.ball.speed;
+			else if (this.ball.moveX === DIRECTION.RIGHT) this.ball.x += this.ball.speed;
+
+			// Handle paddle (AI) UP and DOWN movement
+			if (this.paddle.y > this.ball.y - (this.paddle.height / 2)) {
+				if (this.ball.moveX === DIRECTION.RIGHT) this.paddle.y -= this.paddle.speed / 1.5;
+				else this.paddle.y -= this.paddle.speed / 4;
+			}
+			if (this.paddle.y < this.ball.y - (this.paddle.height / 2)) {
+				if (this.ball.moveX === DIRECTION.RIGHT) this.paddle.y += this.paddle.speed / 1.5;
+				else this.paddle.y += this.paddle.speed / 4;
+			}
+
+			// Handle paddle (AI) wall collision
+			if (this.paddle.y >= this.canvas.height - this.paddle.height) this.paddle.y = this.canvas.height - this.paddle.height;
+			else if (this.paddle.y <= 0) this.paddle.y = 0;
+
+			// Handle Player-Ball collisions
+			if (this.ball.x - this.ball.width <= this.player.x && this.ball.x >= this.player.x - this.player.width) {
+				if (this.ball.y <= this.player.y + this.player.height && this.ball.y + this.ball.height >= this.player.y) {
+					this.ball.x = (this.player.x + this.ball.width);
+					this.ball.moveX = DIRECTION.RIGHT;
+
+					beep1.play();
+				}
+			}
+
+			// Handle paddle-ball collision
+			if (this.ball.x - this.ball.width <= this.paddle.x && this.ball.x >= this.paddle.x - this.paddle.width) {
+				if (this.ball.y <= this.paddle.y + this.paddle.height && this.ball.y + this.ball.height >= this.paddle.y) {
+					this.ball.x = (this.paddle.x - this.ball.width);
+					this.ball.moveX = DIRECTION.LEFT;
+
+					beep1.play();
+				}
+			}
+		}
+
+		// Handle the end of round transition
+		// Check to see if the player won the round.
+		if (this.player.score === rounds[this.round]) {
+			// Check to see if there are any more rounds/levels left and display the victory screen if
+			// there are not.
+			if (!rounds[this.round + 1]) {
+				this.over = true;
+				setTimeout(function () { Pong.endGameMenu('Winner!'); }, 1000);
+			} else {
+				// If there is another round, reset all the values and increment the round number.
+				this.color = this._generateRoundColor();
+				this.player.score = this.paddle.score = 0;
+				this.player.speed += 0.5;
+				this.paddle.speed += 1;
+				this.ball.speed += 1;
+				this.round += 1;
+
+				beep3.play();
+			}
+		}
+		// Check to see if the paddle/AI has won the round.
+		else if (this.paddle.score === rounds[this.round]) {
+			this.over = true;
+			setTimeout(function () { Pong.endGameMenu('Game Over!'); }, 1000);
+		}
+	},
+
+	// Draw the objects to the canvas element
+	draw: function () {
+		// Clear the Canvas
+		this.context.clearRect(
+			0,
+			0,
+			this.canvas.width,
+			this.canvas.height
+		);
+
+		// Set the fill style to black
+		this.context.fillStyle = this.color;
+
+		// Draw the background
+		this.context.fillRect(
+			0,
+			0,
+			this.canvas.width,
+			this.canvas.height
+		);
+
+		// Set the fill style to white (For the paddles and the ball)
+		this.context.fillStyle = '#ffffff';
+
+		// Draw the Player
+		this.context.fillRect(
+			this.player.x,
+			this.player.y,
+			this.player.width,
+			this.player.height
+		);
+
+		// Draw the Paddle
+		this.context.fillRect(
+			this.paddle.x,
+			this.paddle.y,
+			this.paddle.width,
+			this.paddle.height
+		);
+
+		// Draw the Ball
+		if (Pong._turnDelayIsOver.call(this)) {
+			this.context.fillRect(
+				this.ball.x,
+				this.ball.y,
+				this.ball.width,
+				this.ball.height
+			);
+		}
+
+		// Draw the net (Line in the middle)
+		this.context.beginPath();
+		this.context.setLineDash([7, 15]);
+		this.context.moveTo((this.canvas.width / 2), this.canvas.height - 140);
+		this.context.lineTo((this.canvas.width / 2), 140);
+		this.context.lineWidth = 10;
+		this.context.strokeStyle = '#ffffff';
+		this.context.stroke();
+
+		// Set the default canvas font and align it to the center
+		this.context.font = '100px Courier New';
+		this.context.textAlign = 'center';
+
+		// Draw the players score (left)
+		this.context.fillText(
+			this.player.score.toString(),
+			(this.canvas.width / 2) - 300,
+			200
+		);
+
+		// Draw the paddles score (right)
+		this.context.fillText(
+			this.paddle.score.toString(),
+			(this.canvas.width / 2) + 300,
+			200
+		);
+
+		// Change the font size for the center score text
+		this.context.font = '30px Courier New';
+
+		// Draw the winning score (center)
+		this.context.fillText(
+			'Round ' + (Pong.round + 1),
+			(this.canvas.width / 2),
+			35
+		);
+
+		// Change the font size for the center score value
+		this.context.font = '40px Courier';
+
+		// Draw the current round number
+		this.context.fillText(
+			rounds[Pong.round] ? rounds[Pong.round] : rounds[Pong.round - 1],
+			(this.canvas.width / 2),
+			100
+		);
+	},
+
+	loop: function () {
+		Pong.update();
+		Pong.draw();
+
+		// If the game is not over, draw the next frame.
+		if (!Pong.over) requestAnimationFrame(Pong.loop);
+	},
+
+	listen: function () {
+		document.addEventListener('keydown', function (key) {
+			// Handle the 'Press any key to begin' function and start the game.
+			if (Pong.running === false) {
+				Pong.running = true;
+				window.requestAnimationFrame(Pong.loop);
+			}
+
+			// Handle up arrow and w key events
+			if (key.keyCode === 38 || key.keyCode === 87) Pong.player.move = DIRECTION.UP;
+
+			// Handle down arrow and s key events
+			if (key.keyCode === 40 || key.keyCode === 83) Pong.player.move = DIRECTION.DOWN;
+		});
+
+		// Stop the player from moving when there are no keys being pressed.
+		document.addEventListener('keyup', function (key) { Pong.player.move = DIRECTION.IDLE; });
+	},
+
+	// Reset the ball location, the player turns and set a delay before the next round begins.
+	_resetTurn: function(victor, loser) {
+		this.ball = Ball.new.call(this, this.ball.speed);
+		this.turn = loser;
+		this.timer = (new Date()).getTime();
+
+		victor.score++;
+		beep2.play();
+	},
+
+	// Wait for a delay to have passed after each turn.
+	_turnDelayIsOver: function() {
+		return ((new Date()).getTime() - this.timer >= 1000);
+	},
+
+	// Select a random color as the background of each level/round.
+	_generateRoundColor: function () {
+		var newColor = colors[Math.floor(Math.random() * colors.length)];
+		if (newColor === this.color) return Pong._generateRoundColor();
+		return newColor;
+	}
 };
-road.randomCurve = function () {
-  game.curveCount = setTimeout(function () {
-    road.curve(Math.random()>0.5 ? 'left' : 'right');
-  }, 2000); 
-};
-//MOUNTAINS
-var mountains = document.getElementById('mountains');
-mountains.frame = function () {
-  var curve = (road.P0.x - road.width/2)/100; 
-  var left = mountains.offsetLeft;
-  if (left < -4.5 * road.width) left =  1.5 * road.width;
-  if (left >  1.5 * road.width) left = -4.5 * road.width;
-  var d = curve + ((car.speed)*curve*0.5);
-  mountains.style.left = parseInt(left - d) + 'px';
-};
-//UI
-var km = document.getElementById('km');
-km.frame = function () {
-  car.km += (car.speed/1000);
-  var value = parseInt(car.km * 10).toString();
-  while (value.length < km.childNodes.length) value = '0' + value;
-  for (var i=1; i < km.childNodes.length; i++) {
-    var a = km.childNodes[i];
-    a.innerText = value[i-1];
-  }
-};
-var position = document.getElementById('position');
-position.init = function () {
-  cars.total = 200;
-  car.position = cars.total;
-}
-position.frame = function () {   
-  var value = parseInt(car.position).toString();
-  for (var i=0; i < position.childNodes.length-1; i++) {
-    var a = position.childNodes[i+1];
-    a.innerText = value[i];
-  }
-}
-//LAP 
-var lap = document.getElementById('lap');
-lap.init = function () {
-  lap.value = 1;
-}
-lap.frame = function () {  
-  if (car.position <= 0) {
-    lap.value++;
-    car.easy += 0.5;
-    car.position = 200;
-  }
-  if (lap.value > 9) alert("GAME OVER\n YOU WIN!!!");
-  lap.innerText = lap.value;
-}
-//FRAME
-var frame = function () {
-  if (!frame.stop) {
-    key.frame();
-    car.frame();
-    cars.frame();
-    mountains.frame();
-    road.frame();
-    km.frame();
-    position.frame();
-    requestAnimationFrame(frame);
-  }
-};
-//KEYBOARD
-var key = {
-  pressed: [],
-  frame: function () { 
-    if (!car.crashed) {
-      car.sx = 0;
-      if (car.x > road.width * 0.15){
-        if (key.pressed['left'] ||
-            key.pressed[37] || // Key: Left arrow
-            key.pressed[65]) { // Key: 'A'
-          car.sx = -2.5;
-        }
-      } else car.crash(0.2);
-      if (car.x < (road.width * 0.85) - car.width){
-        if (key.pressed['right'] ||
-            key.pressed[39] || // Key: Right arrow
-            key.pressed[68]) { // Key: 'D'
-          car.sx = 2.5;
-        }
-      } else car.crash(-0.2);
-      if (key.pressed['up'] ||
-          key.pressed[32] || // Key: Space
-          key.pressed[38] || // Key: Up arrow
-          key.pressed[87]) { // Key: 'W'
-        if (car.speed < car.maxSpeed) { 
-          car.speed += car.acc;
-          game.audio.oscillator.frequency.value += car.acc * 10;
-        }
-      } else {
-        if (car.speed > 0.2) {
-          car.speed -= car.break;
-          game.audio.oscillator.frequency.value -= car.break * 10;
-        }
-      }
-    }
-  }
-};
-window.addEventListener('keydown', function (event) { 
-  key.pressed[event.keyCode] = true;
-});
-window.addEventListener('keyup', function (event) {
-  key.pressed[event.keyCode] = false;
-});
-//GAME
-var game = document.getElementById('game');
-game.init = function () {
-  game.time = 0;
-  car.init();
-  cars.init();
-  road.init();
-  position.init();
-  lap.init();
-  fog.init();
-  cars.frame();
-};
-// BUTTONS
-var buttons = ['left', 'up', 'right'];
-buttons.forEach(function (id) {
-  var button = document.getElementById(id);
-  var press = function (event) { 
-    key.pressed[id] = true;
-  };
-  var release = function (event) {
-    key.pressed[id] = false;
-  };
-  button.addEventListener('mousedown', press);
-  button.addEventListener('mouseup', release);
-  button.addEventListener('touchstart', press);
-  button.addEventListener('touchend', release);
-});
-var clickstart = document.getElementById('click')
-clickstart.addEventListener('click', function () {
-  if (!game.started) {
-    clickstart.innerText = 'Click to Pause';
-    game.time = 0;
-    game.started = true;
-    frame.stop = false;
-    if (!cars.builded) cars.init();
-    game.audio();
-    game.curveCount = setTimeout(road.randomCurve, 5000);
-    game.timeCount = setTimeout(game.changeTime, 30000);
-    frame();
-  } else {
-    clickstart.innerText = 'Click to Start!';
-    game.started = false;
-    frame.stop = true;
-    clearTimeout(game.curveCount);
-    clearTimeout(game.timeCount);
-    game.audio.oscillator.stop();
-  }
-});
-//AUDIO
-game.audio = function () {
-  if (game.audio.oscillator) {
-    game.audio.oscillator.stop(game.audio.context.currentTime);
-    game.audio.oscillator.disconnect(game.audio.volume);
-    delete game.audio.oscillator;
-  }
-  game.audio.context = new AudioContext();
-  game.audio.volume = game.audio.context.createGain();
-  game.audio.volume.gain.value = 0.1;
-  game.audio.volume.connect(game.audio.context.destination);  
-  var o = game.audio.context.createOscillator();
-  o.frequency.value = 0;
-  o.detune.value = 0;
-  o.type = 'sawtooth';
-  o.connect(game.audio.volume);
-  o.frequency.value = 60;
-  game.audio.oscillator = o;
-  game.audio.oscillator.start(0);
-};
-//COLORS
-game.colors = [
-  //sky //terrain //mountains
-  ['#228', '#040', 1], //day
-  ['#93c', '#440', 0.5], //afternoon 
-  ['#546', '#111', 0.2], //night
-  ['#888', '#aaa', 0.2], //fog
-  ['#545', '#111', 0.2], //night
-  ['#529', '#230', 0.3], //morning
-  ['#aaf', '#eee', 0.2], //snow
-];
-var sky = document.getElementById('sky');
-var terrain = document.getElementById('terrain');
-game.changeTime = function () {
-  if (!frame.stop) {
-    game.time++;
-    if (game.time >= game.colors.length) game.time = 0;
-    sky.style.background = game.colors[game.time][0];
-    terrain.style.background = game.colors[game.time][1];
-    mountains.style.opacity = game.colors[game.time][2];
-    if (game.time == 3 || game.time == 4) fog.toggle();
-    if (game.time == 2 || game.time == 4) {
-      cars.classList.add('night');
-    } else {
-      cars.classList.remove('night');
-    }
-    game.timeCount = setTimeout(game.changeTime, 30000);
-  }
-};
-//FOG
-var fog = document.getElementById('fog');
-fog.init = function () {
-  fog.value = 0.02;
-  fog.status = false;  
-};
-fog.toggle = function () {
-  fog.classList.toggle('hidden');  
-  fog.status = !fog.status;
-  fog.value = fog.status ? 0.1 : 0.02;  
-};
-//INIT
-game.init();
+
+var Pong = Object.assign({}, Game);
+Pong.initialize();
