@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sábado</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="sabado.css">
+    <link rel="icon" type="image/jpg" href="../../img/corazon.png" />
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <img src="../../img/corazon.png" height="40px" alt="Logo de mi sitio web">
+                <li><a href="../../index.html">Inicio</a></li>
+                <li><a href="../../password.html">Contraseña</a></li>
+                <li><a href="../../extra/resumen.html">Resumen</a></li>
+                <img src="../../img/corazon.png" height="40px" alt="Logo de mi sitio web">
+            </ul>
+        </nav>
+        <br>
+        <br>
+        <h2 id="feliz-sabado"></h2>
+    </header>
+
+    <div class="banner">
+        <p>❤</p>
+        <p><span id="fecha-regalo"></span></p>
+        <div class="progress-bar-container">
+            <div class="progress-bar"></div>
+            <div class="progress-bar-indicator"></div>
+        </div>
+    </div>
+
+    </div>
+
+    <main>
+        <h1>Día #1</h1>
+        <p>¡Bienvenida al sábado día 22 de abril de 2023! En este juego, tendrás la oportunidad de poner a prueba tus
+            habilidades de resolución de problemas, pensamiento lógico y astucia para descubrir tu regalo final. Hoy
+            tendrás que descubrir una contraseña de 3 números, es muy sencillo, es la misma contraseña que pusistes en
+            el candado del primer regalo que me distes. Si necesitas más pistas te proporciono dos pistas intrigantes
+            (solo si las necesitas). ¿Estás lista? ¡Que comience el juego!</p>
+        <button id="boton1">Pista 1</button>
+        <p id="parrafo2" style="display:none;">Hay 8 personas con 5 motos y 2 ruedas cada moto.</p>
+        <button id="boton2">Pista 2</button>
+        <p id="parrafo3" style="display:none;">El último número es el 8</p>
+        <br>
+        <br>
+        <label for="password" id="password-label" style="margin-left: 30px;">Contraseña:</label>
+        <br>
+        <input type="text" id="password" name="password">
+        <br>
+        <br>
+        <br>
+        <button id="boton-comprobar" onclick="comprobarContraseña()">Comprobar contraseña</button>
+    </main>
+    <script src="sabado.js"></script>
+</body>
+
+</html>

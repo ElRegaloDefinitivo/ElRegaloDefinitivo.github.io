@@ -1,0 +1,32 @@
+body {
+  background-color: #7DBDFC;
+}
+
+#path {
+  stroke: none;
+}
+
+#main {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 551px;
+  height: 437px;
+  transform: translate(-50%, -50%);
+}
+#main #rollercoaster {
+  display: block;
+  margin-left: 50%;
+  transform: translate(-50%);
+}
+#main #photo-frame {
+  position: absolute;
+  top: 15%;
+  left: -22%;
+  transform: rotate(5deg);
+  box-shadow: 0 0 20px #208BF3;
+}
+
+#camera-flash {
+  opacity: 0;
+}
