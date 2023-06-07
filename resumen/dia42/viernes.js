@@ -10,9 +10,8 @@ const minutos = fechaHora.getMinutes().toString().padStart(2, "0");
 const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
 const diaSemana = diasSemana[fechaHora.getDay()];
 
-const felizLunes = document.getElementById("feliz-jueves");
+const felizLunes = document.getElementById("feliz-viernes");
 felizLunes.innerHTML = `¡Feliz ${diaSemana}! Hoy es ${dia}-${mes}-${anio} y son las ${hora}:${minutos}`;
-
 
 
 // CONTADOR
@@ -36,18 +35,18 @@ contadorBanner.innerHTML = "Quedan " + diasRestantes + " días, " + horasRestant
 document.querySelector(".banner").appendChild(contadorBanner);
 
 // Actualizar el contador cada segundo
-setInterval(function() {
+setInterval(function () {
   // Obtener la fecha actual
   fechaActual = new Date();
-  
+
   // Calcular la diferencia entre las fechas
   diferencia = fechaRegalo.getTime() - fechaActual.getTime();
-  
+
   // Calcular la cantidad de días, horas y minutos restantes
   diasRestantes = Math.floor(diferencia / (1000 * 60 * 60 * 24));
   horasRestantes = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   minutosRestantes = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
-  
+
   // Actualizar el texto del contador
   contadorBanner.innerHTML = "Quedan " + diasRestantes + " días, " + horasRestantes + " horas y " + minutosRestantes + " minutos para tu regalo";
 }, 1000);
@@ -88,6 +87,27 @@ setInterval(updateProgressBar, 1000 * 60 * 60 * 24);
 
 
 
+function respuestaSi() {
+	document.getElementById('pregunta1').style.display = 'none';
+	document.getElementById('pregunta2').style.display = 'block';
+}
 
+function respuestaPuesClaro() {
+	document.getElementById('pregunta2').style.display = 'none';
+	document.getElementById('pregunta3').style.display = 'block';
+}
 
+function respuestaSi2() {
+	document.getElementById('pregunta3').style.display = 'none';
+	document.getElementById('pregunta4').style.display = 'block';
+}
 
+function respuestaSi3() {
+	document.getElementById('pregunta4').style.display = 'none';
+	document.getElementById('pregunta5').style.display = 'block';
+}
+
+function respuestaSi4() {
+	document.getElementById('pregunta5').style.display = 'none';
+	document.getElementById('pregunta6').style.display = 'block';
+}

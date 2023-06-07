@@ -18,7 +18,7 @@ function checkPassword(event) {
                 window.location.href = "semana/miercoles/index.html";
                 break;
             case 4:
-                window.location.href = "semana/jueves/index.html";
+                window.location.href = "semana/jueves/jueves.html";
                 break;
             case 5:
                 window.location.href = "semana/viernes/index.html";

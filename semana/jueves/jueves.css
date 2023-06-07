@@ -1,6 +1,6 @@
 :root {
-  --color-color1: #ffbb00;
-  --color-color2: #d9ff00;
+  --color-color1: #ff0000;
+  --color-color2: #0044ff;
   --color-negro: #333;
   --color-blanco: #fff;
 }
@@ -8,7 +8,7 @@
 /* Estilos generales */
 body {
   margin: 0;
-  background: linear-gradient(to bottom right, var(--color-color1), var(--color-color2));
+  background: linear-gradient(to bottom , var(--color-color1), var(--color-color2));
   color: var(--color-blanco);
   overflow-x: hidden;
   height: 1040px;
@@ -214,35 +214,15 @@ body {
 
 
 
-.file-input {
-  margin-bottom: 10px;
-}
 
-.result {
-  margin-top: 20px;
-}
 
-.result img {
-  max-width: 100%;
-  margin-bottom: 10px;
-}
 
-.convert-btn {
-  margin-top: 10px;
-}
 
-.convert-btn button {
-  margin-right: 10px;
-}
 
-#conversor {
 
-  padding: 10px;
-  background-color: rgb(255, 174, 0);
-}
 
-#conversor02 {
-  border: 2px solid black;
-  padding: 10px;
-  background-color: rgb(255, 174, 0);
+
+
+p {
+  color: #1c1c1c;
 }
