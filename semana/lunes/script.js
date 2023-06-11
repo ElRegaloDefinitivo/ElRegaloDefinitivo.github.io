@@ -1,173 +1,100 @@
-/**
-Submission for the GSAP weekly challenge LOOP!
+gsap.set("#stick-figure-svg", { autoAlpha: 1 });
+gsap.set("#stick-figure", { x: -135 });
+gsap.set("#eyes-mouth", {transformOrigin: "50% 50%"})
+gsap.set("#L-foot", { attr: { x1: 46, x2: 58 } });
+gsap.set("#highlights", {autoAlpha: 0})
+gsap.set(["#R-foot", "#L-foot", "#R-thigh", "#R-calf", "#L-thigh", "#L-calf"], {autoAlpha: 0})
+gsap.set(".cover", {xPercent: -50, yPercent: -50})
 
-A animation of a Roller Coaster car doing a loop using GSAP.
+let readyForDrag = gsap.timeline({defaults: {ease: "power1.in", duration: 0.2}});
+readyForDrag
+  .to(
+    "#eyes-mouth",
+    { x: "+=20" },
+    "<"
+  )
+  .to(["#R-calf"], { attr: { x2: 95, y2: 198 } })
+  .to(["#R-foot"], { attr: { x2: 95, x1: 107 } }, "<")
+  .to(["#R-foot"], { attr: { y2: 198, y1: 190  } })
+  .to(["#L-calf"], { attr: { x2: 71, y2: 198 } })
+  .to(["#L-foot"], { attr: { x1: 74, x2: 86 } }, "<")
+  .to(["#L-foot"], { attr: { y2: 190 } })
 
-A souvenir photograph is taken at the loops peak which rider can purchase at the kiosk after the ride!
-*/
+let highlight_tl = gsap.timeline({paused: true, defaults: {ease: "power4.in", duration: 0.2}})
+highlight_tl
+.to("#highlights", {autoAlpha: 1, duration: 0.1})
+.to("#hl-1", { drawSVG: "0% 100%" })
+ .to(["#hl-2", "#hl-3", "#hl-4"], { drawSVG: "100% 0%" }, "<")
+ .to("#hl-1", { drawSVG: "50% 100%", autoAlpha: 0 }, "<")
+ .to(["#hl-2", "#hl-3", "#hl-4"], { drawSVG: "50% 0%", autoAlpha: 0 }, "<")
 
+let wakeup_tl = gsap.timeline({ paused: true, defaults: {ease: "power1.in", duration: 0.4} });
 
-gsap.registerPlugin(MotionPathPlugin);
+wakeup_tl
+  .to(["#R-foot", "#L-foot", "#R-thigh", "#R-calf", "#L-thigh", "#L-calf"], {autoAlpha: 1, duration: 0.1})
+  .to("#face", { attr: { cy: 90 }, duration: 0.2 })
+  .fromTo(
+    ["#R-thigh", "#R-calf"],
+    { attr: { x1: 85, y1: 198 } },
+    { attr: { x1: 85, y1: 173 }, duration: 0.2 },
+    "<"
+  )
+  .fromTo(
+    ["#L-thigh", "#L-calf"],
+    { attr: { x1: 61, y1: 198 } },
+    { attr: { x1: 61, y1: 173 }, duration: 0.2 },
+    "<"
+  )
 
-const coasterTimeline = gsap.timeline({ repeat: -1 });
-
-/**
- * Generates a string containing a combination of letters and numbers
- * @returns string
- */
-const randomSeed = () => {
-  return Math.random().toString(36).slice(2);
-};
-
-/**
- * Returns a random hex colour from a list of colours
- * @param frontRiderColour if provided, the returned colour will not be the same as the one provided
- * @returns string
- */
-const randomColour = (frontRiderColour = false) => {
-  const colours = [
-  "#D56C0C",
-  "#605DE4",
-  "#238D80",
-  "#333333",
-  "#E9B729",
-  "#9A3E91"];
-
-  let randomColour = colours[Math.floor(Math.random() * colours.length)];
-
-  while (randomColour === frontRiderColour) {
-    randomColour = colours[Math.floor(Math.random() * colours.length)];
+  .from(
+    "#eyes-mouth",
+    { x: 25, y: 40, autoAlpha: 0 },
+    "<"
+  )
+  .from(["#L-eye", "#R-eye"], {
+    transformOrigin: "50% 50%",
+    scaleY: 0,
+  })
+  .fromTo(["#L-eye", "#R-eye"],{scaleY:0}, {scaleY: 1, duration: 0.1, transformOrigin: "50% 50%"})
+  .add(readyForDrag.play())
+  .to("#stick-figure", { x: 142.5, duration: 0.8 })
+  .to(["#R-foot", "#L-foot"], { attr: { y1: 198, y2: 198 }, duration: 0.1 })
+  .to(["#L-foot"], { attr: { x1: 71, x2: 59 }, duration: 0.2 }, "<")
+  .to(["#L-calf", "#L-thigh"], { attr: { x1: 71, x2: 71 }, duration: 0.1 }, "<")
+  .to(["#R-calf", "#R-thigh"], { attr: { x1: 95, x2: 95 }, duration: 0.1 }, "<")
+  .to("#face", { attr: { cx: 83, cy: 75 }, ease: "back" }, "<")
+  .to("#eyes-mouth", { x: "-=9", y: "-=5" }, "<")
+  .addLabel("goingtosleep")
+  .to(["#L-calf", "#L-thigh"], { attr: { x1: 61, x2: 71 } })
+  .to(["#R-calf", "#R-thigh"], { attr: { x1: 105, x2: 95 } }, "<")
+  .to("#eyes-mouth", { y: "+=60", transformOrigin: "50% 50%", autoAlpha: 0 })
+  .to("#face", { attr: { cx: 83, cy: 132 } }, "-=0.2");
+wakeup_tl.timeScale(1.5)
+let playButton = document.querySelector(".theme-toggle-button");
+let themeDark = false
+let cover = document.querySelector(".cover");
+function completeHandler() {
+  document.body.classList.add("dark");
+  document.body.classList.remove("light");
+  gsap.to(".cover", {width: "100vw", height: "100vh", duration: 1}).then(() => document.body.style.backgroundColor = "#232323")
+  
+}
+function completeReverseHandler() {
+  document.body.classList.add("light");
+  document.body.classList.remove("dark");
+  gsap.to(".cover", {width: "100vw", height: "100vh", duration: 1}).then(() => document.body.style.backgroundColor = "#CCCCCC")
+  
+}
+playButton.addEventListener("click", () => {
+   gsap.set(".cover", {width: "75px", height: "75px"})
+  themeDark = !themeDark
+  if(themeDark) {
+    wakeup_tl.play().eventCallback("onComplete", completeHandler)
+    highlight_tl.play()
+  } else {
+    wakeup_tl.reverse().then(completeReverseHandler)
+    highlight_tl.restart()
   }
+});
 
-  return randomColour;
-};
-
-/**
- * Changes the faces abd colours of both riders
- */
-const changeRiders = () => {
-  // Get all riders
-  const riders = document.querySelectorAll("#photo-frame image");
-
-  // Change front rider head
-  riders[0].setAttribute(
-  "href",
-  `https://avatars.dicebear.com/api/big-smile/${randomSeed()}.svg?w=200&scale=90`);
-
-
-  // Get a new colour for the front rider
-  const frontRiderColour = randomColour();
-  // Change front riders clothing colour
-  document.
-  getElementById("photo-front-body").
-  setAttribute("fill", frontRiderColour);
-  document.
-  getElementById("photo-front-left-arm").
-  setAttribute("fill", frontRiderColour);
-  document.
-  getElementById("photo-front-right-arm").
-  setAttribute("fill", frontRiderColour);
-
-  // Change back rider head
-  riders[1].setAttribute(
-  "href",
-  `https://avatars.dicebear.com/api/big-smile/${randomSeed()}.svg?w=200&scale=90`);
-
-
-  // Get a new colour for the back rider (not the same as the front rider)
-  const backRiderColour = randomColour(frontRiderColour);
-  // Change front riders clothing colour
-  document.
-  getElementById("photo-back-body").
-  setAttribute("fill", backRiderColour);
-  document.
-  getElementById("photo-back-left-arm").
-  setAttribute("fill", backRiderColour);
-  document.
-  getElementById("photo-back-right-arm").
-  setAttribute("fill", backRiderColour);
-};
-
-const coasterDuration = 5;
-
-// -------------------------
-// Start of coaster timeline
-// -------------------------
-coasterTimeline.set("#camera", { scale: 1 });
-coasterTimeline.to("#car", {
-  motionPath: {
-    path: "#path",
-    align: "#path",
-    alignOrigin: [0.5, 0.4],
-    autoRotate: 180,
-    start: 0,
-    end: 1 },
-
-  transformOrigin: "50% 50%",
-  duration: coasterDuration,
-  ease: "slow(0.01, 0.9, false)" });
-
-
-// Timeline labels
-coasterTimeline.addLabel("slowMoStart", "<35%");
-coasterTimeline.addLabel("cameraFlash", "<40%");
-coasterTimeline.addLabel("slowMoEnd", "<75%");
-
-// Photo fade out
-coasterTimeline.add(
-gsap.to("#photo", { duration: 1, opacity: 0, onComplete: () => changeRiders() }),
-"<0%");
-
-
-// Camera flash
-coasterTimeline.add(
-gsap.fromTo(
-"#camera-flash",
-{ strokeWidth: 30, scale: 0, transformOrigin: "50% 50%", opacity: 1 },
-{
-  duration: 1,
-  strokeWidth: 2,
-  scale: 4,
-  transformOrigin: "50% 50%",
-  opacity: 0,
-  ease: "power3.out" }),
-
-
-"cameraFlash");
-
-
-// Camera bounce
-coasterTimeline.add(
-gsap.fromTo(
-"#camera",
-{ scale: 0.5 },
-{ duration: 1, scale: 1, ease: "elastic" }),
-
-"cameraFlash");
-
-
-// Photo fade in
-coasterTimeline.add(
-gsap.to("#photo", { duration: 0.3, opacity: 1, delay: 0.3 }),
-"cameraFlash");
-
-
-// Riders arm animation(s)
-coasterTimeline.add(
-gsap.from(["#front-arm", "#back-arm"], {
-  duration: coasterDuration / 2,
-  rotation: 90,
-  transformOrigin: "50% 100%",
-  ease: "elastic.out" }),
-
-"slowMoStart");
-
-
-coasterTimeline.add(
-gsap.to(["#front-arm", "#back-arm"], {
-  duration: coasterDuration / 5,
-  rotation: 90,
-  transformOrigin: "50% 100%",
-  ease: "none" }),
-
-"slowMoEnd");
+// GSDevTools.create();
