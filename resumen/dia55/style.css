@@ -1,0 +1,186 @@
+:root {
+  --unit: 20;
+  --width: calc(var(--unit) * 1px);
+  --height: calc(var(--unit) * 1px);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  clear: both;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Helvetica, sans-serif;
+  perspective: 5000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: beige;
+}
+
+.terrain, .cube, .side {
+  width: var(--width);
+  height: var(--height);
+  position: absolute;
+  transform-origin: bottom left;
+}
+
+.side {
+  border: calc(var(--unit) / 20 * 1px) solid rgba(0, 0, 0, 0.5);
+}
+
+.terrain, .water, .cubes, .cube {
+  transform-style: preserve-3d;
+}
+
+.terrain .top, .water .top {
+  transform: rotateX(90deg) translateZ(calc(var(--width))) translateY(calc(var(--width)));
+  height: var(--width);
+}
+.terrain .bottom, .water .bottom {
+  transform: rotateX(-90deg) translateZ(calc(var(--height) - var(--width)));
+  height: var(--width);
+}
+.terrain .left, .water .left {
+  transform: rotateY(-90deg);
+}
+.terrain .right, .water .right {
+  transform: rotateY(90deg) translateZ(calc(var(--width))) translateX(calc(-1 * var(--width)));
+}
+.terrain .front, .water .front {
+  transform: translateZ(calc(var(--width)));
+}
+
+.terrain, .water {
+  --width: calc(var(--unit) * 20px);
+}
+.terrain {
+  transform:
+    rotateY(calc(var(--ry) * 1deg))
+    rotateX(calc(var(--rx) * 1deg))
+    rotateZ(calc(var(--rz) * 1deg))
+    translateX(200px)
+  ;
+  cursor: grab;
+  --height: calc(var(--unit) * 2px);
+}
+.water {
+  transform-origin: top center;
+  --height: calc(var(--unit) * 1px);
+  transform: rotateZ(180deg) translateY(calc(var(--unit) * -2px));
+}
+.water .side {
+  border: calc(var(--unit) / 20 * 1px) solid rgba(0, 17, 115, 0.5);
+}
+
+.cubes {
+  transform:
+    translateZ(calc(var(--width) - var(--unit) * 1px))
+    translateY(calc(var(--height) - var(--unit) * 1px))
+  ;
+}
+
+/* colors */
+.cube .left, .cube .right {
+  background: radial-gradient(circle, rgba(237,111,0,1) 0%, rgba(99,59,0,1) 100%);
+}
+.cube .top {
+  background: radial-gradient(circle, rgba(0,237,79,1) 0%, rgba(0,99,20,1) 100%);
+}
+.cube .front, .cube .bottom, .cube .back {
+  background: radial-gradient(circle, rgba(156,73,0,1) 0%, rgba(62,37,0,1) 100%);
+}
+.water .right, .water .left {
+  background: radial-gradient(circle, rgba(0, 82, 198, 0.5) 0%, rgba(0, 89, 192, 0.5) 100%);
+}
+.water .bottom {
+  background: radial-gradient(circle, rgba(0, 91, 237, 0.5) 0%, rgba(0, 59, 177, 0.5) 100%);
+}
+.water .front, .water .back {
+  background: radial-gradient(circle, rgba(0, 127, 238, 0.5) 0%, rgba(0, 26, 171, 0.5) 100%);
+}
+
+/* always on the bottom */
+.cube {
+  --width: calc(var(--unit) * 1px);
+  --height: calc(var(--unit) * 0.5px);
+}
+.cube .side {
+  background-position: calc(-2 * calc(var(--width) / 2)) calc(-2 * calc(var(--height) / 2));
+  background-size: calc(var(--width) * 2) calc(var(--height) * 2);
+}
+.cube .top {
+  transform: rotateX(90deg) translateZ(calc(var(--height))) translateY(calc(var(--width)));
+  height: var(--width);
+}
+.cube .bottom {
+  transform: rotateX(-90deg);
+  height: var(--width);
+}
+.cube .left {
+  transform: rotateY(-90deg) translateY(calc(-1 * (var(--height) - var(--width))));
+}
+.cube .right {
+  transform: rotateY(90deg) translateZ(calc(var(--width))) translateX(calc(var(--width) * -1)) translateY(calc(-1 * (var(--height) - var(--width))));
+}
+.cube .front {
+  transform: translateZ(calc(var(--width))) translateY(calc(-1 * (var(--height) - var(--width))));
+}
+.cube .back {
+  transform: rotateY(180deg) translateX(calc(var(--width) * -1)) translateY(calc(-1 * (var(--height) - var(--width))));
+}
+
+/* controls */
+.controls {
+  width: 400px;
+  position: absolute;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-around;
+  text-align: center;
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+h2 {
+  width: 100%;
+}
+label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+input {
+  position: absolute;
+  right: 0;
+  width: 200px;
+}
+.val {
+  background-color: rgb(74, 255, 119);
+  outline: 3px solid rgb(74, 255, 119);
+}
+#timez, #water {
+  transform: rotate(-90deg);
+  width: 100px;
+  margin-right: 142px;
+}
+label:has(#timez, #water) {
+  height: 100px;
+}
+#reset_rotation {
+  font-size: 20px;
+  background-color: rgb(74, 255, 119);
+  border: 1px solid rgb(7, 106, 0);
+  border-radius: 50px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  cursor: pointer;
+  position: absolute;
+  right: 170px;
+}
